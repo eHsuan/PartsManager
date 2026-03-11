@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve"><value>零件管理系統 (PartsManager)</value></data>
+  <data name="Menu_Inbound" xml:space="preserve"><value>入庫作業</value></data>
+  <data name="Menu_Outbound" xml:space="preserve"><value>領料作業</value></data>
+  <data name="Menu_Query" xml:space="preserve"><value>庫存查詢</value></data>
+  <data name="Menu_CreateMaterial" xml:space="preserve"><value>新增物料</value></data>
+  <data name="Menu_UserMgmt" xml:space="preserve"><value>使用者管理</value></data>
+  <data name="Btn_Login" xml:space="preserve"><value>登入 (Login)</value></data>
+  <data name="Btn_Confirm" xml:space="preserve"><value>確認 (Confirm)</value></data>
+  <data name="Btn_Cancel" xml:space="preserve"><value>取消 (Cancel)</value></data>
+  <data name="Btn_Save" xml:space="preserve"><value>儲存 (Save)</value></data>
+  <data name="Btn_Search" xml:space="preserve"><value>🔍 查詢</value></data>
+  <data name="Msg_LoginFailed" xml:space="preserve"><value>帳號或密碼錯誤</value></data>
+  <data name="Msg_ServerOnline" xml:space="preserve"><value>伺服器連接正常</value></data>
+  <data name="Msg_ServerOffline" xml:space="preserve"><value>伺服器斷線</value></data>
+  <data name="Label_Username" xml:space="preserve"><value>帳號</value></data>
+  <data name="Label_Password" xml:space="preserve"><value>密碼</value></data>
+  <data name="Label_PartNo" xml:space="preserve"><value>料號 (Part No)</value></data>
+  <data name="Label_Name" xml:space="preserve"><value>名稱 (Name)</value></data>
+  <data name="Label_Qty" xml:space="preserve"><value>數量 (Qty)</value></data>
+  <data name="Label_MaterialName" xml:space="preserve"><value>品名：</value></data>
+  <data name="Label_Spec" xml:space="preserve"><value>規格：</value></data>
+  <data name="Label_CurrentStock" xml:space="preserve"><value>當前庫存：</value></data>
+  <data name="Label_OpWarehouse" xml:space="preserve"><value>作業倉庫：</value></data>
+  <data name="Label_ScanBarcode" xml:space="preserve"><value>請掃描物料條碼：</value></data>
+  <data name="Status_Ready" xml:space="preserve"><value>系統就緒，請掃描...</value></data>
+  <data name="Status_Searching" xml:space="preserve"><value>查詢中...</value></data>
+  <data name="Status_NotFound" xml:space="preserve"><value>查無此物料</value></data>
+  <data name="Status_OutboundSuccess" xml:space="preserve"><value>領料過帳成功</value></data>
+  <data name="Msg_InputCorrectQty" xml:space="preserve"><value>請輸入正確數量</value></data>
+  <data name="Msg_PostFailed" xml:space="preserve"><value>過帳失敗：</value></data>
+  <data name="Error_MaterialNotFound" xml:space="preserve"><value>找不到條碼為 {0} 的物料</value></data>
+  <data name="InboundForm" xml:space="preserve"><value>零件管理系統 - 入庫作業</value></data>
+  <data name="Btn_ManualInput" xml:space="preserve"><value>手動查詢</value></data>
+  <data name="Btn_PrintLabel" xml:space="preserve"><value>補印標籤 (Reprint)</value></data>
+  <data name="Btn_Inbound" xml:space="preserve"><value>確認入庫 (INBOUND)</value></data>
+  <data name="Label_InboundQty" xml:space="preserve"><value>入庫數量 (Quantity)</value></data>
+  <data name="Label_TargetWarehouse" xml:space="preserve"><value>入庫倉庫 (Target Warehouse)</value></data>
+  <data name="Status_InboundSearching" xml:space="preserve"><value>正在查詢物料資訊...</value></data>
+  <data name="Status_IdentifySuccess" xml:space="preserve"><value>物料識別成功</value></data>
+  <data name="Status_InboundSuccess" xml:space="preserve"><value>入庫過帳成功！條碼：{0}</value></data>
+  <data name="Status_InboundProcessing" xml:space="preserve"><value>正在處理入庫...</value></data>
+  <data name="Status_InboundFailed" xml:space="preserve"><value>入庫失敗: {0}</value></data>
+  <data name="Msg_SearchSuccess" xml:space="preserve"><value>查詢成功！請確認是否需要補印標籤。</value></data>
+  <data name="Msg_NotFoundCreate" xml:space="preserve"><value>系統查無資料 '{0}'。\n是否立即建立此物料主檔？</value></data>
+  <data name="Dialog_ManualInputTitle" xml:space="preserve"><value>手動查詢</value></data>
+  <data name="Dialog_ManualInputLabel" xml:space="preserve"><value>請輸入廠內料號 (Part No):</value></data>
+  <data name="Dialog_NotFoundTitle" xml:space="preserve"><value>查無資料</value></data>
+  <data name="MaterialCreationForm" xml:space="preserve"><value>物料主檔編輯</value></data>
+  <data name="Label_Specification" xml:space="preserve"><value>規格 (Specification)</value></data>
+  <data name="Label_SafeStock" xml:space="preserve"><value>安全庫存 (Safe Stock)</value></data>
+  <data name="Label_LeadTime" xml:space="preserve"><value>交期天數 (Lead Days)</value></data>
+  <data name="Label_Station" xml:space="preserve"><value>站別 (Station)</value></data>
+  <data name="Msg_SaveSuccess" xml:space="preserve"><value>儲存成功</value></data>
+  <data name="Msg_CreateSuccess" xml:space="preserve"><value>新增完成！\n料號: {0}\n條碼: {1}</value></data>
+  <data name="Msg_PartNoRequired" xml:space="preserve"><value>請輸入料號 (Part No)</value></data>
+  <data name="Msg_NameRequired" xml:space="preserve"><value>請輸入名稱 (Name)</value></data>
+  <data name="QueryForm" xml:space="preserve"><value>物料庫存查詢</value></data>
+  <data name="Label_Keyword" xml:space="preserve"><value>關鍵字搜尋：</value></data>
+  <data name="Btn_ShowAll" xml:space="preserve"><value>顯示全部</value></data>
+  <data name="Col_Name" xml:space="preserve"><value>物料名稱</value></data>
+  <data name="Col_Spec" xml:space="preserve"><value>規格/型號</value></data>
+  <data name="Col_PartNo" xml:space="preserve"><value>料號</value></data>
+  <data name="Col_Station" xml:space="preserve"><value>站別</value></data>
+  <data name="Col_Warehouse" xml:space="preserve"><value>倉庫</value></data>
+  <data name="Col_Qty" xml:space="preserve"><value>在庫庫存</value></data>
+  <data name="Col_SafeStock" xml:space="preserve"><value>安全庫存</value></data>
+  <data name="Col_LeadTime" xml:space="preserve"><value>交期(天)</value></data>
+  <data name="Menu_Edit" xml:space="preserve"><value>編輯</value></data>
+  <data name="Menu_Delete" xml:space="preserve"><value>刪除</value></data>
+  <data name="Msg_DeleteConfirm" xml:space="preserve"><value>確認要刪除物料 '{0}' ({1}) 嗎？\n此操作無法復原。</value></data>
+  <data name="Msg_DeleteSuccess" xml:space="preserve"><value>刪除成功</value></data>
+  <data name="Tray_OpenLogs" xml:space="preserve"><value>開啟日誌目錄 (Open Logs)</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>關閉伺服器 (Exit Server)</value></data>
+  <data name="Tray_WarnClose" xml:space="preserve"><value>確定要關閉伺服器嗎？這會導致客戶端無法運作。</value></data>
+  <data name="Tray_WarnTitle" xml:space="preserve"><value>警告</value></data>
+  <data name="UserMgmtForm" xml:space="preserve"><value>使用者管理</value></data>
+  <data name="Btn_AddUser" xml:space="preserve"><value>新增使用者</value></data>
+  <data name="Btn_DeleteUser" xml:space="preserve"><value>刪除使用者</value></data>
+  <data name="Label_UserLevel" xml:space="preserve"><value>權限等級</value></data>
+  <data name="Msg_DeleteUserConfirm" xml:space="preserve"><value>確定要刪除使用者 '{0}' 嗎？</value></data>
+  <data name="Msg_InputRequired" xml:space="preserve"><value>請填寫帳號與密碼</value></data>
+  <data name="UserID" xml:space="preserve"><value>編號</value></data>
+  <data name="Username" xml:space="preserve"><value>使用者名稱</value></data>
+  <data name="UserLevel" xml:space="preserve"><value>權限等級</value></data>
+  <data name="IsActive" xml:space="preserve"><value>啟用中</value></data>
+  <data name="Label_AddAccount" xml:space="preserve"><value>新增帳號</value></data>
+  <data name="Msg_LowStockAlert" xml:space="preserve"><value>全廠總庫存僅剩 {0}，已達安全水位 ({1})！請通知採購。</value></data>
+  <data name="UI_Acknowledge" xml:space="preserve"><value>我知道了 (Acknowledge)</value></data>
+  <data name="UI_LowStockDashboard" xml:space="preserve"><value>全廠低水位看板</value></data>
+  <data name="Menu_LowStock" xml:space="preserve"><value>低水位看板</value></data>
+  <data name="UI_Refresh" xml:space="preserve"><value>重新整理</value></data>
+  <data name="PartNo" xml:space="preserve"><value>料號</value></data>
+  <data name="Name" xml:space="preserve"><value>品名</value></data>
+  <data name="Specification" xml:space="preserve"><value>規格</value></data>
+  <data name="TotalQuantity" xml:space="preserve"><value>總庫存</value></data>
+  <data name="SafeStockQty" xml:space="preserve"><value>安全水位</value></data>
+</root>

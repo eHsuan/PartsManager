@@ -1,0 +1,111 @@
+ 0. 全域樣式定義 (Global Design System)
+App Theme: Dark Mode (適合工廠環境，減少螢幕刺眼)
+Background: #1E1E1E (深灰)
+Card Background: #2D2D30 (稍亮的灰，用於區塊)
+Text Primary: #FFFFFF (白)
+Text Secondary: #A0A0A0 (淺灰)
+Font: Segoe UI (WinForms/WPF 標準), 數字使用 Consolas (等寬字型)
+Input Focus Color: #FFD700 (金黃色邊框，強調當前游標位置)
+📱 1. 主選單 (Main Dashboard)
+目標： 系統入口，清楚區分三種作業模式。
+視覺佈局 (Layout Grid)
+Top Bar (Row 0): Height="60". Left: Logo + {Mdm_Warehouses.WarehouseName}. Right: Connection Status LED.
+Content (Row 1): 3 Columns. 放置三個巨型卡片按鈕 (Card Button)。
+Bottom Bar (Row 2): Height="30". Version Info & User ID.
+UI 元件規格 (Components)
+Btn_Inbound (入庫):
+Color: #28A745 (Green)
+Icon: 📥 (Down Arrow/Box)
+Text: "入庫作業 (Inbound)"
+Action: Navigate to InboundView
+Btn_Outbound (領料):
+Color: #D35400 (Burnt Orange)
+Icon: 📤 (Up Arrow/Part)
+Text: "領料作業 (Outbound)"
+Action: Navigate to OutboundView
+Btn_Inventory (盤點):
+Color: #007ACC (Blue)
+Icon: 📋 (Checklist)
+Text: "庫存盤點 (Audit)"
+Action: Navigate to InventoryView
+📤 2. 領料模式 UI (Outbound View)
+目標： 快速掃碼、確認庫存、扣帳。強調色：橘色 (#D35400)。
+視覺佈局 (Grid Layout)
+分為 左側操作區 (40%) 與 右側資訊區 (60%)。
+A. 左側：輸入控制 (Input Section)
+Background: #252526
+Header: Text="領料模式", Background=#D35400
+StackPanel Controls:
+Label: "選擇機台/任務 (Machine)"
+ComboBox (cmbMachine):
+Source: Mdm_Machines.MachineCode + MachineName
+Default: "General / No Machine"
+Label: "掃描條碼 (Scan Barcode)"
+TextBox (txtBarcode):
+Placeholder: "請刷碼..."
+Event: KeyDown="Enter" -> Trigger API Search.
+Focus: 頁面載入時預設焦點。
+Label: "領取數量 (Quantity)"
+NumericUpDown / TextBox (txtQty):
+Font: Consolas, Size: 24pt, Bold.
+Buttons: [-] [+] 兩側大按鈕。
+B. 右側：資訊顯示 (Info Section)
+Background: #1E1E1E
+Status Panel (Top):
+顯示 Mdm_Materials.Name (Font Size 32, White)
+顯示 Mdm_Materials.Specification (Font Size 20, Gray)
+Grid Info (Middle):
+料號 (PartNo): {Mdm_Materials.PartNo}
+儲位 (Bin): {Inv_CurrentStock.BinLocation} (Color: #FFFF00, Huge Text) -> 核心資訊，告訴人員去哪拿。
+目前庫存 (Current): {Inv_CurrentStock.Quantity}
+安全庫存 (Safe): {Mdm_Materials.SafeStockQty}
+Validation Message (Bottom):
+TextBlock (lblError): Red Color. Visibility="Hidden".
+Logic: If txtQty.Value > CurrentStock, Show "庫存不足! (Not Enough Stock)".
+C. 底部：動作列 (Action Bar)
+Button (btnConfirm): Text="確認領料 (ENTER)", Color=#D35400, Width="Stretch".
+Button (btnCancel): Text="取消 (ESC)", Color=#555.
+📥 3. 入庫模式 UI (Inbound View)
+目標： 確認入庫品項正確，指定上架位置。強調色：綠色 (#28A745)。
+視覺佈局
+結構與領料模式相似，但資訊重點不同。
+A. 左側：掃描與數量
+Header: Text="入庫作業", Background=#28A745
+Input Sequence:
+Scan Barcode: txtBarcode
+Input Quantity: txtQty
+Supplier Batch (Optional): 新增一個欄位 txtBatchNo (若需要追蹤批號)。
+B. 右側：上架指引 (Shelving Guide)
+Main Display: Mdm_Materials.Name
+Image Placeholder: 顯示備品圖片 (若 API 有提供 URL)，方便核對實物。
+Bin Location Input (關鍵差異):
+Label: "建議儲位 (Target Bin)"
+TextBox (txtTargetBin):
+Binding: 預設帶入 {Inv_CurrentStock.BinLocation} (舊儲位)。
+Logic: 允許使用者修改 (例如舊位置滿了，放到新位置)。
+Style: BorderColor=#28A745.
+C. 邏輯反饋
+Success Trigger: 按下確認後，彈出全螢幕綠色遮罩 0.5 秒，顯示 "✅ 入庫成功"，隨即回到掃碼框。
+📋 4. 盤點模式 UI (Inventory Check)
+目標： 盲盤或明盤，修正系統庫存。強調色：藍色 (#007ACC)。
+視覺佈局 (Single Item Focus)
+不使用列表清單，而是「刷一個、盤一個」。
+UI 元件規格
+Header: Text="循環盤點模式", Background=#007ACC
+Scan Section:
+Label: "掃描儲位或料號"
+TextBox: txtScan
+Result Card (掃描後顯示):
+System Stock (系統帳):
+Label: "系統數量"
+Value: {Inv_CurrentStock.Quantity} (ReadOnly, Gray Background)
+Actual Count (實盤數):
+Label: "實盤數量"
+Value: txtActualQty (Input, White Background, Focus Here)
+Difference (差異):
+Calculated Field: Actual - System
+Style Logic:
+If 0: TextColor Green "✅ 帳料相符"
+If != 0: TextColor Red "⚠️ 差異: -2"
+Reason Code:
+ComboBox: 若有差異，強制選擇 ReasonCode (如：遺失、報廢、登打錯誤)。
