@@ -34,16 +34,19 @@ namespace PartsManager.Client
             // dgvUsers
             // 
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsers.Location = new System.Drawing.Point(30, 30);
+            this.dgvUsers.Location = new System.Drawing.Point(45, 45);
+            this.dgvUsers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvUsers.Name = "dgvUsers";
-            this.dgvUsers.Size = new System.Drawing.Size(520, 200);
+            this.dgvUsers.RowHeadersWidth = 62;
+            this.dgvUsers.Size = new System.Drawing.Size(780, 300);
             this.dgvUsers.TabIndex = 0;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(380, 20);
+            this.btnAdd.Location = new System.Drawing.Point(570, 30);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(120, 90);
+            this.btnAdd.Size = new System.Drawing.Size(180, 135);
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Tag = "Btn_AddUser";
             this.btnAdd.Text = "新增使用者";
@@ -52,9 +55,10 @@ namespace PartsManager.Client
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(30, 370);
+            this.btnDelete.Location = new System.Drawing.Point(45, 555);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(120, 30);
+            this.btnDelete.Size = new System.Drawing.Size(180, 45);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Tag = "Btn_DeleteUser";
             this.btnDelete.Text = "刪除選取使用者";
@@ -63,32 +67,36 @@ namespace PartsManager.Client
             // 
             // txtNewUsername
             // 
-            this.txtNewUsername.Location = new System.Drawing.Point(100, 30);
+            this.txtNewUsername.Location = new System.Drawing.Point(166, 45);
+            this.txtNewUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNewUsername.Name = "txtNewUsername";
-            this.txtNewUsername.Size = new System.Drawing.Size(120, 22);
+            this.txtNewUsername.Size = new System.Drawing.Size(178, 29);
             this.txtNewUsername.TabIndex = 0;
             // 
             // txtNewPassword
             // 
-            this.txtNewPassword.Location = new System.Drawing.Point(100, 60);
+            this.txtNewPassword.Location = new System.Drawing.Point(166, 90);
+            this.txtNewPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNewPassword.Name = "txtNewPassword";
-            this.txtNewPassword.Size = new System.Drawing.Size(120, 22);
+            this.txtNewPassword.Size = new System.Drawing.Size(178, 29);
             this.txtNewPassword.TabIndex = 1;
             // 
             // txtNewLevel
             // 
-            this.txtNewLevel.Location = new System.Drawing.Point(100, 90);
+            this.txtNewLevel.Location = new System.Drawing.Point(166, 135);
+            this.txtNewLevel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNewLevel.Name = "txtNewLevel";
-            this.txtNewLevel.Size = new System.Drawing.Size(60, 22);
+            this.txtNewLevel.Size = new System.Drawing.Size(88, 29);
             this.txtNewLevel.TabIndex = 2;
             this.txtNewLevel.Text = "4";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 33);
+            this.label1.Location = new System.Drawing.Point(45, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(44, 18);
             this.label1.TabIndex = 6;
             this.label1.Tag = "Label_Username";
             this.label1.Text = "帳號";
@@ -96,9 +104,10 @@ namespace PartsManager.Client
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 63);
+            this.label2.Location = new System.Drawing.Point(45, 94);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.Size = new System.Drawing.Size(44, 18);
             this.label2.TabIndex = 7;
             this.label2.Tag = "Label_Password";
             this.label2.Text = "密碼";
@@ -106,9 +115,10 @@ namespace PartsManager.Client
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 93);
+            this.label3.Location = new System.Drawing.Point(45, 140);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(80, 18);
             this.label3.TabIndex = 8;
             this.label3.Tag = "Label_UserLevel";
             this.label3.Text = "權限等級";
@@ -122,9 +132,11 @@ namespace PartsManager.Client
             this.groupBox1.Controls.Add(this.txtNewPassword);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtNewLevel);
-            this.groupBox1.Location = new System.Drawing.Point(30, 240);
+            this.groupBox1.Location = new System.Drawing.Point(45, 360);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(520, 120);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(780, 180);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Tag = "Label_AddAccount";
@@ -132,13 +144,14 @@ namespace PartsManager.Client
             // 
             // UserManagementForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 420);
+            this.ClientSize = new System.Drawing.Size(870, 630);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dgvUsers);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UserManagementForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Tag = "UserMgmtForm";

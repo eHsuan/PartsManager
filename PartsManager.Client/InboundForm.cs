@@ -19,6 +19,9 @@ namespace PartsManager.Client
             I18nHelper.Apply(this); // 套用語系
             _apiClient = new ApiClient(ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/");
             
+            // 根據全域設定隱藏列印按鈕
+            btnPrintLabel.Visible = GlobalSettings.EnableLabelPrinting;
+            
             this.Shown += InboundForm_Shown;
         }
 
@@ -51,7 +54,8 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Load Warehouse Error: " + ex.Message);
+                MessageBox.Show(LocalizationService.GetString("Msg_LoadWarehouseError") + ex.Message, 
+                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -80,7 +84,7 @@ namespace PartsManager.Client
                 if (info != null)
                 {
                     lblMaterialName.Text = info.Name;
-                    lblSpecification.Text = "P/N: " + info.PartNo;
+                    lblSpecification.Text = LocalizationService.GetString("Label_PartNoPrefix") + info.PartNo;
                     
                     lblStatus.Text = LocalizationService.GetString("Status_IdentifySuccess");
                     lblStatus.ForeColor = Color.Lime;
@@ -119,7 +123,8 @@ namespace PartsManager.Client
                 lblStatus.ForeColor = Color.Lime;
                 txtBarcode.Text = input;
                 btnPrintLabel.Enabled = true;
-                MessageBox.Show(LocalizationService.GetString("Msg_SearchSuccess"), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LocalizationService.GetString("Msg_SearchSuccess"), 
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
@@ -144,7 +149,8 @@ namespace PartsManager.Client
             string name = lblMaterialName.Text;
             if (string.IsNullOrEmpty(barcode) || name == "--") return;
 
-            MessageBox.Show($"[Label Reprint]\n----------------\n{barcode}\n{name}\n----------------");
+            MessageBox.Show($"{LocalizationService.GetString("Label_ReprintHeader")}\n----------------\n{barcode}\n{name}\n----------------", 
+                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void btnInbound_Click(object sender, EventArgs e)
@@ -221,7 +227,7 @@ namespace PartsManager.Client
             };
             Label textLabel = new Label() { Left = 30, Top = 20, Text = text, AutoSize = true, Font = new Font("Microsoft JhengHei", 10) };
             TextBox textBox = new TextBox() { Left = 30, Top = 50, Width = 320, Font = new Font("Consolas", 12) };
-            Button confirmation = new Button() { Text = "確認", Left = 250, Width = 100, Top = 90, DialogResult = DialogResult.OK, Font = new Font("Microsoft JhengHei", 10) };
+            Button confirmation = new Button() { Text = LocalizationService.GetString("Btn_Confirm"), Left = 250, Width = 100, Top = 90, DialogResult = DialogResult.OK, Font = new Font("Microsoft JhengHei", 10) };
             
             confirmation.Click += (sender, e) => { prompt.Close(); };
             

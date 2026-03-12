@@ -25,7 +25,7 @@ namespace PartsManager.Client
         {
             _materialId = materialId;
             // 編輯模式的標題會被 I18nHelper 覆蓋，若需要特殊處理需在此設定
-            this.Text = LocalizationService.GetString("MaterialCreationForm") + " (Edit)";
+            this.Text = LocalizationService.GetString("MaterialEditForm");
             btnSave.Text = LocalizationService.GetString("Btn_Save");
         }
 
@@ -50,7 +50,8 @@ namespace PartsManager.Client
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Load Error: " + ex.Message);
+                    MessageBox.Show(LocalizationService.GetString("Msg_LoadMaterialError") + ex.Message, 
+                        LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                 }
             }
@@ -88,7 +89,8 @@ namespace PartsManager.Client
                         LeadTimeDays = leadTime
                     };
                     await _apiClient.UpdateMaterialAsync(_materialId.Value, dto);
-                    MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"), "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"), 
+                        LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -104,8 +106,12 @@ namespace PartsManager.Client
                     };
                     var result = await _apiClient.CreateMaterialAsync(dto);
                     string successMsg = string.Format(LocalizationService.GetString("Msg_CreateSuccess"), result.PartNo, result.BarCode);
-                    MessageBox.Show(successMsg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    PrintLabel(result.BarCode, result.Name);
+                    MessageBox.Show(successMsg, LocalizationService.GetString("Common_Success"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    if (GlobalSettings.EnableLabelPrinting)
+                    {
+                        PrintLabel(result.BarCode, result.Name);
+                    }
                 }
 
                 this.DialogResult = DialogResult.OK;
@@ -113,7 +119,8 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.GetString("Msg_SaveError") + ex.Message, 
+                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -128,8 +135,9 @@ namespace PartsManager.Client
 
         private void PrintLabel(string barcode, string name)
         {
-            // 標籤列印模擬暫不語系化，通常標籤固定格式
-            MessageBox.Show($"[Label Reprint]\n----------------\n{barcode}\n{name}\n----------------");
+            // 標籤列印模擬
+            MessageBox.Show($"{LocalizationService.GetString("Label_ReprintHeader")}\n----------------\n{barcode}\n{name}\n----------------", 
+                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

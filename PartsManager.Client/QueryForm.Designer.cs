@@ -113,6 +113,7 @@ namespace PartsManager.Client
             this.Col_Qty,
             this.Col_SafeStock,
             this.Col_LeadTime});
+            this.dgvResults.ContextMenuStrip = this.ctxMenu;
             this.dgvResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvResults.Location = new System.Drawing.Point(0, 70);
             this.dgvResults.Name = "dgvResults";
@@ -129,6 +130,7 @@ namespace PartsManager.Client
             this.menuDelete});
             this.ctxMenu.Name = "ctxMenu";
             this.ctxMenu.Size = new System.Drawing.Size(101, 48);
+            this.ctxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenu_Opening);
             // 
             // menuEdit
             // 

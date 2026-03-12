@@ -65,6 +65,7 @@ namespace PartsManager.Client
             this.btnRefresh.Click += async (s, e) => await LoadData();
 
             // dgvLowStock
+            this.dgvLowStock.AutoGenerateColumns = false;
             this.dgvLowStock.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvLowStock.BackgroundColor = Color.White;
             this.dgvLowStock.Dock = DockStyle.Fill;
@@ -76,11 +77,23 @@ namespace PartsManager.Client
 
             // Columns
             this.dgvLowStock.Columns.Clear();
-            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "PartNo", DataPropertyName = "PartNo", HeaderText = "料號" });
-            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "Name", DataPropertyName = "Name", HeaderText = "品名" });
-            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "Specification", DataPropertyName = "Specification", HeaderText = "規格" });
-            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalQuantity", DataPropertyName = "TotalQuantity", HeaderText = "總庫存" });
-            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "SafeStockQty", DataPropertyName = "SafeStockQty", HeaderText = "安全水位" });
+            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "Col_PartNo", DataPropertyName = "PartNo", HeaderText = "料號" });
+            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "Col_Name", DataPropertyName = "Name", HeaderText = "品名" });
+            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn { Name = "Col_Spec", DataPropertyName = "Specification", HeaderText = "規格" });
+            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn 
+            { 
+                Name = "Col_Qty", 
+                DataPropertyName = "TotalQuantity", 
+                HeaderText = "總庫存",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" } 
+            });
+            this.dgvLowStock.Columns.Add(new DataGridViewTextBoxColumn 
+            { 
+                Name = "Col_SafeStock", 
+                DataPropertyName = "SafeStockQty", 
+                HeaderText = "安全水位",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" } 
+            });
 
             // Form
             this.ClientSize = new Size(800, 600);

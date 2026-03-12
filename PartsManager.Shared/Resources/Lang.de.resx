@@ -92,8 +92,8 @@
   <data name="Label_AddAccount" xml:space="preserve"><value>Konto hinzufügen</value></data>
   <data name="Msg_LowStockAlert" xml:space="preserve"><value>Der Gesamtlagerbestand im Werk beträgt nur {0}, das Sicherheitsniveau ({1}) wurde erreicht! Bitte Einkauf benachrichtigen.</value></data>
   <data name="UI_Acknowledge" xml:space="preserve"><value>Bestätigen</value></data>
-  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Werks-Niedriglager-Dashboard</value></data>
-  <data name="Menu_LowStock" xml:space="preserve"><value>Mangelbestand</value></data>
+  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Werks-Sicherheitsbestand-Dashboard</value></data>
+  <data name="Menu_LowStock" xml:space="preserve"><value>Sicherheitsbestand-Anzeige</value></data>
   <data name="UI_Refresh" xml:space="preserve"><value>Aktualisieren</value></data>
   <data name="PartNo" xml:space="preserve"><value>Teilenummer</value></data>
   <data name="Name" xml:space="preserve"><value>Name</value></data>

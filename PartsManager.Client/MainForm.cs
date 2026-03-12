@@ -187,6 +187,24 @@ namespace PartsManager.Client
                 form.ShowDialog();
             };
 
+            // --- 系統設定按鈕 (點擊顯示 ContextMenu) ---
+            var btnSettings = CreateNavButton(LocalizationService.GetString("Menu_Settings"), false);
+            btnSettings.Dock = DockStyle.Right; // 置右
+            btnSettings.Width = 150;
+            
+            var ctxSettings = new ContextMenuStrip();
+            var itemEnablePrinting = new ToolStripMenuItem(LocalizationService.GetString("Setting_EnablePrinting"));
+            itemEnablePrinting.CheckOnClick = true;
+            itemEnablePrinting.Checked = GlobalSettings.EnableLabelPrinting;
+            itemEnablePrinting.CheckedChanged += (s, e) => {
+                GlobalSettings.EnableLabelPrinting = itemEnablePrinting.Checked;
+            };
+            ctxSettings.Items.Add(itemEnablePrinting);
+
+            btnSettings.Click += (s, e) => {
+                ctxSettings.Show(btnSettings, new Point(0, btnSettings.Height));
+            };
+
             // --- 加入 Panel (順序：左到右) ---
 
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInbound);
@@ -194,6 +212,7 @@ namespace PartsManager.Client
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);
             if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnUserMgmt);
+            navPanel.Controls.Add(btnSettings); // 增加設定按鈕
 
             this.Controls.Add(navPanel);
             this.Text = LocalizationService.GetString("App_Title") + $" - {UserSession.Username}";

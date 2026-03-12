@@ -60,7 +60,7 @@ namespace PartsManager.Client
                 foreach (DataGridViewColumn col in dgv.Columns)
                 {
                     string colTranslation = LocalizationService.GetString(col.Name);
-                    if (!string.IsNullOrEmpty(colTranslation) && colTranslation != col.Name)
+                    if (!string.IsNullOrEmpty(colTranslation))
                     {
                         col.HeaderText = colTranslation;
                     }

@@ -92,8 +92,8 @@
   <data name="Label_AddAccount" xml:space="preserve"><value>Add Account</value></data>
   <data name="Msg_LowStockAlert" xml:space="preserve"><value>Total factory stock is only {0}, reached safe level ({1})! Please notify procurement.</value></data>
   <data name="UI_Acknowledge" xml:space="preserve"><value>Acknowledge</value></data>
-  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Factory Low Stock Dashboard</value></data>
-  <data name="Menu_LowStock" xml:space="preserve"><value>Low Stock Board</value></data>
+  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Factory Low Safety Stock Dashboard</value></data>
+  <data name="Menu_LowStock" xml:space="preserve"><value>Low Safety Stock Board</value></data>
   <data name="UI_Refresh" xml:space="preserve"><value>Refresh</value></data>
   <data name="PartNo" xml:space="preserve"><value>Part No</value></data>
   <data name="Name" xml:space="preserve"><value>Name</value></data>

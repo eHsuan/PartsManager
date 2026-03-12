@@ -146,12 +146,25 @@
   <data name="Label_AddAccount" xml:space="preserve"><value>新增帳號</value></data>
   <data name="Msg_LowStockAlert" xml:space="preserve"><value>全廠總庫存僅剩 {0}，已達安全水位 ({1})！請通知採購。</value></data>
   <data name="UI_Acknowledge" xml:space="preserve"><value>我知道了 (Acknowledge)</value></data>
-  <data name="UI_LowStockDashboard" xml:space="preserve"><value>全廠低水位看板</value></data>
-  <data name="Menu_LowStock" xml:space="preserve"><value>低水位看板</value></data>
+  <data name="UI_LowStockDashboard" xml:space="preserve"><value>全廠低安全庫存看板</value></data>
+  <data name="Menu_LowStock" xml:space="preserve"><value>低安全庫存看板</value></data>
   <data name="UI_Refresh" xml:space="preserve"><value>重新整理</value></data>
   <data name="PartNo" xml:space="preserve"><value>料號</value></data>
   <data name="Name" xml:space="preserve"><value>品名</value></data>
   <data name="Specification" xml:space="preserve"><value>規格</value></data>
   <data name="TotalQuantity" xml:space="preserve"><value>總庫存</value></data>
   <data name="SafeStockQty" xml:space="preserve"><value>安全水位</value></data>
+  <data name="Common_Info" xml:space="preserve"><value>提示</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>錯誤</value></data>
+  <data name="Label_PartNoPrefix" xml:space="preserve"><value>料號：</value></data>
+  <data name="Label_ReprintHeader" xml:space="preserve"><value>[ 標籤補印 ]</value></data>
+  <data name="Msg_LoadWarehouseError" xml:space="preserve"><value>載入倉庫清單失敗：</value></data>
+  <data name="Msg_SearchError" xml:space="preserve"><value>搜尋庫存發生錯誤：</value></data>
+  <data name="Msg_DeleteError" xml:space="preserve"><value>刪除物料發生錯誤：</value></data>
+  <data name="MaterialEditForm" xml:space="preserve"><value>物料主檔編輯 (Edit Mode)</value></data>
+  <data name="Msg_LoadMaterialError" xml:space="preserve"><value>載入物料資訊失敗：</value></data>
+  <data name="Msg_SaveError" xml:space="preserve"><value>儲存物料發生錯誤：</value></data>
+  <data name="Common_Success" xml:space="preserve"><value>成功</value></data>
+  <data name="Menu_Settings" xml:space="preserve"><value>⚙ 系統設定</value></data>
+  <data name="Setting_EnablePrinting" xml:space="preserve"><value>啟用標籤列印</value></data>
 </root>
