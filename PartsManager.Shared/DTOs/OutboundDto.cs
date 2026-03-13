@@ -26,6 +26,7 @@ namespace PartsManager.Shared.DTOs
         public bool IsSuccess { get; set; }
         public string Message { get; set; } = string.Empty;
         public bool IsLowStock { get; set; }
-        public string LowStockMessage { get; set; } = string.Empty;
+        public decimal TotalQuantity { get; set; }
+        public int SafeStockQty { get; set; }
     }
 }

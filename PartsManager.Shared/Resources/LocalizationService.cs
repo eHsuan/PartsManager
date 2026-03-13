@@ -1,6 +1,8 @@
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
+using System.Drawing;
+using System.IO;
 
 namespace PartsManager.Shared.Resources
 {
@@ -11,8 +13,6 @@ namespace PartsManager.Shared.Resources
 
         static LocalizationService()
         {
-            // 注意：這裡的路徑必須是 [Assembly名稱].[資料夾].[檔名]
-            // 如果您的專案名稱是 PartsManager.Shared，且在 Resources 資料夾下，則如下：
             _resManager = new ResourceManager("PartsManager.Shared.Resources.Lang", typeof(LocalizationService).Assembly);
             _culture = CultureInfo.CurrentCulture;
         }
@@ -39,6 +39,22 @@ namespace PartsManager.Shared.Resources
             {
                 return key;
             }
+        }
+
+        public static Image GetPdfIcon()
+        {
+            try
+            {
+                string base64 = _resManager.GetString("PdfIconBase64");
+                if (string.IsNullOrEmpty(base64)) return null;
+
+                byte[] bytes = System.Convert.FromBase64String(base64);
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch { return null; }
         }
     }
 }

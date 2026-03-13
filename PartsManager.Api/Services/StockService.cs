@@ -98,7 +98,8 @@ public class StockService : IStockService
 
             if (stock == null || stock.Quantity < dto.Quantity)
             {
-                throw new InvalidOperationException($"庫存不足！目前庫存 {(stock?.Quantity ?? 0)}，請求 {dto.Quantity}");
+                string errMsg = string.Format("Insufficient stock! Current: {0:N0}, Requested: {1:N0}", (stock?.Quantity ?? 0), dto.Quantity);
+                throw new InvalidOperationException(errMsg);
             }
 
             stock.Quantity -= dto.Quantity;
@@ -129,17 +130,6 @@ public class StockService : IStockService
             decimal totalQty = (decimal)totalQtyDouble;
 
             bool isLowStock = totalQty <= material.SafeStockQty;
-            string lowStockMessage = string.Empty;
-
-            if (isLowStock)
-            {
-                string template = PartsManager.Shared.Resources.LocalizationService.GetString("Msg_LowStockAlert");
-                if (string.IsNullOrEmpty(template))
-                {
-                    template = "全廠總庫存僅剩 {0}，已達安全水位 ({1})！請通知採購。";
-                }
-                lowStockMessage = string.Format(template, totalQty, material.SafeStockQty);
-            }
 
             await transaction.CommitAsync();
 
@@ -148,7 +138,8 @@ public class StockService : IStockService
                 IsSuccess = true,
                 Message = "Outbound successful",
                 IsLowStock = isLowStock,
-                LowStockMessage = lowStockMessage
+                TotalQuantity = totalQty,
+                SafeStockQty = material.SafeStockQty
             };
         }
         catch (Exception ex)

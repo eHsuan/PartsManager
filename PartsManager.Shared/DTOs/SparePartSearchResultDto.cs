@@ -6,7 +6,8 @@
         public string PartNo { get; set; }
         public string Name { get; set; }
         public string Specification { get; set; }
-        public string Station { get; set; }
+        public string Supplier { get; set; }
+        public string Manufacturer { get; set; }
         public string WarehouseName { get; set; }
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }

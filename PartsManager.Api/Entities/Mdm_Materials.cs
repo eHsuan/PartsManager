@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,11 +23,17 @@ public class Mdm_Materials
     [MaxLength(200)]
     public string Name { get; set; } = string.Empty;
 
+    [Required]
     [MaxLength(200)]
-    public string? Specification { get; set; }
+    public string Specification { get; set; } = "None";
 
-    [MaxLength(50)]
-    public string? Station { get; set; } // ?��?站別欄�? (例�?: 黃�?, ?��?)
+    [Required]
+    [MaxLength(200)]
+    public string Supplier { get; set; } = "None";
+
+    [Required]
+    [MaxLength(200)]
+    public string Manufacturer { get; set; } = "None";
 
     public bool NeedsPrintLabel { get; set; } = true;
 

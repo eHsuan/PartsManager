@@ -31,7 +31,8 @@ namespace PartsManager.Client
             this.Col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Spec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_PartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_Station = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Supplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Warehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_SafeStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,7 +109,8 @@ namespace PartsManager.Client
             this.Col_Name,
             this.Col_Spec,
             this.Col_PartNo,
-            this.Col_Station,
+            this.Col_Supplier,
+            this.Col_Manufacturer,
             this.Col_Warehouse,
             this.Col_Qty,
             this.Col_SafeStock,
@@ -172,13 +174,21 @@ namespace PartsManager.Client
             this.Col_PartNo.ReadOnly = true;
             this.Col_PartNo.Width = 150;
             // 
-            // Col_Station
+            // Col_Supplier
             // 
-            this.Col_Station.DataPropertyName = "Station";
-            this.Col_Station.HeaderText = "站別 (Station)";
-            this.Col_Station.Name = "Col_Station";
-            this.Col_Station.ReadOnly = true;
-            this.Col_Station.Width = 120;
+            this.Col_Supplier.DataPropertyName = "Supplier";
+            this.Col_Supplier.HeaderText = "供應商";
+            this.Col_Supplier.Name = "Col_Supplier";
+            this.Col_Supplier.ReadOnly = true;
+            this.Col_Supplier.Width = 120;
+            // 
+            // Col_Manufacturer
+            // 
+            this.Col_Manufacturer.DataPropertyName = "Manufacturer";
+            this.Col_Manufacturer.HeaderText = "製造商";
+            this.Col_Manufacturer.Name = "Col_Manufacturer";
+            this.Col_Manufacturer.ReadOnly = true;
+            this.Col_Manufacturer.Width = 120;
             // 
             // Col_Warehouse
             // 
@@ -242,7 +252,8 @@ namespace PartsManager.Client
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Station;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Supplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Manufacturer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Warehouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_SafeStock;

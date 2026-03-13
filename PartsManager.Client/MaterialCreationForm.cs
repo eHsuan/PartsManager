@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using PartsManager.Shared.DTOs;
 using PartsManager.Shared.Resources;
@@ -10,21 +14,28 @@ namespace PartsManager.Client
     {
         private readonly ApiClient _apiClient;
         private int? _materialId = null;
+        private List<string> _pendingFiles = new List<string>(); // 待上傳的本地路徑
+        private List<AttachmentDto> _existingAttachments = new List<AttachmentDto>(); // 已存在於伺服器的附件
+        private List<string> _filesToDelete = new List<string>(); // 待從伺服器刪除的檔名
+        private Image _pdfIcon;
 
         public MaterialCreationForm()
         {
             InitializeComponent();
             UIStyle.Apply(this);
-            I18nHelper.Apply(this); // 套用語系
+            I18nHelper.Apply(this);
             string baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/";
             _apiClient = new ApiClient(baseUrl);
+            
+            // 從資源檔載入嵌入的 PDF 圖示
+            _pdfIcon = LocalizationService.GetPdfIcon();
+
             this.Load += MaterialCreationForm_Load;
         }
 
         public MaterialCreationForm(int materialId) : this()
         {
             _materialId = materialId;
-            // 編輯模式的標題會被 I18nHelper 覆蓋，若需要特殊處理需在此設定
             this.Text = LocalizationService.GetString("MaterialEditForm");
             btnSave.Text = LocalizationService.GetString("Btn_Save");
         }
@@ -41,20 +52,135 @@ namespace PartsManager.Client
                         txtPartNo.Text = material.PartNo;
                         txtName.Text = material.Name;
                         txtSpec.Text = material.Specification;
-                        txtStation.Text = material.Station;
+                        txtSupplier.Text = material.Supplier;
+                        txtManufacturer.Text = material.Manufacturer;
                         txtSafeStock.Text = material.SafeStockQty.ToString();
                         txtLeadTime.Text = material.LeadTimeDays.ToString();
-                        
-                        txtPartNo.Enabled = false; 
+                        txtPartNo.Enabled = false;
+
+                        // 載入附件清單
+                        _existingAttachments = await _apiClient.GetAttachmentsAsync(_materialId.Value);
+                        RefreshAttachmentPanel();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(LocalizationService.GetString("Msg_LoadMaterialError") + ex.Message, 
+                    MessageBox.Show(LocalizationService.GetString("Msg_LoadMaterialError") + ex.Message,
                         LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                 }
             }
+        }
+
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            int currentTotal = _existingAttachments.Count + _pendingFiles.Count;
+            if (currentTotal >= 2)
+            {
+                MessageBox.Show("每個物料最多只能上傳 2 個附件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "PDF Files (*.pdf)|*.pdf";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    _pendingFiles.Add(ofd.FileName);
+                    RefreshAttachmentPanel();
+                }
+            }
+        }
+
+        private void RefreshAttachmentPanel()
+        {
+            pnlAttachments.Controls.Clear();
+
+            // 顯示已存在的附件
+            foreach (var att in _existingAttachments)
+            {
+                DisplayAttachment(att.FileName, true);
+            }
+
+            // 顯示待上傳的附件
+            foreach (var path in _pendingFiles)
+            {
+                DisplayAttachment(Path.GetFileName(path), false, path);
+            }
+
+            btnUpload.Enabled = (_existingAttachments.Count + _pendingFiles.Count) < 2;
+        }
+
+        private void DisplayAttachment(string fileName, bool isExisting, string localPath = null)
+        {
+            Panel itemPnl = new Panel { Size = new Size(60, 60), Padding = new Padding(2) };
+            
+            PictureBox pb = new PictureBox
+            {
+                Image = _pdfIcon,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Size = new Size(50, 50),
+                Location = new Point(5, 5),
+                Cursor = Cursors.Hand
+            };
+            
+            // 設定懸停提示檔名
+            toolTipAttachment.SetToolTip(pb, fileName);
+
+            pb.Click += async (s, e) => {
+                if (isExisting) await OpenRemoteFile(_materialId.Value, fileName);
+                else {
+                    try {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(localPath) { UseShellExecute = true });
+                    } catch (Exception ex) { MessageBox.Show("無法開啟檔案: " + ex.Message); }
+                }
+            };
+
+            Button btnDel = new Button
+            {
+                Text = "×",
+                Size = new Size(18, 18),
+                Location = new Point(40, 2),
+                BackColor = Color.FromArgb(244, 67, 54),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Arial", 8, FontStyle.Bold)
+            };
+            btnDel.FlatAppearance.BorderSize = 0;
+
+            btnDel.Click += (s, e) => {
+                if (isExisting)
+                {
+                    _existingAttachments.RemoveAll(a => a.FileName == fileName);
+                    _filesToDelete.Add(fileName);
+                }
+                else
+                {
+                    _pendingFiles.Remove(localPath);
+                }
+                RefreshAttachmentPanel();
+            };
+
+            itemPnl.Controls.Add(btnDel); // 先加按鈕確保在最上層
+            itemPnl.Controls.Add(pb);
+            btnDel.BringToFront();
+
+            pnlAttachments.Controls.Add(itemPnl);
+        }
+
+        private async System.Threading.Tasks.Task OpenRemoteFile(int materialId, string fileName)
+        {
+            try
+            {
+                byte[] data = await _apiClient.DownloadAttachmentAsync(materialId, fileName);
+                if (data != null)
+                {
+                    string tempPath = Path.Combine(Path.GetTempPath(), fileName);
+                    File.WriteAllBytes(tempPath, data);
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempPath) { UseShellExecute = true });
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("無法開啟檔案: " + ex.Message); }
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
@@ -69,7 +195,7 @@ namespace PartsManager.Client
                 MessageBox.Show(LocalizationService.GetString("Msg_NameRequired"));
                 return;
             }
-            
+
             if (!int.TryParse(txtSafeStock.Text, out int safeStock)) safeStock = 0;
             if (!int.TryParse(txtLeadTime.Text, out int leadTime)) leadTime = 0;
 
@@ -77,20 +203,21 @@ namespace PartsManager.Client
 
             try
             {
+                int finalMaterialId;
                 if (_materialId.HasValue)
                 {
+                    finalMaterialId = _materialId.Value;
                     var dto = new UpdateMaterialDto
                     {
                         PartNo = txtPartNo.Text.Trim(),
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
-                        Station = txtStation.Text.Trim(),
+                        Supplier = txtSupplier.Text.Trim(),
+                        Manufacturer = txtManufacturer.Text.Trim(),
                         SafeStockQty = safeStock,
                         LeadTimeDays = leadTime
                     };
-                    await _apiClient.UpdateMaterialAsync(_materialId.Value, dto);
-                    MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"), 
-                        LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await _apiClient.UpdateMaterialAsync(finalMaterialId, dto);
                 }
                 else
                 {
@@ -99,27 +226,37 @@ namespace PartsManager.Client
                         PartNo = txtPartNo.Text.Trim(),
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
-                        Station = txtStation.Text.Trim(),
+                        Supplier = txtSupplier.Text.Trim(),
+                        Manufacturer = txtManufacturer.Text.Trim(),
                         SafeStockQty = safeStock,
                         LeadTimeDays = leadTime,
-                        SourceType = 1 
+                        SourceType = 1
                     };
                     var result = await _apiClient.CreateMaterialAsync(dto);
-                    string successMsg = string.Format(LocalizationService.GetString("Msg_CreateSuccess"), result.PartNo, result.BarCode);
-                    MessageBox.Show(successMsg, LocalizationService.GetString("Common_Success"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    if (GlobalSettings.EnableLabelPrinting)
-                    {
-                        PrintLabel(result.BarCode, result.Name);
-                    }
+                    finalMaterialId = result.MaterialID;
                 }
+
+                // 處理附件刪除
+                foreach (var fileName in _filesToDelete)
+                {
+                    await _apiClient.DeleteAttachmentAsync(finalMaterialId, fileName);
+                }
+
+                // 處理附件上傳
+                if (_pendingFiles.Count > 0)
+                {
+                    await _apiClient.UploadAttachmentsAsync(finalMaterialId, _pendingFiles);
+                }
+
+                MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"),
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(LocalizationService.GetString("Msg_SaveError") + ex.Message, 
+                MessageBox.Show(LocalizationService.GetString("Msg_SaveError") + ex.Message,
                     LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -131,13 +268,6 @@ namespace PartsManager.Client
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void PrintLabel(string barcode, string name)
-        {
-            // 標籤列印模擬
-            MessageBox.Show($"{LocalizationService.GetString("Label_ReprintHeader")}\n----------------\n{barcode}\n{name}\n----------------", 
-                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

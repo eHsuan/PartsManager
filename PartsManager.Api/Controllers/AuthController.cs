@@ -44,7 +44,7 @@ public class AuthController : ControllerBase
 
         if (user == null)
         {
-            return Unauthorized(new { message = "帳號或密碼錯誤" });
+            return Unauthorized(new { message = "Invalid credentials" });
         }
 
         return new UserDto

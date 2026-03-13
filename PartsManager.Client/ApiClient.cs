@@ -185,6 +185,57 @@ namespace PartsManager.Client
             }
         }
 
+        public async Task UploadAttachmentsAsync(int id, List<string> filePaths)
+        {
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var path in filePaths)
+                {
+                    var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes(path));
+                    fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
+                    content.Add(fileContent, "files", System.IO.Path.GetFileName(path));
+                }
+
+                var response = await _client.PostAsync($"api/masterdata/materials/{id}/attachments", content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    var err = await response.Content.ReadAsStringAsync();
+                    throw new Exception("Upload Failed: " + err);
+                }
+            }
+        }
+
+        public async Task<List<AttachmentDto>> GetAttachmentsAsync(int materialId)
+        {
+            var response = await _client.GetAsync($"api/masterdata/materials/{materialId}/attachments");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<AttachmentDto>>(json);
+            }
+            return new List<AttachmentDto>();
+        }
+
+        public async Task<byte[]> DownloadAttachmentAsync(int materialId, string fileName)
+        {
+            var response = await _client.GetAsync($"api/masterdata/materials/{materialId}/attachments/{Uri.EscapeDataString(fileName)}/download");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsByteArrayAsync();
+            }
+            return null;
+        }
+
+        public async Task DeleteAttachmentAsync(int materialId, string fileName)
+        {
+            var response = await _client.DeleteAsync($"api/masterdata/materials/{materialId}/attachments/{Uri.EscapeDataString(fileName)}");
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new Exception("Delete Attachment Failed: " + err);
+            }
+        }
+
         // --- Auth & User Management ---
 
         public async Task<UserDto> LoginAsync(string username, string password)
@@ -202,7 +253,7 @@ namespace PartsManager.Client
             }
 
             var errorJson = await response.Content.ReadAsStringAsync();
-            throw new Exception("登入失敗: " + errorJson);
+            throw new Exception("Login Error: " + response.StatusCode + " " + errorJson);
         }
 
         public async Task<List<UserDto>> GetUsersAsync()

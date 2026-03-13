@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartsManager.Api.Data;
 
@@ -10,9 +11,11 @@ using PartsManager.Api.Data;
 namespace PartsManager.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313124212_UpdateMaterialFields")]
+    partial class UpdateMaterialFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -131,35 +134,6 @@ namespace PartsManager.Api.Migrations
                             MachineCode = "M01",
                             MachineName = "SMT-01"
                         });
-                });
-
-            modelBuilder.Entity("PartsManager.Api.Entities.Mdm_MaterialAttachments", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MaterialID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("UploadTime")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("MaterialID");
-
-                    b.ToTable("Mdm_MaterialAttachments");
                 });
 
             modelBuilder.Entity("PartsManager.Api.Entities.Mdm_Materials", b =>
@@ -428,17 +402,6 @@ namespace PartsManager.Api.Migrations
                     b.Navigation("Material");
 
                     b.Navigation("Warehouse");
-                });
-
-            modelBuilder.Entity("PartsManager.Api.Entities.Mdm_MaterialAttachments", b =>
-                {
-                    b.HasOne("PartsManager.Api.Entities.Mdm_Materials", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("PartsManager.Api.Entities.Rel_MachineBOM", b =>

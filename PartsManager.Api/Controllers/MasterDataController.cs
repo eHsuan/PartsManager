@@ -11,10 +11,96 @@ namespace PartsManager.Api.Controllers;
 public class MasterDataController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly string _storagePath;
 
-    public MasterDataController(AppDbContext context)
+    public MasterDataController(AppDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _storagePath = configuration["AttachmentStoragePath"] ?? "Attachments";
+    }
+
+    [HttpPost("materials/{id}/attachments")]
+    public async Task<IActionResult> UploadAttachments(int id, IFormFileCollection files)
+    {
+        var material = await _context.Mdm_Materials.FindAsync(id);
+        if (material == null) return NotFound("Material not found");
+
+        var currentCount = await _context.Mdm_MaterialAttachments.CountAsync(a => a.MaterialID == id);
+        if (currentCount + files.Count > 2)
+        {
+            return BadRequest("Maximum 2 attachments allowed per material.");
+        }
+
+        string materialFolder = Path.Combine(_storagePath, id.ToString());
+        if (!Directory.Exists(materialFolder)) Directory.CreateDirectory(materialFolder);
+
+        foreach (var file in files)
+        {
+            if (Path.GetExtension(file.FileName).ToLower() != ".pdf") continue;
+
+            string filePath = Path.Combine(materialFolder, file.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var attachment = new Mdm_MaterialAttachments
+            {
+                MaterialID = id,
+                FileName = file.FileName,
+                FilePath = filePath,
+                UploadTime = DateTime.Now
+            };
+            _context.Mdm_MaterialAttachments.Add(attachment);
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok();
+    }
+
+    [HttpGet("materials/{id}/attachments")]
+    public async Task<ActionResult<IEnumerable<AttachmentDto>>> GetAttachments(int id)
+    {
+        return await _context.Mdm_MaterialAttachments
+            .Where(a => a.MaterialID == id)
+            .Select(a => new AttachmentDto
+            {
+                ID = a.ID,
+                MaterialID = a.MaterialID,
+                FileName = a.FileName,
+                UploadTime = a.UploadTime
+            }).ToListAsync();
+    }
+
+    [HttpGet("materials/{id}/attachments/{fileName}/download")]
+    public async Task<IActionResult> DownloadAttachment(int id, string fileName)
+    {
+        var attachment = await _context.Mdm_MaterialAttachments
+            .FirstOrDefaultAsync(a => a.MaterialID == id && a.FileName == fileName);
+        
+        if (attachment == null || !System.IO.File.Exists(attachment.FilePath))
+            return NotFound();
+
+        var bytes = await System.IO.File.ReadAllBytesAsync(attachment.FilePath);
+        return File(bytes, "application/pdf", attachment.FileName);
+    }
+
+    [HttpDelete("materials/{id}/attachments/{fileName}")]
+    public async Task<IActionResult> DeleteAttachment(int id, string fileName)
+    {
+        var attachment = await _context.Mdm_MaterialAttachments
+            .FirstOrDefaultAsync(a => a.MaterialID == id && a.FileName == fileName);
+
+        if (attachment != null)
+        {
+            if (System.IO.File.Exists(attachment.FilePath))
+            {
+                System.IO.File.Delete(attachment.FilePath);
+            }
+            _context.Mdm_MaterialAttachments.Remove(attachment);
+            await _context.SaveChangesAsync();
+        }
+        return NoContent();
     }
 
     [HttpPost("materials")]
@@ -30,7 +116,8 @@ public class MasterDataController : ControllerBase
             PartNo = dto.PartNo,
             Name = dto.Name,
             Specification = dto.Specification,
-            Station = dto.Station,
+            Supplier = dto.Supplier,
+            Manufacturer = dto.Manufacturer,
             SafeStockQty = dto.SafeStockQty,
             LeadTimeDays = dto.LeadTimeDays,
             SourceType = dto.SourceType,
@@ -71,7 +158,8 @@ public class MasterDataController : ControllerBase
         material.PartNo = dto.PartNo;
         material.Name = dto.Name;
         material.Specification = dto.Specification;
-        material.Station = dto.Station;
+        material.Supplier = dto.Supplier;
+        material.Manufacturer = dto.Manufacturer;
         material.SafeStockQty = dto.SafeStockQty;
         material.LeadTimeDays = dto.LeadTimeDays;
         material.BarCode = dto.PartNo.ToLower();
@@ -104,7 +192,8 @@ public class MasterDataController : ControllerBase
             PartNo = material.PartNo,
             Name = material.Name,
             Specification = material.Specification ?? "",
-            Station = material.Station ?? "",
+            Supplier = material.Supplier ?? "",
+            Manufacturer = material.Manufacturer ?? "",
             SafeStockQty = material.SafeStockQty,
             LeadTimeDays = material.LeadTimeDays
         };

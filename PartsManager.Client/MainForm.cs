@@ -306,7 +306,9 @@ namespace PartsManager.Client
                     
                     if (result.IsLowStock)
                     {
-                        LowStockWarningForm.ShowAlert(result.LowStockMessage);
+                        string template = LocalizationService.GetString("Msg_LowStockAlert");
+                        string lowStockMsg = string.Format(template, result.TotalQuantity.ToString("N0"), result.SafeStockQty);
+                        LowStockWarningForm.ShowAlert(lowStockMsg);
                     }
 
                     txtBarcode.Clear();

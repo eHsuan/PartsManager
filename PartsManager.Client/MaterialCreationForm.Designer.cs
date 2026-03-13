@@ -17,6 +17,7 @@ namespace PartsManager.Client
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPartNo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -28,9 +29,16 @@ namespace PartsManager.Client
             this.label5 = new System.Windows.Forms.Label();
             this.txtLeadTime = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtStation = new System.Windows.Forms.TextBox();
+            this.txtSupplier = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtManufacturer = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.grpAttachments = new System.Windows.Forms.GroupBox();
+            this.pnlAttachments = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.toolTipAttachment = new System.Windows.Forms.ToolTip(this.components);
+            this.grpAttachments.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -136,18 +144,68 @@ namespace PartsManager.Client
             this.label6.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
             this.label6.Location = new System.Drawing.Point(30, 260);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(102, 19);
-            this.label6.TabIndex = 9;
-            this.label6.Tag = "Label_Station";
-            this.label6.Text = "站別 (Station)";
+            this.label6.Size = new System.Drawing.Size(118, 19);
+            this.label6.TabIndex = 10;
+            this.label6.Tag = "Label_Supplier";
+            this.label6.Text = "供應商 (Supplier)";
             // 
-            // txtStation
+            // txtSupplier
             // 
-            this.txtStation.Font = new System.Drawing.Font("Microsoft JhengHei", 12F);
-            this.txtStation.Location = new System.Drawing.Point(30, 282);
-            this.txtStation.Name = "txtStation";
-            this.txtStation.Size = new System.Drawing.Size(250, 29);
-            this.txtStation.TabIndex = 5;
+            this.txtSupplier.Font = new System.Drawing.Font("Microsoft JhengHei", 12F);
+            this.txtSupplier.Location = new System.Drawing.Point(30, 282);
+            this.txtSupplier.Name = "txtSupplier";
+            this.txtSupplier.Size = new System.Drawing.Size(420, 29);
+            this.txtSupplier.TabIndex = 5;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
+            this.label7.Location = new System.Drawing.Point(30, 320);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(154, 19);
+            this.label7.TabIndex = 12;
+            this.label7.Tag = "Label_Manufacturer";
+            this.label7.Text = "製造商 (Manufacturer)";
+            // 
+            // txtManufacturer
+            // 
+            this.txtManufacturer.Font = new System.Drawing.Font("Microsoft JhengHei", 12F);
+            this.txtManufacturer.Location = new System.Drawing.Point(30, 342);
+            this.txtManufacturer.Name = "txtManufacturer";
+            this.txtManufacturer.Size = new System.Drawing.Size(420, 29);
+            this.txtManufacturer.TabIndex = 6;
+            // 
+            // grpAttachments
+            // 
+            this.grpAttachments.Controls.Add(this.pnlAttachments);
+            this.grpAttachments.Controls.Add(this.btnUpload);
+            this.grpAttachments.Font = new System.Drawing.Font("Microsoft JhengHei", 10F);
+            this.grpAttachments.ForeColor = System.Drawing.Color.White;
+            this.grpAttachments.Location = new System.Drawing.Point(30, 385);
+            this.grpAttachments.Name = "grpAttachments";
+            this.grpAttachments.Size = new System.Drawing.Size(420, 110);
+            this.grpAttachments.TabIndex = 13;
+            this.grpAttachments.TabStop = false;
+            this.grpAttachments.Text = "附件 (Attachments - Max 2 PDF)";
+            // 
+            // pnlAttachments
+            // 
+            this.pnlAttachments.AutoScroll = true;
+            this.pnlAttachments.Location = new System.Drawing.Point(110, 20);
+            this.pnlAttachments.Name = "pnlAttachments";
+            this.pnlAttachments.Size = new System.Drawing.Size(304, 84);
+            this.pnlAttachments.TabIndex = 1;
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(10, 30);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(90, 60);
+            this.btnUpload.TabIndex = 0;
+            this.btnUpload.Text = "Upload PDF";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // btnSave
             // 
@@ -156,10 +214,10 @@ namespace PartsManager.Client
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(130, 340);
+            this.btnSave.Location = new System.Drawing.Point(130, 510);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(140, 40);
-            this.btnSave.TabIndex = 6;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Tag = "Btn_Save";
             this.btnSave.Text = "儲存";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -172,10 +230,10 @@ namespace PartsManager.Client
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(290, 340);
+            this.btnCancel.Location = new System.Drawing.Point(290, 510);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Tag = "Btn_Cancel";
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -185,10 +243,13 @@ namespace PartsManager.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 410);
+            this.ClientSize = new System.Drawing.Size(500, 570);
+            this.Controls.Add(this.grpAttachments);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtStation);
+            this.Controls.Add(this.txtManufacturer);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtSupplier);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtLeadTime);
             this.Controls.Add(this.label5);
@@ -207,6 +268,7 @@ namespace PartsManager.Client
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Tag = "MaterialCreationForm";
             this.Text = "建立物料資訊 (New Material)";
+            this.grpAttachments.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,8 +287,14 @@ namespace PartsManager.Client
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLeadTime;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtStation;
+        private System.Windows.Forms.TextBox txtSupplier;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtManufacturer;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.GroupBox grpAttachments;
+        private System.Windows.Forms.FlowLayoutPanel pnlAttachments;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.ToolTip toolTipAttachment;
     }
 }

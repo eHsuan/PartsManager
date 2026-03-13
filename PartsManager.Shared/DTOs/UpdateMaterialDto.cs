@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace PartsManager.Shared.DTOs
 {
@@ -10,13 +10,17 @@ namespace PartsManager.Shared.DTOs
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Specification { get; set; }
 
-        public string Station { get; set; } // ?�援修改站別
+        [Required]
+        public string Supplier { get; set; }
+
+        [Required]
+        public string Manufacturer { get; set; }
 
         public int SafeStockQty { get; set; }
 
         public int LeadTimeDays { get; set; }
     }
 }
-

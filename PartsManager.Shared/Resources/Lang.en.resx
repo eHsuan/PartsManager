@@ -55,7 +55,8 @@
   <data name="Label_Specification" xml:space="preserve"><value>Specification</value></data>
   <data name="Label_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
   <data name="Label_LeadTime" xml:space="preserve"><value>Lead Days</value></data>
-  <data name="Label_Station" xml:space="preserve"><value>Station</value></data>
+  <data name="Label_Supplier" xml:space="preserve"><value>Supplier</value></data>
+  <data name="Label_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
   <data name="Msg_SaveSuccess" xml:space="preserve"><value>Save successful</value></data>
   <data name="Msg_CreateSuccess" xml:space="preserve"><value>Created!\nPart No: {0}\nBarcode: {1}</value></data>
   <data name="Msg_PartNoRequired" xml:space="preserve"><value>Please enter Part No</value></data>
@@ -66,7 +67,8 @@
   <data name="Col_Name" xml:space="preserve"><value>Material Name</value></data>
   <data name="Col_Spec" xml:space="preserve"><value>Specification</value></data>
   <data name="Col_PartNo" xml:space="preserve"><value>Part No</value></data>
-  <data name="Col_Station" xml:space="preserve"><value>Station</value></data>
+  <data name="Col_Supplier" xml:space="preserve"><value>Supplier</value></data>
+  <data name="Col_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
   <data name="Col_Warehouse" xml:space="preserve"><value>Warehouse</value></data>
   <data name="Col_Qty" xml:space="preserve"><value>Quantity</value></data>
   <data name="Col_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
@@ -100,4 +102,17 @@
   <data name="Specification" xml:space="preserve"><value>Spec</value></data>
   <data name="TotalQuantity" xml:space="preserve"><value>Total Qty</value></data>
   <data name="SafeStockQty" xml:space="preserve"><value>Safe Stock</value></data>
+  <data name="Common_Info" xml:space="preserve"><value>Info</value></data>
+  <data name="Common_Error" xml:space="preserve"><value>Error</value></data>
+  <data name="Label_PartNoPrefix" xml:space="preserve"><value>Part No:</value></data>
+  <data name="Label_ReprintHeader" xml:space="preserve"><value>[ Label Reprint ]</value></data>
+  <data name="Msg_LoadWarehouseError" xml:space="preserve"><value>Failed to load warehouse list:</value></data>
+  <data name="Msg_SearchError" xml:space="preserve"><value>Error occurred while searching inventory:</value></data>
+  <data name="Msg_DeleteError" xml:space="preserve"><value>Error occurred while deleting material:</value></data>
+  <data name="MaterialEditForm" xml:space="preserve"><value>Material Master Edit (Edit Mode)</value></data>
+  <data name="Msg_LoadMaterialError" xml:space="preserve"><value>Failed to load material info:</value></data>
+  <data name="Msg_SaveError" xml:space="preserve"><value>Error occurred while saving material:</value></data>
+  <data name="Common_Success" xml:space="preserve"><value>Success</value></data>
+  <data name="Menu_Settings" xml:space="preserve"><value>⚙ Settings</value></data>
+  <data name="Setting_EnablePrinting" xml:space="preserve"><value>Enable Label Printing</value></data>
 </root>

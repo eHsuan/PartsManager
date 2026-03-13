@@ -10,9 +10,14 @@ namespace PartsManager.Shared.DTOs
         [Required]
         public string Name { get; set; }
 
-        public string Specification { get; set; }
+        [Required]
+        public string Specification { get; set; } = "None";
 
-        public string Station { get; set; }
+        [Required]
+        public string Supplier { get; set; } = "None";
+
+        [Required]
+        public string Manufacturer { get; set; } = "None";
 
         public int SafeStockQty { get; set; }
 

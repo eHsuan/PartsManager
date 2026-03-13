@@ -17,6 +17,7 @@ public class AppDbContext : DbContext
     public DbSet<Rel_MachineBOM> Rel_MachineBOM { get; set; }
     public DbSet<Sys_SyncLogs> Sys_SyncLogs { get; set; }
     public DbSet<Sys_Users> Sys_Users { get; set; }
+    public DbSet<Mdm_MaterialAttachments> Mdm_MaterialAttachments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

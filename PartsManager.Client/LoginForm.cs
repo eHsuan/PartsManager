@@ -54,7 +54,9 @@ namespace PartsManager.Client
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("請輸入帳號與密碼", "提示");
+                MessageBox.Show(LocalizationService.GetString("Msg_InputRequired"), 
+                                LocalizationService.GetString("Common_Info"), 
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -74,7 +76,16 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "登入失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // 檢查是否為 401 Unauthorized (不論是在 Message 中還是透過 StatusCode)
+                bool isAuthError = ex.Message.Contains("401") || ex.Message.Contains("Unauthorized");
+
+                string errorMsg = isAuthError 
+                    ? LocalizationService.GetString("Msg_LoginFailed") 
+                    : ex.Message;
+
+                MessageBox.Show(errorMsg, 
+                                LocalizationService.GetString("Common_Error"), 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
