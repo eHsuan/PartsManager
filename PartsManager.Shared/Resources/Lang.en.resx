@@ -1,118 +1,502 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="App_Title" xml:space="preserve"><value>Parts Management System</value></data>
-  <data name="Menu_Inbound" xml:space="preserve"><value>Inbound</value></data>
-  <data name="Menu_Outbound" xml:space="preserve"><value>Outbound</value></data>
-  <data name="Menu_Query" xml:space="preserve"><value>Inventory Query</value></data>
-  <data name="Menu_CreateMaterial" xml:space="preserve"><value>Create Material</value></data>
-  <data name="Menu_UserMgmt" xml:space="preserve"><value>User Management</value></data>
-  <data name="Btn_Login" xml:space="preserve"><value>Login</value></data>
-  <data name="Btn_Confirm" xml:space="preserve"><value>Confirm</value></data>
-  <data name="Btn_Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="Btn_Save" xml:space="preserve"><value>Save</value></data>
-  <data name="Btn_Search" xml:space="preserve"><value>🔍 Search</value></data>
-  <data name="Msg_LoginFailed" xml:space="preserve"><value>Invalid Username or Password</value></data>
-  <data name="Msg_ServerOnline" xml:space="preserve"><value>Server Online</value></data>
-  <data name="Msg_ServerOffline" xml:space="preserve"><value>Server Offline</value></data>
-  <data name="Label_Username" xml:space="preserve"><value>Username</value></data>
-  <data name="Label_Password" xml:space="preserve"><value>Password</value></data>
-  <data name="Label_PartNo" xml:space="preserve"><value>Part No</value></data>
-  <data name="Label_Name" xml:space="preserve"><value>Name</value></data>
-  <data name="Label_Qty" xml:space="preserve"><value>Quantity</value></data>
-  <data name="Label_MaterialName" xml:space="preserve"><value>Material:</value></data>
-  <data name="Label_Spec" xml:space="preserve"><value>Spec:</value></data>
-  <data name="Label_CurrentStock" xml:space="preserve"><value>Stock:</value></data>
-  <data name="Label_OpWarehouse" xml:space="preserve"><value>Warehouse:</value></data>
-  <data name="Label_ScanBarcode" xml:space="preserve"><value>Please scan barcode:</value></data>
-  <data name="Status_Ready" xml:space="preserve"><value>System ready, please scan...</value></data>
-  <data name="Status_Searching" xml:space="preserve"><value>Searching...</value></data>
-  <data name="Status_NotFound" xml:space="preserve"><value>Material not found</value></data>
-  <data name="Status_OutboundSuccess" xml:space="preserve"><value>Outbound posted successfully</value></data>
-  <data name="Msg_InputCorrectQty" xml:space="preserve"><value>Please enter a valid quantity</value></data>
-  <data name="Msg_PostFailed" xml:space="preserve"><value>Posting failed:</value></data>
-  <data name="Error_MaterialNotFound" xml:space="preserve"><value>Material with barcode {0} not found</value></data>
-  <data name="InboundForm" xml:space="preserve"><value>Parts Management System - Inbound</value></data>
-  <data name="Btn_ManualInput" xml:space="preserve"><value>Manual</value></data>
-  <data name="Btn_PrintLabel" xml:space="preserve"><value>Reprint Label</value></data>
-  <data name="Btn_Inbound" xml:space="preserve"><value>Confirm INBOUND</value></data>
-  <data name="Label_InboundQty" xml:space="preserve"><value>Inbound Qty</value></data>
-  <data name="Label_TargetWarehouse" xml:space="preserve"><value>Target Warehouse</value></data>
-  <data name="Status_InboundSearching" xml:space="preserve"><value>Searching material...</value></data>
-  <data name="Status_IdentifySuccess" xml:space="preserve"><value>Material identified</value></data>
-  <data name="Status_InboundSuccess" xml:space="preserve"><value>Inbound posted! Barcode: {0}</value></data>
-  <data name="Status_InboundProcessing" xml:space="preserve"><value>Processing inbound...</value></data>
-  <data name="Status_InboundFailed" xml:space="preserve"><value>Inbound failed: {0}</value></data>
-  <data name="Msg_SearchSuccess" xml:space="preserve"><value>Search success! Check if label reprint is needed.</value></data>
-  <data name="Msg_NotFoundCreate" xml:space="preserve"><value>Data '{0}' not found.\nCreate new material master now?</value></data>
-  <data name="Dialog_ManualInputTitle" xml:space="preserve"><value>Manual Query</value></data>
-  <data name="Dialog_ManualInputLabel" xml:space="preserve"><value>Enter Part No:</value></data>
-  <data name="Dialog_NotFoundTitle" xml:space="preserve"><value>Not Found</value></data>
-  <data name="MaterialCreationForm" xml:space="preserve"><value>Material Master Edit</value></data>
-  <data name="Label_Specification" xml:space="preserve"><value>Specification</value></data>
-  <data name="Label_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
-  <data name="Label_LeadTime" xml:space="preserve"><value>Lead Days</value></data>
-  <data name="Label_Supplier" xml:space="preserve"><value>Supplier</value></data>
-  <data name="Label_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
-  <data name="Msg_SaveSuccess" xml:space="preserve"><value>Save successful</value></data>
-  <data name="Msg_CreateSuccess" xml:space="preserve"><value>Created!\nPart No: {0}\nBarcode: {1}</value></data>
-  <data name="Msg_PartNoRequired" xml:space="preserve"><value>Please enter Part No</value></data>
-  <data name="Msg_NameRequired" xml:space="preserve"><value>Please enter Name</value></data>
-  <data name="QueryForm" xml:space="preserve"><value>Inventory Query</value></data>
-  <data name="Label_Keyword" xml:space="preserve"><value>Keyword Search:</value></data>
-  <data name="Btn_ShowAll" xml:space="preserve"><value>Show All</value></data>
-  <data name="Col_Name" xml:space="preserve"><value>Material Name</value></data>
-  <data name="Col_Spec" xml:space="preserve"><value>Specification</value></data>
-  <data name="Col_PartNo" xml:space="preserve"><value>Part No</value></data>
-  <data name="Col_Supplier" xml:space="preserve"><value>Supplier</value></data>
-  <data name="Col_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
-  <data name="Col_Warehouse" xml:space="preserve"><value>Warehouse</value></data>
-  <data name="Col_Qty" xml:space="preserve"><value>Quantity</value></data>
-  <data name="Col_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
-  <data name="Col_LeadTime" xml:space="preserve"><value>Lead Time(D)</value></data>
-  <data name="Menu_Edit" xml:space="preserve"><value>Edit</value></data>
-  <data name="Menu_Delete" xml:space="preserve"><value>Delete</value></data>
-  <data name="Msg_DeleteConfirm" xml:space="preserve"><value>Delete '{0}' ({1})? \nThis cannot be undone.</value></data>
-  <data name="Msg_DeleteSuccess" xml:space="preserve"><value>Delete success</value></data>
-  <data name="Tray_OpenLogs" xml:space="preserve"><value>Open Logs Folder</value></data>
-  <data name="Tray_Exit" xml:space="preserve"><value>Exit API Server</value></data>
-  <data name="Tray_WarnClose" xml:space="preserve"><value>Are you sure to exit? This will stop the client service.</value></data>
-  <data name="Tray_WarnTitle" xml:space="preserve"><value>Warning</value></data>
-  <data name="UserMgmtForm" xml:space="preserve"><value>User Management</value></data>
-  <data name="Btn_AddUser" xml:space="preserve"><value>Add User</value></data>
-  <data name="Btn_DeleteUser" xml:space="preserve"><value>Delete User</value></data>
-  <data name="Label_UserLevel" xml:space="preserve"><value>User Level</value></data>
-  <data name="Msg_DeleteUserConfirm" xml:space="preserve"><value>Are you sure to delete user '{0}'?</value></data>
-  <data name="Msg_InputRequired" xml:space="preserve"><value>Username and Password are required</value></data>
-  <data name="UserID" xml:space="preserve"><value>ID</value></data>
-  <data name="Username" xml:space="preserve"><value>Username</value></data>
-  <data name="UserLevel" xml:space="preserve"><value>User Level</value></data>
-  <data name="IsActive" xml:space="preserve"><value>Is Active</value></data>
-  <data name="Label_AddAccount" xml:space="preserve"><value>Add Account</value></data>
-  <data name="Msg_LowStockAlert" xml:space="preserve"><value>Total factory stock is only {0}, reached safe level ({1})! Please notify procurement.</value></data>
-  <data name="UI_Acknowledge" xml:space="preserve"><value>Acknowledge</value></data>
-  <data name="UI_LowStockDashboard" xml:space="preserve"><value>Factory Low Safety Stock Dashboard</value></data>
-  <data name="Menu_LowStock" xml:space="preserve"><value>Low Safety Stock Board</value></data>
-  <data name="UI_Refresh" xml:space="preserve"><value>Refresh</value></data>
-  <data name="PartNo" xml:space="preserve"><value>Part No</value></data>
-  <data name="Name" xml:space="preserve"><value>Name</value></data>
-  <data name="Specification" xml:space="preserve"><value>Spec</value></data>
-  <data name="TotalQuantity" xml:space="preserve"><value>Total Qty</value></data>
-  <data name="SafeStockQty" xml:space="preserve"><value>Safe Stock</value></data>
-  <data name="Common_Info" xml:space="preserve"><value>Info</value></data>
-  <data name="Common_Error" xml:space="preserve"><value>Error</value></data>
-  <data name="Label_PartNoPrefix" xml:space="preserve"><value>Part No:</value></data>
-  <data name="Label_ReprintHeader" xml:space="preserve"><value>[ Label Reprint ]</value></data>
-  <data name="Msg_LoadWarehouseError" xml:space="preserve"><value>Failed to load warehouse list:</value></data>
-  <data name="Msg_SearchError" xml:space="preserve"><value>Error occurred while searching inventory:</value></data>
-  <data name="Msg_DeleteError" xml:space="preserve"><value>Error occurred while deleting material:</value></data>
-  <data name="MaterialEditForm" xml:space="preserve"><value>Material Master Edit (Edit Mode)</value></data>
-  <data name="Msg_LoadMaterialError" xml:space="preserve"><value>Failed to load material info:</value></data>
-  <data name="Msg_SaveError" xml:space="preserve"><value>Error occurred while saving material:</value></data>
-  <data name="Common_Success" xml:space="preserve"><value>Success</value></data>
-  <data name="Menu_Settings" xml:space="preserve"><value>⚙ Settings</value></data>
-  <data name="Setting_EnablePrinting" xml:space="preserve"><value>Enable Label Printing</value></data>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>Parts Management System</value>
+  </data>
+  <data name="Menu_Inbound" xml:space="preserve">
+    <value>Inbound</value>
+  </data>
+  <data name="Menu_Outbound" xml:space="preserve">
+    <value>Outbound</value>
+  </data>
+  <data name="Menu_Query" xml:space="preserve">
+    <value>Inventory Query</value>
+  </data>
+  <data name="Menu_CreateMaterial" xml:space="preserve">
+    <value>Create Material</value>
+  </data>
+  <data name="Menu_UserMgmt" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Btn_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Btn_Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Btn_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Btn_Search" xml:space="preserve">
+    <value>🔍 Search</value>
+  </data>
+  <data name="Msg_LoginFailed" xml:space="preserve">
+    <value>Invalid Username or Password</value>
+  </data>
+  <data name="Msg_ServerOnline" xml:space="preserve">
+    <value>Server Online</value>
+  </data>
+  <data name="Msg_ServerOffline" xml:space="preserve">
+    <value>Server Offline</value>
+  </data>
+  <data name="Label_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Label_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Label_PartNo" xml:space="preserve">
+    <value>Part No</value>
+  </data>
+  <data name="Label_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Label_Qty" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Label_MaterialName" xml:space="preserve">
+    <value>Material:</value>
+  </data>
+  <data name="Label_Spec" xml:space="preserve">
+    <value>Spec:</value>
+  </data>
+  <data name="Label_CurrentStock" xml:space="preserve">
+    <value>Stock:</value>
+  </data>
+  <data name="Label_OpWarehouse" xml:space="preserve">
+    <value>Warehouse:</value>
+  </data>
+  <data name="Label_ScanBarcode" xml:space="preserve">
+    <value>Please scan barcode:</value>
+  </data>
+  <data name="Status_Ready" xml:space="preserve">
+    <value>System ready, please scan...</value>
+  </data>
+  <data name="Status_Searching" xml:space="preserve">
+    <value>Searching...</value>
+  </data>
+  <data name="Status_NotFound" xml:space="preserve">
+    <value>Material not found</value>
+  </data>
+  <data name="Status_OutboundSuccess" xml:space="preserve">
+    <value>Outbound posted successfully</value>
+  </data>
+  <data name="Msg_InputCorrectQty" xml:space="preserve">
+    <value>Please enter a valid quantity</value>
+  </data>
+  <data name="Msg_PostFailed" xml:space="preserve">
+    <value>Posting failed:</value>
+  </data>
+  <data name="Error_MaterialNotFound" xml:space="preserve">
+    <value>Material with barcode {0} not found</value>
+  </data>
+  <data name="InboundForm" xml:space="preserve">
+    <value>Parts Management System - Inbound</value>
+  </data>
+  <data name="LoginForm" xml:space="preserve">
+    <value>Parts Management System - Login</value>
+  </data>
+  <data name="Btn_ManualInput" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="Btn_PrintLabel" xml:space="preserve">
+    <value>Reprint Label</value>
+  </data>
+  <data name="Btn_Inbound" xml:space="preserve">
+    <value>Confirm INBOUND</value>
+  </data>
+  <data name="Label_InboundQty" xml:space="preserve">
+    <value>Inbound Qty</value>
+  </data>
+  <data name="Label_TargetWarehouse" xml:space="preserve">
+    <value>Target Warehouse</value>
+  </data>
+  <data name="Status_InboundSearching" xml:space="preserve">
+    <value>Searching material...</value>
+  </data>
+  <data name="Status_IdentifySuccess" xml:space="preserve">
+    <value>Material identified</value>
+  </data>
+  <data name="Status_InboundSuccess" xml:space="preserve">
+    <value>Inbound posted! Barcode: {0}</value>
+  </data>
+  <data name="Status_InboundProcessing" xml:space="preserve">
+    <value>Processing inbound...</value>
+  </data>
+  <data name="Status_InboundFailed" xml:space="preserve">
+    <value>Inbound failed: {0}</value>
+  </data>
+  <data name="Msg_SearchSuccess" xml:space="preserve">
+    <value>Search success! Check if label reprint is needed.</value>
+  </data>
+  <data name="Msg_NotFoundCreate" xml:space="preserve">
+    <value>Data '{0}' not found.\nCreate new material master now?</value>
+  </data>
+  <data name="Dialog_ManualInputTitle" xml:space="preserve">
+    <value>Manual Query</value>
+  </data>
+  <data name="Dialog_ManualInputLabel" xml:space="preserve">
+    <value>Enter Part No:</value>
+  </data>
+  <data name="Dialog_NotFoundTitle" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="MaterialCreationForm" xml:space="preserve">
+    <value>Material Master Edit</value>
+  </data>
+  <data name="Label_Specification" xml:space="preserve">
+    <value>Specification</value>
+  </data>
+  <data name="Label_SafeStock" xml:space="preserve">
+    <value>Safe Stock</value>
+  </data>
+  <data name="Label_LeadTime" xml:space="preserve">
+    <value>Lead Days</value>
+  </data>
+  <data name="Label_Supplier" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="Label_Manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="Msg_SaveSuccess" xml:space="preserve">
+    <value>Save successful</value>
+  </data>
+  <data name="Msg_CreateSuccess" xml:space="preserve">
+    <value>Created!\nPart No: {0}\nBarcode: {1}</value>
+  </data>
+  <data name="Msg_PartNoRequired" xml:space="preserve">
+    <value>Please enter Part No</value>
+  </data>
+  <data name="Msg_NameRequired" xml:space="preserve">
+    <value>Please enter Name</value>
+  </data>
+  <data name="QueryForm" xml:space="preserve">
+    <value>Inventory Query</value>
+  </data>
+  <data name="Label_Keyword" xml:space="preserve">
+    <value>Keyword Search:</value>
+  </data>
+  <data name="Btn_ShowAll" xml:space="preserve">
+    <value>Show All</value>
+  </data>
+  <data name="Col_Name" xml:space="preserve">
+    <value>Material Name</value>
+  </data>
+  <data name="Col_Spec" xml:space="preserve">
+    <value>Specification</value>
+  </data>
+  <data name="Col_PartNo" xml:space="preserve">
+    <value>Part No</value>
+  </data>
+  <data name="Col_Supplier" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="Col_Manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="Col_Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="Col_Qty" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Col_SafeStock" xml:space="preserve">
+    <value>Safe Stock</value>
+  </data>
+  <data name="Col_LeadTime" xml:space="preserve">
+    <value>Lead Time(D)</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Menu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Msg_DeleteConfirm" xml:space="preserve">
+    <value>Delete '{0}' ({1})? \nThis cannot be undone.</value>
+  </data>
+  <data name="Msg_DeleteSuccess" xml:space="preserve">
+    <value>Delete success</value>
+  </data>
+  <data name="Tray_OpenLogs" xml:space="preserve">
+    <value>Open Logs Folder</value>
+  </data>
+  <data name="Tray_Exit" xml:space="preserve">
+    <value>Exit API Server</value>
+  </data>
+  <data name="Tray_WarnClose" xml:space="preserve">
+    <value>Are you sure to exit? This will stop the client service.</value>
+  </data>
+  <data name="Tray_WarnTitle" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="UserMgmtForm" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Btn_AddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
+  <data name="Btn_DeleteUser" xml:space="preserve">
+    <value>Delete User</value>
+  </data>
+  <data name="Label_UserLevel" xml:space="preserve">
+    <value>User Level</value>
+  </data>
+  <data name="Msg_DeleteUserConfirm" xml:space="preserve">
+    <value>Are you sure to delete user '{0}'?</value>
+  </data>
+  <data name="Msg_InputRequired" xml:space="preserve">
+    <value>Username and Password are required</value>
+  </data>
+  <data name="UserID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="UserLevel" xml:space="preserve">
+    <value>User Level</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Is Active</value>
+  </data>
+  <data name="Label_AddAccount" xml:space="preserve">
+    <value>Add Account</value>
+  </data>
+  <data name="Msg_LowStockAlert" xml:space="preserve">
+    <value>Total factory stock is only {0}, reached safe level ({1})! Please notify procurement.</value>
+  </data>
+  <data name="UI_Acknowledge" xml:space="preserve">
+    <value>Acknowledge</value>
+  </data>
+  <data name="UI_LowStockDashboard" xml:space="preserve">
+    <value>Factory Low Safety Stock Dashboard</value>
+  </data>
+  <data name="Menu_LowStock" xml:space="preserve">
+    <value>Low Safety Stock Board</value>
+  </data>
+  <data name="UI_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="PartNo" xml:space="preserve">
+    <value>Part No</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Specification" xml:space="preserve">
+    <value>Spec</value>
+  </data>
+  <data name="TotalQuantity" xml:space="preserve">
+    <value>Total Qty</value>
+  </data>
+  <data name="SafeStockQty" xml:space="preserve">
+    <value>Safe Stock</value>
+  </data>
+  <data name="Common_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Label_PartNoPrefix" xml:space="preserve">
+    <value>Part No:</value>
+  </data>
+  <data name="Label_ReprintHeader" xml:space="preserve">
+    <value>[ Label Reprint ]</value>
+  </data>
+  <data name="Msg_LoadWarehouseError" xml:space="preserve">
+    <value>Failed to load warehouse list:</value>
+  </data>
+  <data name="Msg_SearchError" xml:space="preserve">
+    <value>Error occurred while searching inventory:</value>
+  </data>
+  <data name="Msg_DeleteError" xml:space="preserve">
+    <value>Error occurred while deleting material:</value>
+  </data>
+  <data name="MaterialEditForm" xml:space="preserve">
+    <value>Material Master Edit (Edit Mode)</value>
+  </data>
+  <data name="Msg_LoadMaterialError" xml:space="preserve">
+    <value>Failed to load material info:</value>
+  </data>
+  <data name="Msg_SaveError" xml:space="preserve">
+    <value>Error occurred while saving material:</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>⚙ Settings</value>
+  </data>
+  <data name="Setting_EnablePrinting" xml:space="preserve">
+    <value>Enable Label Printing</value>
+  </data>
+  <data name="Col_Attachment1" xml:space="preserve">
+    <value>Attachment 1</value>
+  </data>
+  <data name="Col_Attachment2" xml:space="preserve">
+    <value>Attachment 2</value>
+  </data>
+  <data name="Msg_MaxAttachments" xml:space="preserve">
+    <value>Max 2 attachments per material.</value>
+  </data>
+  <data name="Label_Attachments" xml:space="preserve">
+    <value>Attachments (Max 2 PDF)</value>
+  </data>
+  <data name="Btn_UploadPDF" xml:space="preserve">
+    <value>Upload PDF</value>
+  </data>
+  <data name="Msg_CannotOpenFile" xml:space="preserve">
+    <value>Unable to open file:</value>
+  </data>
+  <data name="Msg_AutoLogout" xml:space="preserve">
+    <value>Idle timeout, system has logged out automatically.</value>
+  </data>
+  <data name="Col_Att1" xml:space="preserve">
+    <value>Attachment 1</value>
+  </data>
+  <data name="Col_Att2" xml:space="preserve">
+    <value>Attachment 2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Menu_BatchImport" xml:space="preserve"><value>Batch Import</value></data>
+  <data name="Btn_DownloadTemplate" xml:space="preserve"><value>Download Template</value></data>
+  <data name="Btn_ImportFile" xml:space="preserve"><value>Import Materials</value></data>
+  <data name="Label_ImportLog" xml:space="preserve"><value>Import Log:</value></data>
+  <data name="Msg_TemplateSaved" xml:space="preserve"><value>Template saved to: {0}</value></data>
+  <data name="Msg_Importing" xml:space="preserve"><value>Importing {0}/{1}...</value></data>
+  <data name="Log_Success" xml:space="preserve"><value>[SUCCESS] P/N {0}: Imported</value></data>
+  <data name="Log_Duplicate" xml:space="preserve"><value>[SKIP] P/N {0}: Already exists</value></data>
+  <data name="Log_FileNotFound" xml:space="preserve"><value>[FAILED] P/N {0}: Attachment '{1}' not found</value></data>
+  <data name="Log_DataIncomplete" xml:space="preserve"><value>[FAILED] P/N {0}: Data incomplete</value></data>
+  <data name="Log_ApiError" xml:space="preserve"><value>[FAILED] P/N {0}: API error - {1}</value></data>
+  <data name="BatchImportForm" xml:space="preserve"><value>Batch Material Import</value></data>
+  <data name="Msg_ImportComplete" xml:space="preserve"><value>Batch import complete! Success: {0}, Failed: {1}</value></data>
+  <data name="Label_InitialStock" xml:space="preserve"><value>Initial Stock Qty</value></data>
+  <data name="Label_InitialWarehouse" xml:space="preserve"><value>Initial Warehouse</value></data>
+  <data name="PdfIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\doc\ImagePDF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

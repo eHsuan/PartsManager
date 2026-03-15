@@ -23,7 +23,11 @@ namespace PartsManager.Shared.DTOs
 
         public int LeadTimeDays { get; set; }
 
-        public byte SourceType { get; set; } = 1; // ?�設 1: Line-Side Purchased
+        public decimal InitialStock { get; set; }
+
+        public int? WarehouseId { get; set; }
+
+        public byte SourceType { get; set; } = 1; // 預設 1: Line-Side Purchased
     }
 }
 

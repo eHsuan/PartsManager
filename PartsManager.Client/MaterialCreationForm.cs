@@ -42,8 +42,14 @@ namespace PartsManager.Client
 
         private async void MaterialCreationForm_Load(object sender, EventArgs e)
         {
+            await LoadWarehousesAsync();
+
             if (_materialId.HasValue)
             {
+                // 編輯模式下禁用期初庫存設定
+                numInitialStock.Enabled = false;
+                cmbInitialWarehouse.Enabled = false;
+
                 try
                 {
                     var material = await _apiClient.GetMaterialAsync(_materialId.Value);
@@ -72,12 +78,32 @@ namespace PartsManager.Client
             }
         }
 
+        private async System.Threading.Tasks.Task LoadWarehousesAsync()
+        {
+            try
+            {
+                var warehouses = await _apiClient.GetWarehousesAsync();
+                cmbInitialWarehouse.DisplayMember = "WarehouseName";
+                cmbInitialWarehouse.ValueMember = "WarehouseID";
+                cmbInitialWarehouse.DataSource = warehouses;
+
+                // 設定預設倉庫
+                int defaultWhId = GlobalSettings.DefaultWarehouseId;
+                cmbInitialWarehouse.SelectedValue = defaultWhId;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_LoadWarehouseError") + ex.Message);
+            }
+        }
+
         private void btnUpload_Click(object sender, EventArgs e)
         {
             int currentTotal = _existingAttachments.Count + _pendingFiles.Count;
             if (currentTotal >= 2)
             {
-                MessageBox.Show("每個物料最多只能上傳 2 個附件。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LocalizationService.GetString("Msg_MaxAttachments"), 
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -132,7 +158,10 @@ namespace PartsManager.Client
                 else {
                     try {
                         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(localPath) { UseShellExecute = true });
-                    } catch (Exception ex) { MessageBox.Show("無法開啟檔案: " + ex.Message); }
+                    } catch (Exception ex) { 
+                        MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
+                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                    }
                 }
             };
 
@@ -180,7 +209,11 @@ namespace PartsManager.Client
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempPath) { UseShellExecute = true });
                 }
             }
-            catch (Exception ex) { MessageBox.Show("無法開啟檔案: " + ex.Message); }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message,
+                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
@@ -230,6 +263,8 @@ namespace PartsManager.Client
                         Manufacturer = txtManufacturer.Text.Trim(),
                         SafeStockQty = safeStock,
                         LeadTimeDays = leadTime,
+                        InitialStock = numInitialStock.Value,
+                        WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
                         SourceType = 1
                     };
                     var result = await _apiClient.CreateMaterialAsync(dto);

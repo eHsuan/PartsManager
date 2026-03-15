@@ -13,6 +13,7 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    builder.Configuration.AddIniFile("config.ini", optional: true, reloadOnChange: true);
     builder.Host.UseSerilog();
 
     builder.Services.AddEndpointsApiExplorer();

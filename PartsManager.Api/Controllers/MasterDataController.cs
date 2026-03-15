@@ -128,6 +128,38 @@ public class MasterDataController : ControllerBase
         _context.Mdm_Materials.Add(material);
         await _context.SaveChangesAsync();
 
+        // --- 初始化庫存邏輯 ---
+        if (dto.InitialStock > 0)
+        {
+            int targetWhId = dto.WarehouseId ?? 1; // 若未指定則預設為 1 號倉庫
+            
+            // 1. 更新或建立目前庫存
+            var stock = new Inv_CurrentStock
+            {
+                MaterialID = material.MaterialID,
+                WarehouseID = targetWhId,
+                Quantity = dto.InitialStock,
+                LastUpdated = DateTime.Now
+            };
+            _context.Inv_CurrentStock.Add(stock);
+
+            // 2. 寫入交易紀錄
+            var transaction = new Inv_Transactions
+            {
+                MaterialID = material.MaterialID,
+                WarehouseID = targetWhId,
+                TransType = "IN",
+                ChangeQty = dto.InitialStock,
+                AfterQty = dto.InitialStock,
+                TransTime = DateTime.Now,
+                OperatorID = "SYSTEM_INIT",
+                ReasonCode = "Initial Import"
+            };
+            _context.Inv_Transactions.Add(transaction);
+
+            await _context.SaveChangesAsync();
+        }
+
         var result = new MaterialDto
         {
             MaterialID = material.MaterialID,

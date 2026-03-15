@@ -1,24 +1,45 @@
 using System;
-using System.Configuration;
+using System.IO;
+using PartsManager.Shared;
 
 namespace PartsManager.Client
 {
     public static class GlobalSettings
     {
+        private static IniHelper _ini;
+        private static string _iniPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.ini");
+
         private static bool _enableLabelPrinting;
+        private static string _language;
+        private static int _autoLogoutMinutes;
+        private static string _apiBaseUrl;
+        private static int _defaultWarehouseId;
 
         static GlobalSettings()
         {
-            string val = ConfigurationManager.AppSettings["EnableLabelPrinting"];
-            if (bool.TryParse(val, out bool result))
-            {
-                _enableLabelPrinting = result;
-            }
-            else
-            {
-                _enableLabelPrinting = true; // 預設開啟
-            }
+            _ini = new IniHelper(_iniPath);
+            LoadSettings();
         }
+
+        public static void LoadSettings()
+        {
+            _apiBaseUrl = _ini.Read("Network", "ApiBaseUrl", "http://localhost:5000/");
+            _language = _ini.Read("System", "Language", "zh-TW");
+            
+            string timeoutStr = _ini.Read("System", "AutoLogoutMinutes", "10");
+            int.TryParse(timeoutStr, out _autoLogoutMinutes);
+
+            string whIdStr = _ini.Read("Inventory", "DefaultWarehouseId", "1");
+            int.TryParse(whIdStr, out _defaultWarehouseId);
+
+            string printStr = _ini.Read("Inventory", "EnableLabelPrinting", "true");
+            bool.TryParse(printStr, out _enableLabelPrinting);
+        }
+
+        public static string ApiBaseUrl => _apiBaseUrl;
+        public static string Language => _language;
+        public static int AutoLogoutMinutes => _autoLogoutMinutes;
+        public static int DefaultWarehouseId => _defaultWarehouseId;
 
         public static bool EnableLabelPrinting
         {
@@ -26,29 +47,7 @@ namespace PartsManager.Client
             set
             {
                 _enableLabelPrinting = value;
-                UpdateAppConfig("EnableLabelPrinting", value.ToString().ToLower());
-            }
-        }
-
-        private static void UpdateAppConfig(string key, string value)
-        {
-            try
-            {
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                if (config.AppSettings.Settings[key] == null)
-                {
-                    config.AppSettings.Settings.Add(key, value);
-                }
-                else
-                {
-                    config.AppSettings.Settings[key].Value = value;
-                }
-                config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection("appSettings");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Update Config Error: " + ex.Message);
+                _ini.Write("Inventory", "EnableLabelPrinting", value.ToString().ToLower());
             }
         }
     }

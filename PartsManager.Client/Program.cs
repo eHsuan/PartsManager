@@ -15,7 +15,7 @@ namespace PartsManager.Client
             Application.SetCompatibleTextRenderingDefault(false);
 
             // 初始化語系
-            string lang = System.Configuration.ConfigurationManager.AppSettings["Language"] ?? "zh-TW";
+            string lang = GlobalSettings.Language;
             PartsManager.Shared.Resources.LocalizationService.SetLanguage(lang);
 
             while (true)

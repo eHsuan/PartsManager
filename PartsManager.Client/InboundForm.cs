@@ -21,12 +21,11 @@ namespace PartsManager.Client
             
             // 根據全域設定隱藏列印按鈕
             btnPrintLabel.Visible = GlobalSettings.EnableLabelPrinting;
-            
-            this.Shown += InboundForm_Shown;
         }
 
-        private async void InboundForm_Shown(object sender, EventArgs e)
+        private async void InboundForm_Load(object sender, EventArgs e)
         {
+            btnPrintLabel.Visible = GlobalSettings.EnableLabelPrinting;
             await LoadWarehousesAsync();
         }
 
@@ -118,7 +117,7 @@ namespace PartsManager.Client
             {
                 var info = await _apiClient.GetInventoryAsync(input);
                 lblMaterialName.Text = info.Name;
-                lblSpecification.Text = "P/N: " + info.PartNo;
+                lblSpecification.Text = LocalizationService.GetString("Label_PartNoPrefix") + info.PartNo;
                 lblStatus.Text = LocalizationService.GetString("Status_IdentifySuccess");
                 lblStatus.ForeColor = Color.Lime;
                 txtBarcode.Text = input;
@@ -209,6 +208,7 @@ namespace PartsManager.Client
                 btnInbound.Enabled = true;
             }
         }
+
     }
 
     public static class Prompt

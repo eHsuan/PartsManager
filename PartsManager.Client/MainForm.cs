@@ -28,7 +28,7 @@ namespace PartsManager.Client
             UIStyle.Apply(this);
             I18nHelper.Apply(this); // 套用語系
             InitializeNavigation();
-            _apiClient = new ApiClient(ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/");
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
             
             this.Shown += MainForm_Shown;
             this.Load += MainForm_Load;
@@ -72,8 +72,7 @@ namespace PartsManager.Client
         private void InitializeIdleTimer()
         {
             _lastActivity = DateTime.Now;
-            if (!int.TryParse(ConfigurationManager.AppSettings["AutoLogoutMinutes"], out _timeoutMinutes))
-                _timeoutMinutes = 1;
+            _timeoutMinutes = GlobalSettings.AutoLogoutMinutes;
 
             _idleTimer = new Timer();
             _idleTimer.Interval = 5000;
@@ -128,11 +127,8 @@ namespace PartsManager.Client
                 cmbWarehouse.ValueMember = "Id";
                 cmbWarehouse.DataSource = displayList;
 
-                string defaultIdStr = ConfigurationManager.AppSettings["DefaultWarehouseId"];
-                if (int.TryParse(defaultIdStr, out int defaultId))
-                {
-                    cmbWarehouse.SelectedValue = defaultId;
-                }
+                int defaultId = GlobalSettings.DefaultWarehouseId;
+                cmbWarehouse.SelectedValue = defaultId;
             }
             catch (Exception ex)
             {
@@ -187,6 +183,14 @@ namespace PartsManager.Client
                 form.ShowDialog();
             };
 
+            var btnBatchImport = CreateNavButton(LocalizationService.GetString("Menu_BatchImport"), false);
+            btnBatchImport.Visible = UserSession.UserLevel <= 2;
+            btnBatchImport.Click += (s, e) => {
+                var form = new BatchImportForm();
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.Show();
+            };
+
             // --- 系統設定按鈕 (點擊顯示 ContextMenu) ---
             var btnSettings = CreateNavButton(LocalizationService.GetString("Menu_Settings"), false);
             btnSettings.Dock = DockStyle.Right; // 置右
@@ -211,8 +215,8 @@ namespace PartsManager.Client
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnQuery);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);
+            if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnBatchImport);
             if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnUserMgmt);
-            navPanel.Controls.Add(btnSettings); // 增加設定按鈕
 
             this.Controls.Add(navPanel);
             this.Text = LocalizationService.GetString("App_Title") + $" - {UserSession.Username}";
@@ -278,6 +282,13 @@ namespace PartsManager.Client
             lblMaterialName.Text = "--";
             lblSpecification.Text = "--";
             lblCurrentStock.Text = "0";
+        }
+
+        public async void NavigateToOutboundWithBarcode(string barcode)
+        {
+            this.BringToFront();
+            txtBarcode.Text = barcode;
+            await SearchMaterialAsync();
         }
 
         private async void btnConfirm_Click(object sender, EventArgs e)

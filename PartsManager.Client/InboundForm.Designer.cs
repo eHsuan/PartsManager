@@ -137,7 +137,7 @@ namespace PartsManager.Client
             this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Padding = new System.Windows.Forms.Padding(30, 0, 0, 15);
-            this.lblStatus.Size = new System.Drawing.Size(1012, 75);
+            this.lblStatus.Size = new System.Drawing.Size(1225, 75);
             this.lblStatus.TabIndex = 2;
             this.lblStatus.Tag = "Status_Ready";
             this.lblStatus.Text = "Ready";
@@ -151,7 +151,7 @@ namespace PartsManager.Client
             this.lblMaterialName.Location = new System.Drawing.Point(45, 120);
             this.lblMaterialName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaterialName.Name = "lblMaterialName";
-            this.lblMaterialName.Size = new System.Drawing.Size(1100, 60);
+            this.lblMaterialName.Size = new System.Drawing.Size(1313, 60);
             this.lblMaterialName.TabIndex = 0;
             this.lblMaterialName.Text = "--";
             // 
@@ -164,7 +164,7 @@ namespace PartsManager.Client
             this.lblSpecification.Location = new System.Drawing.Point(45, 240);
             this.lblSpecification.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSpecification.Name = "lblSpecification";
-            this.lblSpecification.Size = new System.Drawing.Size(1100, 300);
+            this.lblSpecification.Size = new System.Drawing.Size(1313, 300);
             this.lblSpecification.TabIndex = 1;
             this.lblSpecification.Text = "--";
             // 
@@ -238,7 +238,7 @@ namespace PartsManager.Client
             this.pnlRight.Location = new System.Drawing.Point(525, 0);
             this.pnlRight.Margin = new System.Windows.Forms.Padding(4);
             this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(1012, 675);
+            this.pnlRight.Size = new System.Drawing.Size(1225, 675);
             this.pnlRight.TabIndex = 1;
             // 
             // label4
@@ -282,6 +282,7 @@ namespace PartsManager.Client
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "InboundForm";
             this.Text = "零件管理系統 - 入庫作業";
+            this.Load += new System.EventHandler(this.InboundForm_Load);
             this.pnlLeft.ResumeLayout(false);
             this.pnlLeft.PerformLayout();
             this.pnlRight.ResumeLayout(false);

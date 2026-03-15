@@ -37,6 +37,9 @@ namespace PartsManager.Client
             this.Col_Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_SafeStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_LeadTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Att1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Col_Att2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.menuOutbound = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.ctxMenu.SuspendLayout();
@@ -114,7 +117,9 @@ namespace PartsManager.Client
             this.Col_Warehouse,
             this.Col_Qty,
             this.Col_SafeStock,
-            this.Col_LeadTime});
+            this.Col_LeadTime,
+            this.Col_Att1,
+            this.Col_Att2});
             this.dgvResults.ContextMenuStrip = this.ctxMenu;
             this.dgvResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvResults.Location = new System.Drawing.Point(0, 70);
@@ -129,7 +134,8 @@ namespace PartsManager.Client
             // 
             this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuEdit,
-            this.menuDelete});
+            this.menuDelete,
+            this.menuOutbound});
             this.ctxMenu.Name = "ctxMenu";
             this.ctxMenu.Size = new System.Drawing.Size(101, 48);
             this.ctxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenu_Opening);
@@ -150,12 +156,41 @@ namespace PartsManager.Client
             this.menuDelete.Text = "刪除";
             this.menuDelete.Click += new System.EventHandler(this.menuDelete_Click);
             // 
+            // menuOutbound
+            // 
+            this.menuOutbound.Name = "menuOutbound";
+            this.menuOutbound.Size = new System.Drawing.Size(100, 22);
+            this.menuOutbound.Tag = "Menu_Outbound";
+            this.menuOutbound.Text = "領料";
+            this.menuOutbound.Click += new System.EventHandler(this.menuOutbound_Click);
+            // 
+            // Col_Att1
+            // 
+            this.Col_Att1.HeaderText = "Att1";
+            this.Col_Att1.Name = "Col_Att1";
+            this.Col_Att1.ReadOnly = true;
+            this.Col_Att1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Att1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_Att1.Tag = "Col_Attachment1";
+            this.Col_Att1.Width = 40;
+            // 
+            // Col_Att2
+            // 
+            this.Col_Att2.HeaderText = "Att2";
+            this.Col_Att2.Name = "Col_Att2";
+            this.Col_Att2.ReadOnly = true;
+            this.Col_Att2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Att2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_Att2.Tag = "Col_Attachment2";
+            this.Col_Att2.Width = 40;
+            // 
             // Col_Name
             // 
             this.Col_Name.DataPropertyName = "Name";
             this.Col_Name.HeaderText = "物料名稱";
             this.Col_Name.Name = "Col_Name";
             this.Col_Name.ReadOnly = true;
+            this.Col_Name.Tag = "Col_Name";
             this.Col_Name.Width = 200;
             // 
             // Col_Spec
@@ -164,6 +199,7 @@ namespace PartsManager.Client
             this.Col_Spec.HeaderText = "規格/型號";
             this.Col_Spec.Name = "Col_Spec";
             this.Col_Spec.ReadOnly = true;
+            this.Col_Spec.Tag = "Col_Spec";
             this.Col_Spec.Width = 200;
             // 
             // Col_PartNo
@@ -172,6 +208,7 @@ namespace PartsManager.Client
             this.Col_PartNo.HeaderText = "料號";
             this.Col_PartNo.Name = "Col_PartNo";
             this.Col_PartNo.ReadOnly = true;
+            this.Col_PartNo.Tag = "Col_PartNo";
             this.Col_PartNo.Width = 150;
             // 
             // Col_Supplier
@@ -180,6 +217,7 @@ namespace PartsManager.Client
             this.Col_Supplier.HeaderText = "供應商";
             this.Col_Supplier.Name = "Col_Supplier";
             this.Col_Supplier.ReadOnly = true;
+            this.Col_Supplier.Tag = "Col_Supplier";
             this.Col_Supplier.Width = 120;
             // 
             // Col_Manufacturer
@@ -188,6 +226,7 @@ namespace PartsManager.Client
             this.Col_Manufacturer.HeaderText = "製造商";
             this.Col_Manufacturer.Name = "Col_Manufacturer";
             this.Col_Manufacturer.ReadOnly = true;
+            this.Col_Manufacturer.Tag = "Col_Manufacturer";
             this.Col_Manufacturer.Width = 120;
             // 
             // Col_Warehouse
@@ -196,6 +235,7 @@ namespace PartsManager.Client
             this.Col_Warehouse.HeaderText = "倉庫";
             this.Col_Warehouse.Name = "Col_Warehouse";
             this.Col_Warehouse.ReadOnly = true;
+            this.Col_Warehouse.Tag = "Col_Warehouse";
             this.Col_Warehouse.Width = 150;
             // 
             // Col_Qty
@@ -204,6 +244,7 @@ namespace PartsManager.Client
             this.Col_Qty.HeaderText = "在庫庫存";
             this.Col_Qty.Name = "Col_Qty";
             this.Col_Qty.ReadOnly = true;
+            this.Col_Qty.Tag = "Col_Qty";
             // 
             // Col_SafeStock
             // 
@@ -211,6 +252,7 @@ namespace PartsManager.Client
             this.Col_SafeStock.HeaderText = "安全庫存";
             this.Col_SafeStock.Name = "Col_SafeStock";
             this.Col_SafeStock.ReadOnly = true;
+            this.Col_SafeStock.Tag = "Col_SafeStock";
             // 
             // Col_LeadTime
             // 
@@ -218,12 +260,13 @@ namespace PartsManager.Client
             this.Col_LeadTime.HeaderText = "交期(天)";
             this.Col_LeadTime.Name = "Col_LeadTime";
             this.Col_LeadTime.ReadOnly = true;
+            this.Col_LeadTime.Tag = "Col_LeadTime";
             // 
             // QueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(1200, 600);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.panelTop);
             this.Name = "QueryForm";
@@ -249,6 +292,9 @@ namespace PartsManager.Client
         private System.Windows.Forms.ContextMenuStrip ctxMenu;
         private System.Windows.Forms.ToolStripMenuItem menuEdit;
         private System.Windows.Forms.ToolStripMenuItem menuDelete;
+        private System.Windows.Forms.ToolStripMenuItem menuOutbound;
+        private System.Windows.Forms.DataGridViewImageColumn Col_Att1;
+        private System.Windows.Forms.DataGridViewImageColumn Col_Att2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;

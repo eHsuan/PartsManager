@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using System.Configuration;
 using PartsManager.Shared.DTOs;
@@ -20,9 +21,66 @@ namespace PartsManager.Client
             // 選單項目手動翻譯
             menuEdit.Text = LocalizationService.GetString("Menu_Edit");
             menuDelete.Text = LocalizationService.GetString("Menu_Delete");
+            menuOutbound.Text = LocalizationService.GetString("Menu_Outbound");
 
             string baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/";
             _apiClient = new ApiClient(baseUrl);
+
+            // 修正：防止沒有圖片時顯示 X，並設定自動縮放
+            Col_Att1.DefaultCellStyle.NullValue = null;
+            Col_Att1.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            Col_Att2.DefaultCellStyle.NullValue = null;
+            Col_Att2.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            dgvResults.CellContentClick += dgvResults_CellContentClick;
+        }
+
+        private async void dgvResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // 檢查是否點擊附件欄位
+            string colName = dgvResults.Columns[e.ColumnIndex].Name;
+            if (colName == "Col_Att1" || colName == "Col_Att2")
+            {
+                var material = dgvResults.Rows[e.RowIndex].DataBoundItem as SparePartSearchResultDto;
+                if (material == null) return;
+
+                int index = colName == "Col_Att1" ? 0 : 1;
+                if (material.AttachmentFileNames != null && material.AttachmentFileNames.Count > index)
+                {
+                    string fileName = material.AttachmentFileNames[index];
+                    try
+                    {
+                        var data = await _apiClient.DownloadAttachmentAsync(material.MaterialId, fileName);
+                        string tempFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), fileName);
+                        System.IO.File.WriteAllBytes(tempFile, data);
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFile) { UseShellExecute = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
+                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void menuOutbound_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var material = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (material != null)
+                {
+                    var mainForm = Application.OpenForms.OfType<MainForm>().FirstOrDefault();
+                    if (mainForm != null)
+                    {
+                        mainForm.NavigateToOutboundWithBarcode(material.PartNo);
+                        this.Close();
+                    }
+                }
+            }
         }
 
         private async void QueryForm_Load(object sender, EventArgs e)
@@ -63,6 +121,20 @@ namespace PartsManager.Client
                 
                 dgvResults.AutoGenerateColumns = false;
                 dgvResults.DataSource = results;
+
+                // 設置附件圖示
+                var pdfIcon = LocalizationService.GetPdfIcon();
+                for (int i = 0; i < dgvResults.Rows.Count; i++)
+                {
+                    var material = dgvResults.Rows[i].DataBoundItem as SparePartSearchResultDto;
+                    if (material != null && material.AttachmentFileNames != null)
+                    {
+                        if (material.AttachmentFileNames.Count > 0)
+                            dgvResults.Rows[i].Cells["Col_Att1"].Value = pdfIcon;
+                        if (material.AttachmentFileNames.Count > 1)
+                            dgvResults.Rows[i].Cells["Col_Att2"].Value = pdfIcon;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -80,12 +152,14 @@ namespace PartsManager.Client
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                if (e.RowIndex >= 0)
                 {
-                    // 右鍵點擊時自動選中該列，但不手動 Show 選單 (交由原生屬性處理)
+                    // 右鍵點擊時自動選中該列
                     dgvResults.ClearSelection();
                     dgvResults.Rows[e.RowIndex].Selected = true;
-                    dgvResults.CurrentCell = dgvResults.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                    // 手動彈出選單，確保在選取後才顯示
+                    ctxMenu.Show(Cursor.Position);
                 }
             }
         }
@@ -95,14 +169,20 @@ namespace PartsManager.Client
             // 權限控管：
             // 編輯：Level 1 & 2
             // 刪除：Level 1 Only
-            menuEdit.Visible = UserSession.UserLevel <= 2;
-            menuDelete.Visible = UserSession.UserLevel == 1;
+            // 領料：Level <= 3 (注意：如果是 0 代表未登入或異常，預設設為不允許)
+            int level = UserSession.UserLevel == 0 ? 99 : UserSession.UserLevel;
 
-            //// 如果沒有任何選項可見，則取消開啟選單
-            //if (!menuEdit.Visible && !menuDelete.Visible)
-            //{
-            //    e.Cancel = true;
-            //}
+            menuEdit.Visible = level <= 2;
+            menuDelete.Visible = level == 1;
+            menuOutbound.Visible = level <= 3;
+
+            // 如果沒有任何選項可見，不要取消事件 (e.Cancel = true 會導致沒反應)
+            // 而是可以考慮加入一個「無權限」的提示項，或者至少讓選單知道發生什麼事
+            if (!menuEdit.Visible && !menuDelete.Visible && !menuOutbound.Visible)
+            {
+                // 為了讓使用者知道「右鍵有反應」，我們顯示選單但不提供功能
+                // 這裡暫不 Cancel，讓空選單或僅有的項目顯示
+            }
         }
 
         private void menuEdit_Click(object sender, EventArgs e)

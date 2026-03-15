@@ -12,6 +12,7 @@
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }
         public int LeadTimeDays { get; set; }
+        public System.Collections.Generic.List<string> AttachmentFileNames { get; set; } = new System.Collections.Generic.List<string>();
     }
 }
 

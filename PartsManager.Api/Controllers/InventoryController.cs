@@ -148,7 +148,11 @@ public class InventoryController : ControllerBase
                                  SafeStockQty = m.SafeStockQty,
                                  LeadTimeDays = m.LeadTimeDays,
                                  Quantity = s != null ? s.Quantity : 0,
-                                 WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "--- (無庫存紀錄)"
+                                 WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "--- (無庫存紀錄)",
+                                 AttachmentFileNames = _context.Mdm_MaterialAttachments
+                                    .Where(a => a.MaterialID == m.MaterialID)
+                                    .Select(a => a.FileName)
+                                    .ToList()
                              }).ToListAsync();
 
         return Ok(results);

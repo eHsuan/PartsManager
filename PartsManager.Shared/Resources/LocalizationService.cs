@@ -45,14 +45,7 @@ namespace PartsManager.Shared.Resources
         {
             try
             {
-                string base64 = _resManager.GetString("PdfIconBase64");
-                if (string.IsNullOrEmpty(base64)) return null;
-
-                byte[] bytes = System.Convert.FromBase64String(base64);
-                using (MemoryStream ms = new MemoryStream(bytes))
-                {
-                    return Image.FromStream(ms);
-                }
+                return _resManager.GetObject("PdfIcon") as Image;
             }
             catch { return null; }
         }
