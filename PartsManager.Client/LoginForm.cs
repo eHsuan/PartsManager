@@ -9,14 +9,18 @@ namespace PartsManager.Client
 {
     public partial class LoginForm : Form
     {
-        private readonly ApiClient _apiClient;
+        private ApiClient _apiClient;
 
         public LoginForm()
         {
             InitializeComponent();
             UIStyle.Apply(this);
             I18nHelper.Apply(this); // 套用語系
-            _apiClient = new ApiClient(ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/");
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+            
+            // 初始化設定欄位
+            txtServerIP.Text = GlobalSettings.ServerIP;
+            txtServerPort.Text = GlobalSettings.ServerPort;
         }
 
         private async void LoginForm_Load(object sender, EventArgs e)
@@ -24,7 +28,7 @@ namespace PartsManager.Client
             await CheckConnectionAsync();
             
             var timer = new Timer();
-            timer.Interval = 5000;
+            timer.Interval = 10000; // 延長至 10 秒檢查一次
             timer.Tick += async (s, ev) => await CheckConnectionAsync();
             timer.Start();
         }
@@ -37,13 +41,56 @@ namespace PartsManager.Client
                 await _apiClient.GetWarehousesAsync();
                 pnlStatus.BackColor = UIStyle.StatusOkColor;
                 lblStatus.Text = LocalizationService.GetString("Msg_ServerOnline");
-                lblStatus.ForeColor = Color.White;
+                lblStatus.ForeColor = Color.DimGray;
             }
             catch
             {
                 pnlStatus.BackColor = UIStyle.StatusErrorColor;
                 lblStatus.Text = LocalizationService.GetString("Msg_ServerOffline");
                 lblStatus.ForeColor = UIStyle.StatusErrorColor;
+            }
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            // 切換面板顯示與視窗大小
+            bool isExpanded = !pnlSettings.Visible;
+            pnlSettings.Visible = isExpanded;
+            this.Height = isExpanded ? 520 : 360;
+        }
+
+        private async void btnReconnect_Click(object sender, EventArgs e)
+        {
+            string ip = txtServerIP.Text.Trim();
+            string port = txtServerPort.Text.Trim();
+
+            if (string.IsNullOrEmpty(ip) || string.IsNullOrEmpty(port)) return;
+
+            // 1. 儲存到設定檔
+            GlobalSettings.ServerIP = ip;
+            GlobalSettings.ServerPort = port;
+
+            // 2. 重新建立 ApiClient
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+
+            // 3. 測試連線
+            lblStatus.Text = "Testing Connection...";
+            try
+            {
+                await _apiClient.GetWarehousesAsync();
+                MessageBox.Show(LocalizationService.GetString("Msg_ConnectSuccess"), 
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                // 自動縮回設定面板
+                pnlSettings.Visible = false;
+                this.Height = 360;
+                await CheckConnectionAsync();
+            }
+            catch
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_ConnectFailed"), 
+                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                await CheckConnectionAsync();
             }
         }
 

@@ -510,4 +510,10 @@
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>Attachment 1 Filename</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>Attachment 2 Filename</value></data>
+  <data name="Label_ServerSettings" xml:space="preserve"><value>Server Settings</value></data>
+  <data name="Btn_Reconnect" xml:space="preserve"><value>Reconnect</value></data>
+  <data name="Msg_ConnectSuccess" xml:space="preserve"><value>Connection Success! Settings saved.</value></data>
+  <data name="Msg_ConnectFailed" xml:space="preserve"><value>Connection Failed. Check IP/Port.</value></data>
+  <data name="Label_ServerIP" xml:space="preserve"><value>Server IP</value></data>
+  <data name="Label_ServerPort" xml:space="preserve"><value>Port</value></data>
 </root>

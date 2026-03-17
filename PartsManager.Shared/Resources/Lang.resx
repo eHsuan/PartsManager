@@ -510,4 +510,10 @@
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>製造商 (Manufacturer)</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>附件1檔名 (Attachment1)</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>附件2檔名 (Attachment2)</value></data>
+  <data name="Label_ServerSettings" xml:space="preserve"><value>伺服器連線設定</value></data>
+  <data name="Btn_Reconnect" xml:space="preserve"><value>重新連線</value></data>
+  <data name="Msg_ConnectSuccess" xml:space="preserve"><value>連線成功！設定已儲存。</value></data>
+  <data name="Msg_ConnectFailed" xml:space="preserve"><value>連線失敗，請檢查 IP 或 Port 是否正確。</value></data>
+  <data name="Label_ServerIP" xml:space="preserve"><value>伺服器 IP</value></data>
+  <data name="Label_ServerPort" xml:space="preserve"><value>連接埠 (Port)</value></data>
 </root>

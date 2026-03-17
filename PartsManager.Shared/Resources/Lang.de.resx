@@ -510,4 +510,10 @@
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Hersteller</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>Anhang 1 Dateiname</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>Anhang 2 Dateiname</value></data>
+  <data name="Label_ServerSettings" xml:space="preserve"><value>Servereinstellungen</value></data>
+  <data name="Btn_Reconnect" xml:space="preserve"><value>Neu verbinden</value></data>
+  <data name="Msg_ConnectSuccess" xml:space="preserve"><value>Verbindung erfolgreich! Gespeichert.</value></data>
+  <data name="Msg_ConnectFailed" xml:space="preserve"><value>Verbindung fehlgeschlagen. IP/Port prüfen.</value></data>
+  <data name="Label_ServerIP" xml:space="preserve"><value>Server-IP</value></data>
+  <data name="Label_ServerPort" xml:space="preserve"><value>Port</value></data>
 </root>

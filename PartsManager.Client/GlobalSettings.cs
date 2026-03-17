@@ -12,7 +12,8 @@ namespace PartsManager.Client
         private static bool _enableLabelPrinting;
         private static string _language;
         private static int _autoLogoutMinutes;
-        private static string _apiBaseUrl;
+        private static string _serverIP;
+        private static string _serverPort;
         private static int _defaultWarehouseId;
 
         static GlobalSettings()
@@ -23,7 +24,8 @@ namespace PartsManager.Client
 
         public static void LoadSettings()
         {
-            _apiBaseUrl = _ini.Read("Network", "ApiBaseUrl", "http://localhost:5000/");
+            _serverIP = _ini.Read("Network", "ServerIP", "localhost");
+            _serverPort = _ini.Read("Network", "ServerPort", "5000");
             _language = _ini.Read("System", "Language", "zh-TW");
             
             string timeoutStr = _ini.Read("System", "AutoLogoutMinutes", "10");
@@ -36,7 +38,26 @@ namespace PartsManager.Client
             bool.TryParse(printStr, out _enableLabelPrinting);
         }
 
-        public static string ApiBaseUrl => _apiBaseUrl;
+        public static string ApiBaseUrl => $"http://{_serverIP}:{_serverPort}/";
+        public static string ServerIP
+        {
+            get => _serverIP;
+            set
+            {
+                _serverIP = value;
+                _ini.Write("Network", "ServerIP", value);
+            }
+        }
+
+        public static string ServerPort
+        {
+            get => _serverPort;
+            set
+            {
+                _serverPort = value;
+                _ini.Write("Network", "ServerPort", value);
+            }
+        }
         public static string Language => _language;
         public static int AutoLogoutMinutes => _autoLogoutMinutes;
         public static int DefaultWarehouseId => _defaultWarehouseId;

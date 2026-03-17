@@ -12,24 +12,18 @@ namespace PartsManager.Client
 {
     public class ApiClient
     {
-        private static readonly HttpClient _client;
-
-        static ApiClient()
-        {
-            _client = new HttpClient();
-        }
+        private readonly HttpClient _client;
 
         public ApiClient(string baseUrl)
         {
             // 強制設定 TLS 1.2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            if (_client.BaseAddress == null)
-            {
-                _client.BaseAddress = new Uri(baseUrl);
-                _client.DefaultRequestHeaders.Accept.Clear();
-                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri(baseUrl);
+            _client.Timeout = TimeSpan.FromSeconds(5); // 設定 5 秒逾時，避免測試連線卡死
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<MaterialStockInfoDto> GetInventoryAsync(string barcode)

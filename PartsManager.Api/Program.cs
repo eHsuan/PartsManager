@@ -23,7 +23,7 @@ try
     builder.Services.AddScoped<PartsManager.Api.Services.IStockService, PartsManager.Api.Services.StockService>();
 
     // --- 4. 初始化語系 ---
-    string lang = builder.Configuration["Language"] ?? "zh-TW";
+    string lang = builder.Configuration["System:Language"] ?? "zh-TW";
     PartsManager.Shared.Resources.LocalizationService.SetLanguage(lang);
 
     builder.Services.AddDbContext<AppDbContext>(options =>
@@ -65,7 +65,7 @@ try
         var notifyIcon = new NotifyIcon
         {
             Icon = SystemIcons.Shield,
-            Text = "PartsManager Backend (API Server)",
+            Text = PartsManager.Shared.Resources.LocalizationService.GetString("App_Title") + " (Backend)",
             Visible = true
         };
 
