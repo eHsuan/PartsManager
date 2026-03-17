@@ -499,4 +499,15 @@
   <data name="PdfIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\doc\ImagePDF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Import_Header_PartNo" xml:space="preserve"><value>Part No</value></data>
+  <data name="Import_Header_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Import_Header_Spec" xml:space="preserve"><value>Specification</value></data>
+  <data name="Import_Header_InitialStock" xml:space="preserve"><value>Initial Stock</value></data>
+  <data name="Import_Header_WarehouseId" xml:space="preserve"><value>Warehouse ID</value></data>
+  <data name="Import_Header_SafeStock" xml:space="preserve"><value>Safe Stock</value></data>
+  <data name="Import_Header_LeadTime" xml:space="preserve"><value>Lead Time</value></data>
+  <data name="Import_Header_Supplier" xml:space="preserve"><value>Supplier</value></data>
+  <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
+  <data name="Import_Header_Attachment1" xml:space="preserve"><value>Attachment 1 Filename</value></data>
+  <data name="Import_Header_Attachment2" xml:space="preserve"><value>Attachment 2 Filename</value></data>
 </root>

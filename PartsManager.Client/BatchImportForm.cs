@@ -61,18 +61,18 @@ namespace PartsManager.Client
             {
                 var ws = workbook.Worksheets.Add("Materials");
                 
-                // 標題列 (調整後順序)
-                ws.Cell(1, 1).Value = "料號 (PartNo) *";
-                ws.Cell(1, 2).Value = "品名 (Name) *";
-                ws.Cell(1, 3).Value = "規格 (Specification)";
-                ws.Cell(1, 4).Value = "目前庫存 (InitialStock)";
-                ws.Cell(1, 5).Value = "倉庫ID (WarehouseId)";
-                ws.Cell(1, 6).Value = "安全庫存 (SafeStock)";
-                ws.Cell(1, 7).Value = "交期 (LeadTime)";
-                ws.Cell(1, 8).Value = "供應商 (Supplier)";
-                ws.Cell(1, 9).Value = "製造商 (Manufacturer)";
-                ws.Cell(1, 10).Value = "附件1檔名 (Attachment1)";
-                ws.Cell(1, 11).Value = "附件2檔名 (Attachment2)";
+                // 標題列 (使用語系資源)
+                ws.Cell(1, 1).Value = LocalizationService.GetString("Import_Header_PartNo") + " *";
+                ws.Cell(1, 2).Value = LocalizationService.GetString("Import_Header_Name") + " *";
+                ws.Cell(1, 3).Value = LocalizationService.GetString("Import_Header_Spec");
+                ws.Cell(1, 4).Value = LocalizationService.GetString("Import_Header_InitialStock");
+                ws.Cell(1, 5).Value = LocalizationService.GetString("Import_Header_WarehouseId");
+                ws.Cell(1, 6).Value = LocalizationService.GetString("Import_Header_SafeStock");
+                ws.Cell(1, 7).Value = LocalizationService.GetString("Import_Header_LeadTime");
+                ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_Supplier");
+                ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_Manufacturer");
+                ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_Attachment1");
+                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Attachment2");
 
                 // 樣式設定
                 var headerRange = ws.Range(1, 1, 1, 11);
