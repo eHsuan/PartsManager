@@ -19,9 +19,6 @@ namespace PartsManager.Client
             I18nHelper.Apply(this); // 套用語系
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
         }
-            // 根據全域設定隱藏列印按鈕
-            btnPrintLabel.Visible = GlobalSettings.EnableLabelPrinting;
-        }
 
         private async void InboundForm_Load(object sender, EventArgs e)
         {
