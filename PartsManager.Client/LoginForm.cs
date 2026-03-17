@@ -70,14 +70,18 @@ namespace PartsManager.Client
             GlobalSettings.ServerIP = ip;
             GlobalSettings.ServerPort = port;
 
-            // 2. 重新建立 ApiClient
-            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+            // 2. 重新建立 ApiClient (測試連線用短逾時 5s)
+            var testClient = new ApiClient(GlobalSettings.ApiBaseUrl, 5);
 
             // 3. 測試連線
             lblStatus.Text = "Testing Connection...";
             try
             {
-                await _apiClient.GetWarehousesAsync();
+                await testClient.GetWarehousesAsync();
+                
+                // 測試成功才更新正式的 _apiClient (預設 30s 逾時)
+                _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+
                 MessageBox.Show(LocalizationService.GetString("Msg_ConnectSuccess"), 
                     LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 

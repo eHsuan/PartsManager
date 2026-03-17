@@ -14,14 +14,14 @@ namespace PartsManager.Client
     {
         private readonly HttpClient _client;
 
-        public ApiClient(string baseUrl)
+        public ApiClient(string baseUrl, int timeoutSeconds = 30)
         {
             // 強制設定 TLS 1.2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             _client = new HttpClient();
             _client.BaseAddress = new Uri(baseUrl);
-            _client.Timeout = TimeSpan.FromSeconds(5); // 設定 5 秒逾時，避免測試連線卡死
+            _client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

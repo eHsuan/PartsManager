@@ -23,8 +23,7 @@ namespace PartsManager.Client
             menuDelete.Text = LocalizationService.GetString("Menu_Delete");
             menuOutbound.Text = LocalizationService.GetString("Menu_Outbound");
 
-            string baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/";
-            _apiClient = new ApiClient(baseUrl);
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
             // 修正：防止沒有圖片時顯示 X，並設定自動縮放
             Col_Att1.DefaultCellStyle.NullValue = null;
