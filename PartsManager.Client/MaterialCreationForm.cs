@@ -24,9 +24,8 @@ namespace PartsManager.Client
             InitializeComponent();
             UIStyle.Apply(this);
             I18nHelper.Apply(this);
-            string baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/";
-            _apiClient = new ApiClient(baseUrl);
-            
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+
             // 從資源檔載入嵌入的 PDF 圖示
             _pdfIcon = LocalizationService.GetPdfIcon();
 

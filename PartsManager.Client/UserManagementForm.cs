@@ -15,8 +15,8 @@ namespace PartsManager.Client
         {
             InitializeComponent();
             UIStyle.Apply(this);
-            I18nHelper.Apply(this);
-            _apiClient = new ApiClient(ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/");
+            I18nHelper.Apply(this); // 套用語系
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
         }
 
         private async void UserManagementForm_Load(object sender, EventArgs e)

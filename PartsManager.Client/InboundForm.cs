@@ -17,8 +17,8 @@ namespace PartsManager.Client
             InitializeComponent();
             UIStyle.Apply(this);
             I18nHelper.Apply(this); // 套用語系
-            _apiClient = new ApiClient(ConfigurationManager.AppSettings["ApiBaseUrl"] ?? "http://localhost:5000/");
-            
+            _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
+        }
             // 根據全域設定隱藏列印按鈕
             btnPrintLabel.Visible = GlobalSettings.EnableLabelPrinting;
         }
@@ -45,11 +45,7 @@ namespace PartsManager.Client
                 cmbWarehouse.DisplayMember = "DisplayName";
                 cmbWarehouse.ValueMember = "WarehouseID";
 
-                string defaultIdStr = ConfigurationManager.AppSettings["DefaultWarehouseId"];
-                if (int.TryParse(defaultIdStr, out int defaultId))
-                {
-                    cmbWarehouse.SelectedValue = defaultId;
-                }
+                cmbWarehouse.SelectedValue = GlobalSettings.DefaultWarehouseId;
             }
             catch (Exception ex)
             {
