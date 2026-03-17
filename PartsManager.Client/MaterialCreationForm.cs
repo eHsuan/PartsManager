@@ -111,6 +111,15 @@ namespace PartsManager.Client
                 ofd.Filter = "PDF Files (*.pdf)|*.pdf";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
+                    // 檢查檔案大小 (限制 2MB = 2,097,152 Bytes)
+                    FileInfo fi = new FileInfo(ofd.FileName);
+                    if (fi.Length > 2 * 1024 * 1024)
+                    {
+                        MessageBox.Show(LocalizationService.GetString("Msg_FileSizeExceeded"),
+                            LocalizationService.GetString("Common_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     _pendingFiles.Add(ofd.FileName);
                     RefreshAttachmentPanel();
                 }

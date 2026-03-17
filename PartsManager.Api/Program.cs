@@ -5,9 +5,10 @@ using System.Diagnostics;
 using Microsoft.Win32;
 
 // --- 1. Serilog 設定 (Log to File) ---
+string logPath = Path.Combine(AppContext.BaseDirectory, "logs", "parts-api-.txt");
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
-    .WriteTo.File("logs/parts-api-.txt", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
+    .WriteTo.File(logPath, rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
     .CreateLogger();
 
 try
@@ -71,7 +72,12 @@ try
 
         var contextMenu = new ContextMenuStrip();
         contextMenu.Items.Add(PartsManager.Shared.Resources.LocalizationService.GetString("Tray_OpenLogs"), null, (s, e) => {
-            try { Process.Start(new ProcessStartInfo("explorer.exe", Path.Combine(AppContext.BaseDirectory, "logs")) { UseShellExecute = true }); }
+            try 
+            { 
+                string logFolder = Path.Combine(AppContext.BaseDirectory, "logs");
+                if (!Directory.Exists(logFolder)) Directory.CreateDirectory(logFolder);
+                Process.Start(new ProcessStartInfo("explorer.exe", logFolder) { UseShellExecute = true }); 
+            }
             catch { }
         });
         contextMenu.Items.Add(new ToolStripSeparator());
