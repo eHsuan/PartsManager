@@ -16,7 +16,9 @@ public class MasterDataController : ControllerBase
     public MasterDataController(AppDbContext context, IConfiguration configuration)
     {
         _context = context;
-        _storagePath = configuration["AttachmentStoragePath"] ?? "Attachments";
+        // 修正配置 Key，並確保基礎路徑存在
+        _storagePath = configuration["System:AttachmentPath"] ?? "Attachments";
+        if (!Directory.Exists(_storagePath)) Directory.CreateDirectory(_storagePath);
     }
 
     [HttpPost("materials/{id}/attachments")]
@@ -31,6 +33,7 @@ public class MasterDataController : ControllerBase
             return BadRequest("Maximum 2 attachments allowed per material.");
         }
 
+        // 實體目錄：[StoragePath]/[MaterialID]
         string materialFolder = Path.Combine(_storagePath, id.ToString());
         if (!Directory.Exists(materialFolder)) Directory.CreateDirectory(materialFolder);
 
@@ -38,17 +41,20 @@ public class MasterDataController : ControllerBase
         {
             if (Path.GetExtension(file.FileName).ToLower() != ".pdf") continue;
 
-            string filePath = Path.Combine(materialFolder, file.FileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            string physicalPath = Path.Combine(materialFolder, file.FileName);
+            using (var stream = new FileStream(physicalPath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
+
+            // 資料庫僅儲存相對路徑：[MaterialID]/[FileName]
+            string relativePath = Path.Combine(id.ToString(), file.FileName);
 
             var attachment = new Mdm_MaterialAttachments
             {
                 MaterialID = id,
                 FileName = file.FileName,
-                FilePath = filePath,
+                FilePath = relativePath, 
                 UploadTime = DateTime.Now
             };
             _context.Mdm_MaterialAttachments.Add(attachment);
@@ -78,10 +84,15 @@ public class MasterDataController : ControllerBase
         var attachment = await _context.Mdm_MaterialAttachments
             .FirstOrDefaultAsync(a => a.MaterialID == id && a.FileName == fileName);
         
-        if (attachment == null || !System.IO.File.Exists(attachment.FilePath))
+        if (attachment == null) return NotFound();
+
+        // 動態組合目前的基礎路徑與資料庫儲存的相對路徑
+        string fullPath = Path.Combine(_storagePath, attachment.FilePath);
+        
+        if (!System.IO.File.Exists(fullPath))
             return NotFound();
 
-        var bytes = await System.IO.File.ReadAllBytesAsync(attachment.FilePath);
+        var bytes = await System.IO.File.ReadAllBytesAsync(fullPath);
         return File(bytes, "application/pdf", attachment.FileName);
     }
 
@@ -93,9 +104,10 @@ public class MasterDataController : ControllerBase
 
         if (attachment != null)
         {
-            if (System.IO.File.Exists(attachment.FilePath))
+            string fullPath = Path.Combine(_storagePath, attachment.FilePath);
+            if (System.IO.File.Exists(fullPath))
             {
-                System.IO.File.Delete(attachment.FilePath);
+                System.IO.File.Delete(fullPath);
             }
             _context.Mdm_MaterialAttachments.Remove(attachment);
             await _context.SaveChangesAsync();
