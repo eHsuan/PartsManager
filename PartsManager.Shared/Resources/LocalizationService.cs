@@ -1,8 +1,6 @@
 using System.Globalization;
 using System.Resources;
 using System.Reflection;
-using System.Drawing;
-using System.IO;
 
 namespace PartsManager.Shared.Resources
 {
@@ -39,15 +37,6 @@ namespace PartsManager.Shared.Resources
             {
                 return key;
             }
-        }
-
-        public static Image GetPdfIcon()
-        {
-            try
-            {
-                return _resManager.GetObject("PdfIcon") as Image;
-            }
-            catch { return null; }
         }
     }
 }

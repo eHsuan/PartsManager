@@ -32,6 +32,21 @@ try
 
     var app = builder.Build();
 
+    // --- 自動執行資料庫遷移 (Apply Migrations) ---
+    try
+    {
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            context.Database.Migrate();
+            Log.Information("資料庫遷移檢查完成。");
+        }
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex, "資料庫遷移失敗");
+    }
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

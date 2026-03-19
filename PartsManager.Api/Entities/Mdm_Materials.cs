@@ -41,5 +41,8 @@ public class Mdm_Materials
 
     public int SafeStockQty { get; set; }
 
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal Price { get; set; }
+
     public DateTime? LastSyncTime { get; set; }
 }

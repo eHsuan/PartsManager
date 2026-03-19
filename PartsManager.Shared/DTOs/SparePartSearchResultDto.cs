@@ -11,6 +11,8 @@
         public string WarehouseName { get; set; }
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }
+        public decimal Price { get; set; }
+        public decimal TotalAmount { get; set; }
         public int LeadTimeDays { get; set; }
         public System.Collections.Generic.List<string> AttachmentFileNames { get; set; } = new System.Collections.Generic.List<string>();
     }

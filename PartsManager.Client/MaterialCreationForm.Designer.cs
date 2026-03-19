@@ -25,13 +25,15 @@ namespace PartsManager.Client
             this.label3 = new System.Windows.Forms.Label();
             this.txtSpec = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtSafeStock = new System.Windows.Forms.TextBox();
+            this.numSafeStock = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtLeadTime = new System.Windows.Forms.TextBox();
+            this.numLeadTime = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.txtSupplier = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtManufacturer = new System.Windows.Forms.TextBox();
+            this.labelPrice = new System.Windows.Forms.Label();
+            this.numPrice = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.numInitialStock = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
@@ -42,6 +44,9 @@ namespace PartsManager.Client
             this.pnlAttachments = new System.Windows.Forms.FlowLayoutPanel();
             this.btnUpload = new System.Windows.Forms.Button();
             this.toolTipAttachment = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.numSafeStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLeadTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numInitialStock)).BeginInit();
             this.grpAttachments.SuspendLayout();
             this.SuspendLayout();
@@ -114,14 +119,18 @@ namespace PartsManager.Client
             this.label4.Tag = "Label_SafeStock";
             this.label4.Text = "安全庫存 (Safe Stock)";
             // 
-            // txtSafeStock
+            // numSafeStock
             // 
-            this.txtSafeStock.Font = new System.Drawing.Font("Consolas", 12F);
-            this.txtSafeStock.Location = new System.Drawing.Point(30, 222);
-            this.txtSafeStock.Name = "txtSafeStock";
-            this.txtSafeStock.Size = new System.Drawing.Size(150, 26);
-            this.txtSafeStock.TabIndex = 3;
-            this.txtSafeStock.Text = "0";
+            this.numSafeStock.Font = new System.Drawing.Font("Consolas", 12F);
+            this.numSafeStock.Location = new System.Drawing.Point(30, 222);
+            this.numSafeStock.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.numSafeStock.Name = "numSafeStock";
+            this.numSafeStock.Size = new System.Drawing.Size(150, 26);
+            this.numSafeStock.TabIndex = 3;
             // 
             // label5
             // 
@@ -134,14 +143,18 @@ namespace PartsManager.Client
             this.label5.Tag = "Label_LeadTime";
             this.label5.Text = "交期天數 (Lead Days)";
             // 
-            // txtLeadTime
+            // numLeadTime
             // 
-            this.txtLeadTime.Font = new System.Drawing.Font("Consolas", 12F);
-            this.txtLeadTime.Location = new System.Drawing.Point(210, 222);
-            this.txtLeadTime.Name = "txtLeadTime";
-            this.txtLeadTime.Size = new System.Drawing.Size(150, 26);
-            this.txtLeadTime.TabIndex = 4;
-            this.txtLeadTime.Text = "0";
+            this.numLeadTime.Font = new System.Drawing.Font("Consolas", 12F);
+            this.numLeadTime.Location = new System.Drawing.Point(210, 222);
+            this.numLeadTime.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numLeadTime.Name = "numLeadTime";
+            this.numLeadTime.Size = new System.Drawing.Size(150, 26);
+            this.numLeadTime.TabIndex = 4;
             // 
             // label6
             // 
@@ -181,11 +194,36 @@ namespace PartsManager.Client
             this.txtManufacturer.Size = new System.Drawing.Size(420, 29);
             this.txtManufacturer.TabIndex = 6;
             // 
+            // labelPrice
+            // 
+            this.labelPrice.AutoSize = true;
+            this.labelPrice.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
+            this.labelPrice.Location = new System.Drawing.Point(30, 385);
+            this.labelPrice.Name = "labelPrice";
+            this.labelPrice.Size = new System.Drawing.Size(92, 19);
+            this.labelPrice.TabIndex = 18;
+            this.labelPrice.Tag = "Label_Price";
+            this.labelPrice.Text = "金額 (Price)";
+            // 
+            // numPrice
+            // 
+            this.numPrice.DecimalPlaces = 2;
+            this.numPrice.Font = new System.Drawing.Font("Consolas", 12F);
+            this.numPrice.Location = new System.Drawing.Point(30, 407);
+            this.numPrice.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numPrice.Name = "numPrice";
+            this.numPrice.Size = new System.Drawing.Size(150, 26);
+            this.numPrice.TabIndex = 7;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
-            this.label8.Location = new System.Drawing.Point(30, 385);
+            this.label8.Location = new System.Drawing.Point(30, 445);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 19);
             this.label8.TabIndex = 14;
@@ -194,9 +232,9 @@ namespace PartsManager.Client
             // 
             // numInitialStock
             // 
-            this.numInitialStock.DecimalPlaces = 2;
+            this.numInitialStock.DecimalPlaces = 0;
             this.numInitialStock.Font = new System.Drawing.Font("Consolas", 12F);
-            this.numInitialStock.Location = new System.Drawing.Point(30, 407);
+            this.numInitialStock.Location = new System.Drawing.Point(30, 467);
             this.numInitialStock.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -204,13 +242,13 @@ namespace PartsManager.Client
             0});
             this.numInitialStock.Name = "numInitialStock";
             this.numInitialStock.Size = new System.Drawing.Size(150, 26);
-            this.numInitialStock.TabIndex = 7;
+            this.numInitialStock.TabIndex = 8;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
-            this.label9.Location = new System.Drawing.Point(210, 385);
+            this.label9.Location = new System.Drawing.Point(210, 445);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(76, 19);
             this.label9.TabIndex = 16;
@@ -222,10 +260,10 @@ namespace PartsManager.Client
             this.cmbInitialWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbInitialWarehouse.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
             this.cmbInitialWarehouse.FormattingEnabled = true;
-            this.cmbInitialWarehouse.Location = new System.Drawing.Point(210, 407);
+            this.cmbInitialWarehouse.Location = new System.Drawing.Point(210, 467);
             this.cmbInitialWarehouse.Name = "cmbInitialWarehouse";
             this.cmbInitialWarehouse.Size = new System.Drawing.Size(240, 27);
-            this.cmbInitialWarehouse.TabIndex = 8;
+            this.cmbInitialWarehouse.TabIndex = 9;
             // 
             // grpAttachments
             // 
@@ -233,10 +271,10 @@ namespace PartsManager.Client
             this.grpAttachments.Controls.Add(this.btnUpload);
             this.grpAttachments.Font = new System.Drawing.Font("Microsoft JhengHei", 10F);
             this.grpAttachments.ForeColor = System.Drawing.Color.White;
-            this.grpAttachments.Location = new System.Drawing.Point(30, 450);
+            this.grpAttachments.Location = new System.Drawing.Point(30, 510);
             this.grpAttachments.Name = "grpAttachments";
             this.grpAttachments.Size = new System.Drawing.Size(420, 110);
-            this.grpAttachments.TabIndex = 13;
+            this.grpAttachments.TabIndex = 10;
             this.grpAttachments.TabStop = false;
             this.grpAttachments.Tag = "Label_Attachments";
             this.grpAttachments.Text = "附件 (Attachments - Max 2 PDF)";
@@ -267,10 +305,10 @@ namespace PartsManager.Client
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(130, 580);
+            this.btnSave.Location = new System.Drawing.Point(130, 640);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(140, 40);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 11;
             this.btnSave.Tag = "Btn_Save";
             this.btnSave.Text = "儲存";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -283,10 +321,10 @@ namespace PartsManager.Client
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(290, 580);
+            this.btnCancel.Location = new System.Drawing.Point(290, 640);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 12;
             this.btnCancel.Tag = "Btn_Cancel";
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -296,7 +334,9 @@ namespace PartsManager.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 640);
+            this.ClientSize = new System.Drawing.Size(500, 700);
+            this.Controls.Add(this.numPrice);
+            this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.cmbInitialWarehouse);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.numInitialStock);
@@ -308,9 +348,9 @@ namespace PartsManager.Client
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtSupplier);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtLeadTime);
+            this.Controls.Add(this.numLeadTime);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtSafeStock);
+            this.Controls.Add(this.numSafeStock);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtSpec);
             this.Controls.Add(this.label3);
@@ -325,6 +365,10 @@ namespace PartsManager.Client
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Tag = "MaterialCreationForm";
             this.Text = "建立物料資訊 (New Material)";
+            ((System.ComponentModel.ISupportInitialize)(this.numSafeStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLeadTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numInitialStock)).EndInit();
             this.grpAttachments.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -340,9 +384,9 @@ namespace PartsManager.Client
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtSpec;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtSafeStock;
+        private System.Windows.Forms.NumericUpDown numSafeStock;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtLeadTime;
+        private System.Windows.Forms.NumericUpDown numLeadTime;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtSupplier;
         private System.Windows.Forms.Label label7;
@@ -357,5 +401,7 @@ namespace PartsManager.Client
         private System.Windows.Forms.FlowLayoutPanel pnlAttachments;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.ToolTip toolTipAttachment;
+        private System.Windows.Forms.Label labelPrice;
+        private System.Windows.Forms.NumericUpDown numPrice;
     }
 }

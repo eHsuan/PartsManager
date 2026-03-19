@@ -196,6 +196,9 @@ namespace PartsManager.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("SafeStockQty")
                         .HasColumnType("INTEGER");
 
@@ -226,6 +229,7 @@ namespace PartsManager.Api.Migrations
                             Name = "M3 Screw",
                             NeedsPrintLabel = true,
                             PartNo = "SCREW-001",
+                            Price = 0m,
                             SafeStockQty = 100,
                             SourceType = (byte)0,
                             Specification = "Stainless Steel M3x10",
@@ -240,6 +244,7 @@ namespace PartsManager.Api.Migrations
                             Name = "Resistor 10k",
                             NeedsPrintLabel = true,
                             PartNo = "RES-10K",
+                            Price = 0m,
                             SafeStockQty = 500,
                             SourceType = (byte)0,
                             Specification = "10k Ohm 0603",

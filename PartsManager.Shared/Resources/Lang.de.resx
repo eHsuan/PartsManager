@@ -496,9 +496,6 @@
   <data name="Msg_ImportComplete" xml:space="preserve"><value>Chargen-Import abgeschlossen! Erfolg: {0}, Fehler: {1}</value></data>
   <data name="Label_InitialStock" xml:space="preserve"><value>Anfangsbestand</value></data>
   <data name="Label_InitialWarehouse" xml:space="preserve"><value>Lagerort</value></data>
-  <data name="PdfIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\doc\ImagePDF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Import_Header_PartNo" xml:space="preserve"><value>Teilenummer</value></data>
   <data name="Import_Header_Name" xml:space="preserve"><value>Name</value></data>
   <data name="Import_Header_Spec" xml:space="preserve"><value>Spezifikation</value></data>
@@ -508,6 +505,7 @@
   <data name="Import_Header_LeadTime" xml:space="preserve"><value>Lieferzeit</value></data>
   <data name="Import_Header_Supplier" xml:space="preserve"><value>Lieferant</value></data>
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Hersteller</value></data>
+  <data name="Import_Header_Price" xml:space="preserve"><value>Betrag *</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>Anhang 1 Dateiname</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>Anhang 2 Dateiname</value></data>
   <data name="Label_ServerSettings" xml:space="preserve"><value>Servereinstellungen</value></data>
@@ -516,4 +514,31 @@
   <data name="Msg_ConnectFailed" xml:space="preserve"><value>Verbindung fehlgeschlagen. IP/Port prüfen.</value></data>
   <data name="Label_ServerIP" xml:space="preserve"><value>Server-IP</value></data>
   <data name="Label_ServerPort" xml:space="preserve"><value>Port</value></data>
+  <data name="Label_Price" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+  <data name="Col_Price" xml:space="preserve">
+    <value>Betrag</value>
+  </data>
+  <data name="Btn_ExportExcel" xml:space="preserve">
+    <value>Nach Excel exportieren</value>
+  </data>
+  <data name="Msg_NoDataToExport" xml:space="preserve">
+    <value>Keine Daten zum Exportieren vorhanden</value>
+  </data>
+  <data name="Msg_ExportSuccess" xml:space="preserve">
+    <value>Export erfolgreich</value>
+  </data>
+  <data name="Msg_ExportError" xml:space="preserve">
+    <value>Export fehlgeschlagen: </value>
+  </data>
+  <data name="Col_TotalAmount" xml:space="preserve">
+    <value>Gesamtbetrag</value>
+  </data>
+  <data name="Msg_PriceRequired" xml:space="preserve">
+    <value>Der Betrag muss größer als 0 sein</value>
+  </data>
+  <data name="Msg_FileIsLocked" xml:space="preserve">
+    <value>Die Datei wird von einem anderen Prozess verwendet. Bitte schließen Sie zuerst Excel.</value>
+  </data>
 </root>

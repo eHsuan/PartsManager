@@ -132,6 +132,7 @@ public class MasterDataController : ControllerBase
             Manufacturer = dto.Manufacturer,
             SafeStockQty = dto.SafeStockQty,
             LeadTimeDays = dto.LeadTimeDays,
+            Price = dto.Price,
             SourceType = dto.SourceType,
             BarCode = dto.PartNo.ToLower(), // 強制轉小寫存入，避免刷碼大小寫問題
             NeedsPrintLabel = true
@@ -206,6 +207,7 @@ public class MasterDataController : ControllerBase
         material.Manufacturer = dto.Manufacturer;
         material.SafeStockQty = dto.SafeStockQty;
         material.LeadTimeDays = dto.LeadTimeDays;
+        material.Price = dto.Price;
         material.BarCode = dto.PartNo.ToLower();
 
         await _context.SaveChangesAsync();
@@ -239,7 +241,8 @@ public class MasterDataController : ControllerBase
             Supplier = material.Supplier ?? "",
             Manufacturer = material.Manufacturer ?? "",
             SafeStockQty = material.SafeStockQty,
-            LeadTimeDays = material.LeadTimeDays
+            LeadTimeDays = material.LeadTimeDays,
+            Price = material.Price
         };
     }
 

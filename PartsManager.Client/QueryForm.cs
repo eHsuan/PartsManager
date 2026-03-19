@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using PartsManager.Shared.DTOs;
 using PartsManager.Shared.Resources;
+using ClosedXML.Excel;
 
 namespace PartsManager.Client
 {
@@ -22,6 +23,9 @@ namespace PartsManager.Client
             menuEdit.Text = LocalizationService.GetString("Menu_Edit");
             menuDelete.Text = LocalizationService.GetString("Menu_Delete");
             menuOutbound.Text = LocalizationService.GetString("Menu_Outbound");
+            btnExport.Text = LocalizationService.GetString("Btn_ExportExcel");
+            Col_Price.HeaderText = LocalizationService.GetString("Col_Price");
+            Col_TotalAmount.HeaderText = LocalizationService.GetString("Col_TotalAmount");
 
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
@@ -99,6 +103,73 @@ namespace PartsManager.Client
             await PerformSearch("");
         }
 
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.Rows.Count == 0)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_NoDataToExport"), 
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "Excel Workbook (*.xlsx)|*.xlsx";
+                sfd.FileName = $"InventoryExport_{DateTime.Now:yyyyMMddHHmm}.xlsx";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExportToExcel(sfd.FileName);
+                        MessageBox.Show(LocalizationService.GetString("Msg_ExportSuccess"), 
+                            LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(LocalizationService.GetString("Msg_ExportError") + ex.Message, 
+                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void ExportToExcel(string filePath)
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Inventory");
+
+                // 寫入標題 (略過最後兩個附件圖片欄位)
+                int colIndex = 1;
+                for (int i = 0; i < dgvResults.Columns.Count; i++)
+                {
+                    if (dgvResults.Columns[i] is DataGridViewImageColumn) continue;
+                    
+                    worksheet.Cell(1, colIndex).Value = dgvResults.Columns[i].HeaderText;
+                    worksheet.Cell(1, colIndex).Style.Font.Bold = true;
+                    worksheet.Cell(1, colIndex).Style.Fill.BackgroundColor = XLColor.LightBlue;
+                    colIndex++;
+                }
+
+                // 寫入資料
+                for (int r = 0; r < dgvResults.Rows.Count; r++)
+                {
+                    colIndex = 1;
+                    for (int c = 0; c < dgvResults.Columns.Count; c++)
+                    {
+                        if (dgvResults.Columns[c] is DataGridViewImageColumn) continue;
+
+                        var val = dgvResults.Rows[r].Cells[c].Value;
+                        worksheet.Cell(r + 2, colIndex).Value = val?.ToString() ?? "";
+                        colIndex++;
+                    }
+                }
+
+                worksheet.Columns().AdjustToContents();
+                workbook.SaveAs(filePath);
+            }
+        }
+
         private async void txtSearchKeyword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -122,7 +193,7 @@ namespace PartsManager.Client
                 dgvResults.DataSource = results;
 
                 // 設置附件圖示
-                var pdfIcon = LocalizationService.GetPdfIcon();
+                var pdfIcon = ClientResources.PdfIcon;
                 for (int i = 0; i < dgvResults.Rows.Count; i++)
                 {
                     var material = dgvResults.Rows[i].DataBoundItem as SparePartSearchResultDto;

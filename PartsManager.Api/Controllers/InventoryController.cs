@@ -146,6 +146,8 @@ public class InventoryController : ControllerBase
                                  Supplier = m.Supplier ?? string.Empty,
                                  Manufacturer = m.Manufacturer ?? string.Empty,
                                  SafeStockQty = m.SafeStockQty,
+                                 Price = m.Price,
+                                 TotalAmount = m.Price * (s != null ? s.Quantity : 0),
                                  LeadTimeDays = m.LeadTimeDays,
                                  Quantity = s != null ? s.Quantity : 0,
                                  WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "--- (無庫存紀錄)",

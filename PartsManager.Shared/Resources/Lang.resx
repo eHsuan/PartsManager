@@ -496,9 +496,6 @@
   <data name="Msg_ImportComplete" xml:space="preserve"><value>批次匯入完成！成功：{0}，失敗：{1}</value></data>
   <data name="Label_InitialStock" xml:space="preserve"><value>期初在庫數量</value></data>
   <data name="Label_InitialWarehouse" xml:space="preserve"><value>存放倉庫</value></data>
-  <data name="PdfIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\doc\ImagePDF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Import_Header_PartNo" xml:space="preserve"><value>料號 (PartNo)</value></data>
   <data name="Import_Header_Name" xml:space="preserve"><value>品名 (Name)</value></data>
   <data name="Import_Header_Spec" xml:space="preserve"><value>規格 (Specification)</value></data>
@@ -508,6 +505,7 @@
   <data name="Import_Header_LeadTime" xml:space="preserve"><value>交期 (LeadTime)</value></data>
   <data name="Import_Header_Supplier" xml:space="preserve"><value>供應商 (Supplier)</value></data>
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>製造商 (Manufacturer)</value></data>
+  <data name="Import_Header_Price" xml:space="preserve"><value>金額 (Price) *</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>附件1檔名 (Attachment1)</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>附件2檔名 (Attachment2)</value></data>
   <data name="Label_ServerSettings" xml:space="preserve"><value>伺服器連線設定</value></data>
@@ -516,4 +514,31 @@
   <data name="Msg_ConnectFailed" xml:space="preserve"><value>連線失敗，請檢查 IP 或 Port 是否正確。</value></data>
   <data name="Label_ServerIP" xml:space="preserve"><value>伺服器 IP</value></data>
   <data name="Label_ServerPort" xml:space="preserve"><value>連接埠 (Port)</value></data>
+  <data name="Label_Price" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="Col_Price" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="Btn_ExportExcel" xml:space="preserve">
+    <value>匯出 Excel</value>
+  </data>
+  <data name="Msg_NoDataToExport" xml:space="preserve">
+    <value>無資料可供匯出</value>
+  </data>
+  <data name="Msg_ExportSuccess" xml:space="preserve">
+    <value>匯出成功</value>
+  </data>
+  <data name="Msg_ExportError" xml:space="preserve">
+    <value>匯出失敗：</value>
+  </data>
+  <data name="Col_TotalAmount" xml:space="preserve">
+    <value>總金額</value>
+  </data>
+  <data name="Msg_PriceRequired" xml:space="preserve">
+    <value>金額必須大於 0</value>
+  </data>
+  <data name="Msg_FileIsLocked" xml:space="preserve">
+    <value>檔案正被其他程式使用中，請先關閉 Excel。</value>
+  </data>
 </root>

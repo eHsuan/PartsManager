@@ -21,6 +21,7 @@ namespace PartsManager.Client
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
             this.btnShowAll = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearchKeyword = new System.Windows.Forms.TextBox();
             this.lblKeyword = new System.Windows.Forms.Label();
@@ -35,6 +36,8 @@ namespace PartsManager.Client
             this.Col_Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Warehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_TotalAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_SafeStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_LeadTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Att1 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -47,6 +50,7 @@ namespace PartsManager.Client
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.btnExport);
             this.panelTop.Controls.Add(this.btnShowAll);
             this.panelTop.Controls.Add(this.btnSearch);
             this.panelTop.Controls.Add(this.txtSearchKeyword);
@@ -54,8 +58,20 @@ namespace PartsManager.Client
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(984, 70);
+            this.panelTop.Size = new System.Drawing.Size(1200, 70);
             this.panelTop.TabIndex = 0;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Font = new System.Drawing.Font("Microsoft JhengHei", 12F);
+            this.btnExport.Location = new System.Drawing.Point(600, 19);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(120, 32);
+            this.btnExport.TabIndex = 4;
+            this.btnExport.Tag = "Btn_ExportExcel";
+            this.btnExport.Text = "匯出 Excel";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnShowAll
             // 
@@ -118,6 +134,8 @@ namespace PartsManager.Client
             this.Col_Qty,
             this.Col_SafeStock,
             this.Col_LeadTime,
+            this.Col_Price,
+            this.Col_TotalAmount,
             this.Col_Att1,
             this.Col_Att2});
             this.dgvResults.ContextMenuStrip = this.ctxMenu;
@@ -126,7 +144,7 @@ namespace PartsManager.Client
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.ReadOnly = true;
             this.dgvResults.RowTemplate.Height = 28;
-            this.dgvResults.Size = new System.Drawing.Size(984, 491);
+            this.dgvResults.Size = new System.Drawing.Size(1200, 530);
             this.dgvResults.TabIndex = 1;
             this.dgvResults.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvResults_CellMouseDown);
             // 
@@ -137,7 +155,7 @@ namespace PartsManager.Client
             this.menuDelete,
             this.menuOutbound});
             this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(101, 48);
+            this.ctxMenu.Size = new System.Drawing.Size(101, 70);
             this.ctxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenu_Opening);
             // 
             // menuEdit
@@ -246,6 +264,22 @@ namespace PartsManager.Client
             this.Col_Qty.ReadOnly = true;
             this.Col_Qty.Tag = "Col_Qty";
             // 
+            // Col_Price
+            // 
+            this.Col_Price.DataPropertyName = "Price";
+            this.Col_Price.HeaderText = "金額";
+            this.Col_Price.Name = "Col_Price";
+            this.Col_Price.ReadOnly = true;
+            this.Col_Price.Tag = "Col_Price";
+            // 
+            // Col_TotalAmount
+            // 
+            this.Col_TotalAmount.DataPropertyName = "TotalAmount";
+            this.Col_TotalAmount.HeaderText = "總金額";
+            this.Col_TotalAmount.Name = "Col_TotalAmount";
+            this.Col_TotalAmount.ReadOnly = true;
+            this.Col_TotalAmount.Tag = "Col_TotalAmount";
+            // 
             // Col_SafeStock
             // 
             this.Col_SafeStock.DataPropertyName = "SafeStockQty";
@@ -302,7 +336,10 @@ namespace PartsManager.Client
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Manufacturer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Warehouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Qty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_TotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_SafeStock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_LeadTime;
+        private System.Windows.Forms.Button btnExport;
     }
 }

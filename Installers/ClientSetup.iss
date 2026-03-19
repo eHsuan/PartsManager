@@ -13,8 +13,8 @@ SolidCompression=yes
 Source: "C:\SourceCode\CS\PartsManager\Installers\publish\client\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
-Name: "{group}\零件管理系統"; Filename: "{app}\PartsManager.Client.exe"
-Name: "{commondesktop}\零件管理系統"; Filename: "{app}\PartsManager.Client.exe"
+Name: "{group}\PartsManager Client"; Filename: "{app}\PartsManager.Client.exe"
+Name: "{commondesktop}\PartsManager Client"; Filename: "{app}\PartsManager.Client.exe"
 
 [Code]
 var
@@ -56,4 +56,4 @@ begin
 end;
 
 [Run]
-Filename: "{app}\PartsManager.Client.exe"; Description: "啟動零件管理系統"; Flags: nowait postinstall
+Filename: "{app}\PartsManager.Client.exe"; Description: "啟動 PartsManager Client"; Flags: nowait postinstall

@@ -496,9 +496,6 @@
   <data name="Msg_ImportComplete" xml:space="preserve"><value>Batch import complete! Success: {0}, Failed: {1}</value></data>
   <data name="Label_InitialStock" xml:space="preserve"><value>Initial Stock Qty</value></data>
   <data name="Label_InitialWarehouse" xml:space="preserve"><value>Initial Warehouse</value></data>
-  <data name="PdfIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\doc\ImagePDF.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Import_Header_PartNo" xml:space="preserve"><value>Part No</value></data>
   <data name="Import_Header_Name" xml:space="preserve"><value>Name</value></data>
   <data name="Import_Header_Spec" xml:space="preserve"><value>Specification</value></data>
@@ -508,6 +505,7 @@
   <data name="Import_Header_LeadTime" xml:space="preserve"><value>Lead Time</value></data>
   <data name="Import_Header_Supplier" xml:space="preserve"><value>Supplier</value></data>
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>Manufacturer</value></data>
+  <data name="Import_Header_Price" xml:space="preserve"><value>Price *</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>Attachment 1 Filename</value></data>
   <data name="Import_Header_Attachment2" xml:space="preserve"><value>Attachment 2 Filename</value></data>
   <data name="Label_ServerSettings" xml:space="preserve"><value>Server Settings</value></data>
@@ -516,4 +514,31 @@
   <data name="Msg_ConnectFailed" xml:space="preserve"><value>Connection Failed. Check IP/Port.</value></data>
   <data name="Label_ServerIP" xml:space="preserve"><value>Server IP</value></data>
   <data name="Label_ServerPort" xml:space="preserve"><value>Port</value></data>
+  <data name="Label_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Col_Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Btn_ExportExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="Msg_NoDataToExport" xml:space="preserve">
+    <value>No data available to export</value>
+  </data>
+  <data name="Msg_ExportSuccess" xml:space="preserve">
+    <value>Export successful</value>
+  </data>
+  <data name="Msg_ExportError" xml:space="preserve">
+    <value>Export failed: </value>
+  </data>
+  <data name="Col_TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="Msg_PriceRequired" xml:space="preserve">
+    <value>Price must be greater than 0</value>
+  </data>
+  <data name="Msg_FileIsLocked" xml:space="preserve">
+    <value>The file is being used by another process. Please close Excel first.</value>
+  </data>
 </root>

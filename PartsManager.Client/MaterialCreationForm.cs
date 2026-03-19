@@ -27,7 +27,7 @@ namespace PartsManager.Client
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
             // 從資源檔載入嵌入的 PDF 圖示
-            _pdfIcon = LocalizationService.GetPdfIcon();
+            _pdfIcon = ClientResources.PdfIcon;
 
             this.Load += MaterialCreationForm_Load;
         }
@@ -59,8 +59,9 @@ namespace PartsManager.Client
                         txtSpec.Text = material.Specification;
                         txtSupplier.Text = material.Supplier;
                         txtManufacturer.Text = material.Manufacturer;
-                        txtSafeStock.Text = material.SafeStockQty.ToString();
-                        txtLeadTime.Text = material.LeadTimeDays.ToString();
+                        numSafeStock.Value = material.SafeStockQty;
+                        numLeadTime.Value = material.LeadTimeDays;
+                        numPrice.Value = material.Price;
                         txtPartNo.Enabled = false;
 
                         // 載入附件清單
@@ -237,8 +238,12 @@ namespace PartsManager.Client
                 return;
             }
 
-            if (!int.TryParse(txtSafeStock.Text, out int safeStock)) safeStock = 0;
-            if (!int.TryParse(txtLeadTime.Text, out int leadTime)) leadTime = 0;
+            if (numPrice.Value <= 0)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_PriceRequired"),
+                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             btnSave.Enabled = false;
 
@@ -255,8 +260,9 @@ namespace PartsManager.Client
                         Specification = txtSpec.Text.Trim(),
                         Supplier = txtSupplier.Text.Trim(),
                         Manufacturer = txtManufacturer.Text.Trim(),
-                        SafeStockQty = safeStock,
-                        LeadTimeDays = leadTime
+                        SafeStockQty = (int)numSafeStock.Value,
+                        LeadTimeDays = (int)numLeadTime.Value,
+                        Price = numPrice.Value
                     };
                     await _apiClient.UpdateMaterialAsync(finalMaterialId, dto);
                 }
@@ -269,8 +275,9 @@ namespace PartsManager.Client
                         Specification = txtSpec.Text.Trim(),
                         Supplier = txtSupplier.Text.Trim(),
                         Manufacturer = txtManufacturer.Text.Trim(),
-                        SafeStockQty = safeStock,
-                        LeadTimeDays = leadTime,
+                        SafeStockQty = (int)numSafeStock.Value,
+                        LeadTimeDays = (int)numLeadTime.Value,
+                        Price = numPrice.Value,
                         InitialStock = numInitialStock.Value,
                         WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
                         SourceType = 1

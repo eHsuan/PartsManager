@@ -23,6 +23,8 @@ namespace PartsManager.Shared.DTOs
 
         public int LeadTimeDays { get; set; }
 
+        public decimal Price { get; set; }
+
         public decimal InitialStock { get; set; }
 
         public int? WarehouseId { get; set; }

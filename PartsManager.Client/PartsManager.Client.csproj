@@ -18,6 +18,10 @@
     <None Update="config.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="..\doc\ImagePDF.bmp">
+      <Link>Resources\PdfIcon.bmp</Link>
+      <LogicalName>PdfIcon.bmp</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <PropertyGroup>
