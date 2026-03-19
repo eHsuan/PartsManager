@@ -541,4 +541,7 @@
   <data name="Msg_FileIsLocked" xml:space="preserve">
     <value>檔案正被其他程式使用中，請先關閉 Excel。</value>
   </data>
+  <data name="Msg_DownloadingAttachment" xml:space="preserve">
+    <value>正在下載附件，請稍候...</value>
+  </data>
 </root>

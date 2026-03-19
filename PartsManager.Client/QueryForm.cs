@@ -53,18 +53,22 @@ namespace PartsManager.Client
                 if (material.AttachmentFileNames != null && material.AttachmentFileNames.Count > index)
                 {
                     string fileName = material.AttachmentFileNames[index];
-                    try
+                    
+                    await ProgressForm.ShowLoading(this, LocalizationService.GetString("Msg_DownloadingAttachment"), async () => 
                     {
-                        var data = await _apiClient.DownloadAttachmentAsync(material.MaterialId, fileName);
-                        string tempFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), fileName);
-                        System.IO.File.WriteAllBytes(tempFile, data);
-                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFile) { UseShellExecute = true });
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
-                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        try
+                        {
+                            var data = await _apiClient.DownloadAttachmentAsync(material.MaterialId, fileName);
+                            string tempFile = System.IO.Path.Combine(System.IO.Path.GetTempPath(), fileName);
+                            System.IO.File.WriteAllBytes(tempFile, data);
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFile) { UseShellExecute = true });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
+                                LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    });
                 }
             }
         }

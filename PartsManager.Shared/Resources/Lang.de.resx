@@ -541,4 +541,7 @@
   <data name="Msg_FileIsLocked" xml:space="preserve">
     <value>Die Datei wird von einem anderen Prozess verwendet. Bitte schließen Sie zuerst Excel.</value>
   </data>
+  <data name="Msg_DownloadingAttachment" xml:space="preserve">
+    <value>Anhang wird heruntergeladen, bitte warten...</value>
+  </data>
 </root>
