@@ -71,5 +71,25 @@ namespace PartsManager.Client
                 _ini.Write("Inventory", "EnableLabelPrinting", value.ToString().ToLower());
             }
         }
+
+        public static string PrinterName
+        {
+            get => _printerName;
+            set
+            {
+                _printerName = value;
+                _ini.Write("Inventory", "PrinterName", value);
+            }
+        }
+
+        public static string LabelTemplatePath
+        {
+            get => _labelTemplatePath;
+            set
+            {
+                _labelTemplatePath = value;
+                _ini.Write("Inventory", "LabelTemplatePath", value);
+            }
+        }
     }
 }

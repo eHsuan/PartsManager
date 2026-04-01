@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using PartsManager.Shared.DTOs;
 using PartsManager.Shared.Resources;
+using PartsManager.Client.Services;
 
 namespace PartsManager.Client
 {
@@ -300,6 +301,16 @@ namespace PartsManager.Client
 
                 MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"),
                     LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (GlobalSettings.EnableLabelPrinting)
+                {
+                    string askMsg = LocalizationService.GetString("Dialog_AskPrintLabel");
+                    string askTitle = LocalizationService.GetString("Common_Info");
+                    if (MessageBox.Show(askMsg, askTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        LabelPrinterService.PrintLabel(txtPartNo.Text.Trim(), txtName.Text.Trim());
+                    }
+                }
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();
