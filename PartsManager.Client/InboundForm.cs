@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using PartsManager.Shared.DTOs;
 using PartsManager.Shared.Resources;
+using PartsManager.Client.Services;
 
 namespace PartsManager.Client
 {
@@ -141,8 +142,7 @@ namespace PartsManager.Client
             string name = lblMaterialName.Text;
             if (string.IsNullOrEmpty(barcode) || name == "--") return;
 
-            MessageBox.Show($"{LocalizationService.GetString("Label_ReprintHeader")}\n----------------\n{barcode}\n{name}\n----------------", 
-                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LabelPrinterService.PrintLabel(barcode, name);
         }
 
         private async void btnInbound_Click(object sender, EventArgs e)
