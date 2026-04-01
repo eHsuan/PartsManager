@@ -15,6 +15,8 @@ namespace PartsManager.Client
         private static string _serverIP;
         private static string _serverPort;
         private static int _defaultWarehouseId;
+        private static string _printerName;
+        private static string _labelTemplatePath;
 
         static GlobalSettings()
         {
@@ -36,6 +38,9 @@ namespace PartsManager.Client
 
             string printStr = _ini.Read("Inventory", "EnableLabelPrinting", "true");
             bool.TryParse(printStr, out _enableLabelPrinting);
+
+            _printerName = _ini.Read("Inventory", "PrinterName", "");
+            _labelTemplatePath = _ini.Read("Inventory", "LabelTemplatePath", "Templates\\Label.lbx");
         }
 
         public static string ApiBaseUrl => $"http://{_serverIP}:{_serverPort}/";

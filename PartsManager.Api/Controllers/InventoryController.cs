@@ -124,6 +124,67 @@ public class InventoryController : ControllerBase
         }
     }
 
+    [HttpPost("compare")]
+    public async Task<ActionResult<IEnumerable<InventoryComparisonResultDto>>> Compare([FromBody] InventoryCheckRequestDto request)
+    {
+        // 1. 取得該倉庫的所有庫存
+        var systemStocks = await (from s in _context.Inv_CurrentStock
+                                  join m in _context.Mdm_Materials on s.MaterialID equals m.MaterialID
+                                  where s.WarehouseID == request.WarehouseId
+                                  select new
+                                  {
+                                      m.PartNo,
+                                      m.Name,
+                                      m.Specification,
+                                      s.Quantity
+                                  }).ToListAsync();
+
+        var results = new List<InventoryComparisonResultDto>();
+
+        // 2. 處理實盤資料 (Scanned)
+        // 注意：同一 PartNo 可能被分多次掃描 (雖然前端應處理重複，但後端累加較保險)
+        var scannedGroups = request.Items
+            .GroupBy(i => i.PartNo)
+            .Select(g => new { PartNo = g.Key, TotalScanned = g.Sum(i => i.ScannedQty) })
+            .ToList();
+
+        // 3. 以「實盤」為主進行比對
+        foreach (var scan in scannedGroups)
+        {
+            var sys = systemStocks.FirstOrDefault(s => s.PartNo == scan.PartNo);
+            var material = await _context.Mdm_Materials.FirstOrDefaultAsync(m => m.PartNo == scan.PartNo);
+
+            results.Add(new InventoryComparisonResultDto
+            {
+                PartNo = scan.PartNo,
+                Name = sys?.Name ?? material?.Name ?? "Unknown",
+                Specification = sys?.Specification ?? material?.Specification ?? "",
+                SystemQty = sys?.Quantity ?? 0,
+                ScannedQty = scan.TotalScanned,
+                Status = (sys == null) ? "Excess" : (sys.Quantity == scan.TotalScanned ? "Match" : "Different")
+            });
+        }
+
+        // 4. 以「系統」為主找出未掃描到的項目 (Missing)
+        foreach (var sys in systemStocks)
+        {
+            if (!results.Any(r => r.PartNo == sys.PartNo))
+            {
+                results.Add(new InventoryComparisonResultDto
+                {
+                    PartNo = sys.PartNo,
+                    Name = sys.Name,
+                    Specification = sys.Specification,
+                    SystemQty = sys.Quantity,
+                    ScannedQty = 0,
+                    Status = "Missing"
+                });
+            }
+        }
+
+        return Ok(results.OrderBy(r => r.Status).ThenBy(r => r.PartNo));
+    }
+
     [HttpGet("search")]
     public async Task<ActionResult<IEnumerable<SparePartSearchResultDto>>> Search(string? query = null)
     {

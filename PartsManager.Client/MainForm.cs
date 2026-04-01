@@ -191,6 +191,14 @@ namespace PartsManager.Client
                 form.Show();
             };
 
+            var btnInventory = CreateNavButton(LocalizationService.GetString("Menu_Inventory"), false);
+            btnInventory.Visible = UserSession.UserLevel <= 3;
+            btnInventory.Click += (s, e) => {
+                var form = new InventoryForm();
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.Show();
+            };
+
             // --- 系統設定按鈕 (點擊顯示 ContextMenu) ---
             var btnSettings = CreateNavButton(LocalizationService.GetString("Menu_Settings"), false);
             btnSettings.Dock = DockStyle.Right; // 置右
@@ -214,6 +222,7 @@ namespace PartsManager.Client
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInbound);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnQuery);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
+            if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInventory);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnBatchImport);
             if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnUserMgmt);

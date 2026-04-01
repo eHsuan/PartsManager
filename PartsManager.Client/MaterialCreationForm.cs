@@ -36,8 +36,10 @@ namespace PartsManager.Client
         public MaterialCreationForm(int materialId) : this()
         {
             _materialId = materialId;
-            this.Text = LocalizationService.GetString("MaterialEditForm");
-            btnSave.Text = LocalizationService.GetString("Btn_Save");
+            this.Tag = "MaterialEditForm"; // 修改 Tag 以觸發編輯模式標題翻譯
+            I18nHelper.Apply(this); // 再次套用，切換標題
+            
+            // btnSave.Text 會由 I18nHelper 自動處理 (如果 Tag 是一樣的)
         }
 
         private async void MaterialCreationForm_Load(object sender, EventArgs e)

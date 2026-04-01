@@ -541,7 +541,23 @@
   <data name="Msg_FileIsLocked" xml:space="preserve">
     <value>檔案正被其他程式使用中，請先關閉 Excel。</value>
   </data>
-  <data name="Msg_DownloadingAttachment" xml:space="preserve">
-    <value>正在下載附件，請稍候...</value>
-  </data>
-</root>
+  <data name="Msg_DownloadingAttachment" xml:space="preserve"><value>正在下載附件，請稍候...</value></data>
+  <data name="Menu_Inventory" xml:space="preserve"><value>庫存盤點</value></data>
+  <data name="InventoryForm" xml:space="preserve"><value>庫存盤點</value></data>
+  <data name="Label_ScanBarcode" xml:space="preserve"><value>掃描條碼 (Scan Barcode)</value></data>
+  <data name="Label_TargetWarehouse" xml:space="preserve"><value>盤點倉庫 (Warehouse)</value></data>
+  <data name="Btn_GenerateReport" xml:space="preserve"><value>產出差異報告</value></data>
+  <data name="Btn_Clear" xml:space="preserve"><value>清空清單 (Clear)</value></data>
+  <data name="Col_PartNo" xml:space="preserve"><value>零件編號</value></data>
+  <data name="Col_Qty" xml:space="preserve"><value>數量</value></data>
+  <data name="Col_Time" xml:space="preserve"><value>盤點時間</value></data>
+  <data name="Label_ScannedCount" xml:space="preserve"><value>已掃描: {0} 項目</value></data>
+  <data name="Msg_BarcodeAlreadyScanned" xml:space="preserve"><value>條碼 {0} 已盤點過，目前數量 {1}，是否要調整？</value></data>
+  <data name="Msg_ConfirmClear" xml:space="preserve"><value>確定要清空已掃描的清單嗎？</value></data>
+  <data name="Msg_NoItemsScanned" xml:space="preserve"><value>尚未掃描任何項目。</value></data>
+  <data name="Msg_CompareComplete" xml:space="preserve"><value>庫存比對完成。</value></data>
+  <data name="Msg_EnterNewQty" xml:space="preserve"><value>請輸入新數量:</value></data>
+  <data name="Msg_EnterQty" xml:space="preserve"><value>請輸入數量:</value></data>
+  <data name="InventoryReportForm" xml:space="preserve"><value>盤點差異報告</value></data>
+  <data name="Btn_Close" xml:space="preserve"><value>關閉</value></data>
+  </root>

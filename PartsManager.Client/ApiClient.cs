@@ -230,6 +230,39 @@ namespace PartsManager.Client
             }
         }
 
+        public async Task<MaterialStockInfoDto> GetScanResultAsync(string barcode)
+        {
+            var response = await _client.GetAsync("api/inventory/scan/" + barcode);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<MaterialStockInfoDto>(json);
+            }
+            
+            if (response.StatusCode == HttpStatusCode.NotFound) return null;
+
+            var errorJson = await response.Content.ReadAsStringAsync();
+            throw new Exception("Scan Error: " + response.StatusCode + " " + errorJson);
+        }
+
+        public async Task<List<InventoryComparisonResultDto>> CompareInventoryAsync(InventoryCheckRequestDto request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("api/inventory/compare", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseJson = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<InventoryComparisonResultDto>>(responseJson);
+            }
+
+            var errorJson = await response.Content.ReadAsStringAsync();
+            throw new Exception("Compare Error: " + response.StatusCode + " " + errorJson);
+        }
+
         // --- Auth & User Management ---
 
         public async Task<UserDto> LoginAsync(string username, string password)

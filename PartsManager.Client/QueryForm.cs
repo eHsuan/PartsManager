@@ -19,14 +19,6 @@ namespace PartsManager.Client
             UIStyle.Apply(this);
             I18nHelper.Apply(this); // 套用語系
             
-            // 選單項目手動翻譯
-            menuEdit.Text = LocalizationService.GetString("Menu_Edit");
-            menuDelete.Text = LocalizationService.GetString("Menu_Delete");
-            menuOutbound.Text = LocalizationService.GetString("Menu_Outbound");
-            btnExport.Text = LocalizationService.GetString("Btn_ExportExcel");
-            Col_Price.HeaderText = LocalizationService.GetString("Col_Price");
-            Col_TotalAmount.HeaderText = LocalizationService.GetString("Col_TotalAmount");
-
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
             // 修正：防止沒有圖片時顯示 X，並設定自動縮放
