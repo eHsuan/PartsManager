@@ -21,6 +21,13 @@ namespace PartsManager.Client
             
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
 
+            // 根據使用者等級限制功能
+            //if (UserSession.UserLevel >= 4)
+            //{
+            //    menuEdit.Visible = false;
+            //    menuDelete.Visible = false;
+            //}
+
             // 修正：防止沒有圖片時顯示 X，並設定自動縮放
             Col_Att1.DefaultCellStyle.NullValue = null;
             Col_Att1.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -223,9 +230,6 @@ namespace PartsManager.Client
                     // 右鍵點擊時自動選中該列
                     dgvResults.ClearSelection();
                     dgvResults.Rows[e.RowIndex].Selected = true;
-
-                    // 手動彈出選單，確保在選取後才顯示
-                    ctxMenu.Show(Cursor.Position);
                 }
             }
         }
@@ -233,21 +237,18 @@ namespace PartsManager.Client
         private void ctxMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // 權限控管：
-            // 編輯：Level 1 & 2
-            // 刪除：Level 1 Only
-            // 領料：Level <= 3 (注意：如果是 0 代表未登入或異常，預設設為不允許)
+            // 改用 Available 屬性，這在 Opening 事件中比 Visible 更可靠且能正確覆寫
             int level = UserSession.UserLevel == 0 ? 99 : UserSession.UserLevel;
 
-            menuEdit.Visible = level <= 2;
-            menuDelete.Visible = level == 1;
-            menuOutbound.Visible = level <= 3;
+            menuEdit.Available = level <= 2;
+            menuDelete.Available = level <= 1;
+            menuOutbound.Available = level <= 4;
 
-            // 如果沒有任何選項可見，不要取消事件 (e.Cancel = true 會導致沒反應)
-            // 而是可以考慮加入一個「無權限」的提示項，或者至少讓選單知道發生什麼事
-            if (!menuEdit.Visible && !menuDelete.Visible && !menuOutbound.Visible)
+            // 只有在完全沒有任何可見項目時才取消開啟
+            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available;
+            if (!hasAvailableItems)
             {
-                // 為了讓使用者知道「右鍵有反應」，我們顯示選單但不提供功能
-                // 這裡暫不 Cancel，讓空選單或僅有的項目顯示
+                e.Cancel = true;
             }
         }
 

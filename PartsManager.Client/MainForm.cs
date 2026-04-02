@@ -155,7 +155,7 @@ namespace PartsManager.Client
             };
 
             var btnQuery = CreateNavButton(LocalizationService.GetString("Menu_Query"), false);
-            btnQuery.Visible = UserSession.UserLevel <= 3;
+            btnQuery.Visible = UserSession.UserLevel <= 4;
             btnQuery.Click += (s, e) => {
                 var form = new QueryForm();
                 form.StartPosition = FormStartPosition.CenterScreen;
@@ -205,6 +205,17 @@ namespace PartsManager.Client
             btnSettings.Width = 150;
             
             var ctxSettings = new ContextMenuStrip();
+            
+            // 變更密碼選項
+            var itemChangePassword = new ToolStripMenuItem(LocalizationService.GetString("Menu_ChangePassword"));
+            itemChangePassword.Click += (s, e) => {
+                new ChangePasswordForm().ShowDialog();
+            };
+            ctxSettings.Items.Add(itemChangePassword);
+
+            // 分隔線
+            ctxSettings.Items.Add(new ToolStripSeparator());
+
             var itemEnablePrinting = new ToolStripMenuItem(LocalizationService.GetString("Setting_EnablePrinting"));
             itemEnablePrinting.CheckOnClick = true;
             itemEnablePrinting.Checked = GlobalSettings.EnableLabelPrinting;
@@ -220,12 +231,15 @@ namespace PartsManager.Client
             // --- 加入 Panel (順序：左到右) ---
 
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInbound);
-            if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnQuery);
+            if (UserSession.UserLevel <= 4) navPanel.Controls.Add(btnQuery);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInventory);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnBatchImport);
             if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnUserMgmt);
+            
+            // 修正：將設定按鈕加入導航列 (靠右對齊)
+            navPanel.Controls.Add(btnSettings);
 
             this.Controls.Add(navPanel);
             this.Text = LocalizationService.GetString("App_Title") + $" - {UserSession.Username}";

@@ -74,4 +74,25 @@ public class UserController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
+
+    [HttpPost("change-password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+    {
+        var user = await _context.Sys_Users
+            .FirstOrDefaultAsync(u => u.Username == dto.Username);
+
+        if (user == null) return NotFound(new { message = "找不到使用者" });
+
+        // 比對舊密碼
+        if (user.PasswordHash != dto.OldPassword)
+        {
+            return BadRequest(new { message = "舊密碼不正確" });
+        }
+
+        // 更新新密碼
+        user.PasswordHash = dto.NewPassword;
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "密碼變更成功" });
+    }
 }

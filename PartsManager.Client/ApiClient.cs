@@ -321,5 +321,19 @@ namespace PartsManager.Client
                 throw new Exception("刪除使用者失敗: " + err);
             }
         }
+
+        public async Task ChangePasswordAsync(ChangePasswordDto data)
+        {
+            var json = JsonConvert.SerializeObject(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("api/user/change-password", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorJson = await response.Content.ReadAsStringAsync();
+                throw new Exception("變更密碼失敗: " + errorJson);
+            }
+        }
     }
 }

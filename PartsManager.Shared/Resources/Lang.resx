@@ -560,4 +560,13 @@
   <data name="Msg_EnterQty" xml:space="preserve"><value>請輸入數量:</value></data>
   <data name="InventoryReportForm" xml:space="preserve"><value>盤點差異報告</value></data>
   <data name="Btn_Close" xml:space="preserve"><value>關閉</value></data>
+  <data name="Menu_ChangePassword" xml:space="preserve"><value>變更個人密碼</value></data>
+  <data name="Label_OldPassword" xml:space="preserve"><value>目前密碼 (Old Password)</value></data>
+  <data name="Label_NewPassword" xml:space="preserve"><value>設定新密碼 (New Password)</value></data>
+  <data name="Label_ConfirmPassword" xml:space="preserve"><value>再次確認新密碼</value></data>
+  <data name="Msg_PasswordMismatch" xml:space="preserve"><value>兩次輸入的新密碼不一致！</value></data>
+  <data name="Msg_PasswordChanged" xml:space="preserve"><value>密碼變更成功，下次登入請使用新密碼。</value></data>
+  <data name="Menu_Logout" xml:space="preserve"><value>登出 (Logout)</value></data>
+  <data name="Msg_LogoutConfirm" xml:space="preserve"><value>確定要登出並切換使用者嗎？</value></data>
+  <data name="Common_Confirm" xml:space="preserve"><value>確認</value></data>
   </root>
