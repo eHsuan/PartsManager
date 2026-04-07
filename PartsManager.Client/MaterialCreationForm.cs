@@ -66,6 +66,7 @@ namespace PartsManager.Client
                         numLeadTime.Value = material.LeadTimeDays;
                         numPrice.Value = material.Price;
                         txtPartNo.Enabled = false;
+                        btnGenTempPartNo.Enabled = false;
 
                         // 載入附件清單
                         _existingAttachments = await _apiClient.GetAttachmentsAsync(_materialId.Value);
@@ -79,6 +80,17 @@ namespace PartsManager.Client
                     this.Close();
                 }
             }
+        }
+
+        private void btnGenTempPartNo_Click(object sender, EventArgs e)
+        {
+            // 產生臨時料號：TMP + yyMMddHHmm (例如 TMP2604061430)
+            string tempPartNo = "TMP" + DateTime.Now.ToString("yyMMddHHmm");
+            txtPartNo.Text = tempPartNo;
+            
+            // 提示使用者已生成
+            MessageBox.Show(LocalizationService.GetString("Msg_TempPartNoGenerated"), 
+                LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async System.Threading.Tasks.Task LoadWarehousesAsync()

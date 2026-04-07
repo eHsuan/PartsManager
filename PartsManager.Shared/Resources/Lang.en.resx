@@ -544,4 +544,10 @@
   <data name="Msg_DownloadingAttachment" xml:space="preserve">
     <value>Downloading attachment, please wait...</value>
   </data>
+  <data name="Button_GenTempPartNo" xml:space="preserve">
+    <value>Gen Temp P/N</value>
+  </data>
+  <data name="Msg_TempPartNoGenerated" xml:space="preserve">
+    <value>Temporary Part No generated</value>
+  </data>
 </root>

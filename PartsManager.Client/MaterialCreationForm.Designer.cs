@@ -20,6 +20,7 @@ namespace PartsManager.Client
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPartNo = new System.Windows.Forms.TextBox();
+            this.btnGenTempPartNo = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,6 +70,18 @@ namespace PartsManager.Client
             this.txtPartNo.Name = "txtPartNo";
             this.txtPartNo.Size = new System.Drawing.Size(250, 26);
             this.txtPartNo.TabIndex = 0;
+            // 
+            // btnGenTempPartNo
+            // 
+            this.btnGenTempPartNo.Font = new System.Drawing.Font("Microsoft JhengHei", 9F);
+            this.btnGenTempPartNo.Location = new System.Drawing.Point(290, 41);
+            this.btnGenTempPartNo.Name = "btnGenTempPartNo";
+            this.btnGenTempPartNo.Size = new System.Drawing.Size(160, 28);
+            this.btnGenTempPartNo.TabIndex = 13;
+            this.btnGenTempPartNo.Tag = "Button_GenTempPartNo";
+            this.btnGenTempPartNo.Text = "產生臨時料號";
+            this.btnGenTempPartNo.UseVisualStyleBackColor = true;
+            this.btnGenTempPartNo.Click += new System.EventHandler(this.btnGenTempPartNo_Click);
             // 
             // label2
             // 
@@ -357,6 +370,7 @@ namespace PartsManager.Client
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtPartNo);
+            this.Controls.Add(this.btnGenTempPartNo);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -379,6 +393,7 @@ namespace PartsManager.Client
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPartNo;
+        private System.Windows.Forms.Button btnGenTempPartNo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label3;

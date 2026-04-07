@@ -8,37 +8,59 @@ namespace PartsManager.Client.Services
 {
     public class LabelPrinterService
     {
+        /// <summary>
+        /// 外部呼叫進入點，具備安全保護機制
+        /// </summary>
         public static void PrintLabel(string barcode, string name = "")
         {
+            // 1. 如果設定中關閉了列印，直接返回，不接觸 bpac 型別
             if (!GlobalSettings.EnableLabelPrinting) return;
-
-            // 準備 bPAC 文件物件
-            bpac.DocumentClass doc = new bpac.DocumentClass();
-
-            // 範本路徑
-            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GlobalSettings.LabelTemplatePath);
-
-            if (!File.Exists(templatePath))
-            {
-                MessageBox.Show($"Label Template not found: {templatePath}", 
-                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
             try
             {
+                // 2. 透過另一個私有方法執行實際列印，確保 bpac 型別載入被延後到此處
+                // 這樣即使沒 SDK，只要不進入此方法，JIT 就不會嘗試解析 bpac 組件
+                ExecutePrintInternal(barcode, name);
+            }
+            catch (Exception ex)
+            {
+                // 3. 捕捉 SDK 缺失或通訊錯誤，防止程式直接當機
+                string errorMsg = "標籤機列印失敗。請確認是否已安裝 Brother bPAC SDK 與驅動程式。\n\n錯誤詳情: " + ex.Message;
+                MessageBox.Show(errorMsg, LocalizationService.GetString("Common_Error"), 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// 實際與 SDK 交互的私有方法
+        /// </summary>
+        private static void ExecutePrintInternal(string barcode, string name)
+        {
+            // 只有進入此方法時，.NET 才會嘗試載入 bpac 組件
+            bpac.DocumentClass doc = new bpac.DocumentClass();
+
+            try
+            {
+                // 範本路徑
+                string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GlobalSettings.LabelTemplatePath);
+
+                if (!File.Exists(templatePath))
+                {
+                    MessageBox.Show($"Label Template not found: {templatePath}", 
+                        LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // 開啟標籤底板
                 if (doc.Open(templatePath))
                 {
-                    // 填入資料
-                    // 根據 PrintTest 範例，條碼物件名稱為 "PartBarcode"
+                    // 填入資料 (名稱請對應 bPAC 檔案內的物件名稱)
                     var barcodeObj = doc.GetObject("PartBarcode");
                     if (barcodeObj != null)
                     {
                         barcodeObj.Text = barcode;
                     }
 
-                    // 如果範本中有 PartName 物件，也一併填入
                     var nameObj = doc.GetObject("PartName");
                     if (nameObj != null && !string.IsNullOrEmpty(name))
                     {
@@ -62,15 +84,13 @@ namespace PartsManager.Client.Services
                         LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{LocalizationService.GetString("Msg_PrintError")}: {ex.Message}", 
-                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             finally
             {
                 // 釋放系統資源
-                Marshal.ReleaseComObject(doc);
+                if (doc != null)
+                {
+                    Marshal.ReleaseComObject(doc);
+                }
             }
         }
     }
