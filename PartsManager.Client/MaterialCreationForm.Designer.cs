@@ -45,6 +45,8 @@ namespace PartsManager.Client
             this.pnlAttachments = new System.Windows.Forms.FlowLayoutPanel();
             this.btnUpload = new System.Windows.Forms.Button();
             this.toolTipAttachment = new System.Windows.Forms.ToolTip(this.components);
+            this.labelMachine = new System.Windows.Forms.Label();
+            this.cmbMachine = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numSafeStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLeadTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
@@ -207,11 +209,32 @@ namespace PartsManager.Client
             this.txtManufacturer.Size = new System.Drawing.Size(420, 29);
             this.txtManufacturer.TabIndex = 6;
             // 
+            // labelMachine
+            // 
+            this.labelMachine.AutoSize = true;
+            this.labelMachine.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
+            this.labelMachine.Location = new System.Drawing.Point(30, 385);
+            this.labelMachine.Name = "labelMachine";
+            this.labelMachine.Size = new System.Drawing.Size(92, 19);
+            this.labelMachine.TabIndex = 19;
+            this.labelMachine.Tag = "Label_Machine";
+            this.labelMachine.Text = "機台 (Machine)";
+            // 
+            // cmbMachine
+            // 
+            this.cmbMachine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMachine.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
+            this.cmbMachine.FormattingEnabled = true;
+            this.cmbMachine.Location = new System.Drawing.Point(30, 407);
+            this.cmbMachine.Name = "cmbMachine";
+            this.cmbMachine.Size = new System.Drawing.Size(420, 27);
+            this.cmbMachine.TabIndex = 20;
+            // 
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
             this.labelPrice.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
-            this.labelPrice.Location = new System.Drawing.Point(30, 385);
+            this.labelPrice.Location = new System.Drawing.Point(30, 450);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(92, 19);
             this.labelPrice.TabIndex = 18;
@@ -222,7 +245,7 @@ namespace PartsManager.Client
             // 
             this.numPrice.DecimalPlaces = 2;
             this.numPrice.Font = new System.Drawing.Font("Consolas", 12F);
-            this.numPrice.Location = new System.Drawing.Point(30, 407);
+            this.numPrice.Location = new System.Drawing.Point(30, 472);
             this.numPrice.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -236,7 +259,7 @@ namespace PartsManager.Client
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
-            this.label8.Location = new System.Drawing.Point(30, 445);
+            this.label8.Location = new System.Drawing.Point(30, 510);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 19);
             this.label8.TabIndex = 14;
@@ -247,7 +270,7 @@ namespace PartsManager.Client
             // 
             this.numInitialStock.DecimalPlaces = 0;
             this.numInitialStock.Font = new System.Drawing.Font("Consolas", 12F);
-            this.numInitialStock.Location = new System.Drawing.Point(30, 467);
+            this.numInitialStock.Location = new System.Drawing.Point(30, 532);
             this.numInitialStock.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -261,7 +284,7 @@ namespace PartsManager.Client
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
-            this.label9.Location = new System.Drawing.Point(210, 445);
+            this.label9.Location = new System.Drawing.Point(210, 510);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(76, 19);
             this.label9.TabIndex = 16;
@@ -273,7 +296,7 @@ namespace PartsManager.Client
             this.cmbInitialWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbInitialWarehouse.Font = new System.Drawing.Font("Microsoft JhengHei", 11F);
             this.cmbInitialWarehouse.FormattingEnabled = true;
-            this.cmbInitialWarehouse.Location = new System.Drawing.Point(210, 467);
+            this.cmbInitialWarehouse.Location = new System.Drawing.Point(210, 532);
             this.cmbInitialWarehouse.Name = "cmbInitialWarehouse";
             this.cmbInitialWarehouse.Size = new System.Drawing.Size(240, 27);
             this.cmbInitialWarehouse.TabIndex = 9;
@@ -284,7 +307,7 @@ namespace PartsManager.Client
             this.grpAttachments.Controls.Add(this.btnUpload);
             this.grpAttachments.Font = new System.Drawing.Font("Microsoft JhengHei", 10F);
             this.grpAttachments.ForeColor = System.Drawing.Color.White;
-            this.grpAttachments.Location = new System.Drawing.Point(30, 510);
+            this.grpAttachments.Location = new System.Drawing.Point(30, 575);
             this.grpAttachments.Name = "grpAttachments";
             this.grpAttachments.Size = new System.Drawing.Size(420, 110);
             this.grpAttachments.TabIndex = 10;
@@ -318,7 +341,7 @@ namespace PartsManager.Client
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(130, 640);
+            this.btnSave.Location = new System.Drawing.Point(130, 705);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(140, 40);
             this.btnSave.TabIndex = 11;
@@ -334,7 +357,7 @@ namespace PartsManager.Client
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft JhengHei", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(290, 640);
+            this.btnCancel.Location = new System.Drawing.Point(290, 705);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 40);
             this.btnCancel.TabIndex = 12;
@@ -347,7 +370,9 @@ namespace PartsManager.Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 700);
+            this.ClientSize = new System.Drawing.Size(500, 770);
+            this.Controls.Add(this.cmbMachine);
+            this.Controls.Add(this.labelMachine);
             this.Controls.Add(this.numPrice);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.cmbInitialWarehouse);
@@ -418,5 +443,7 @@ namespace PartsManager.Client
         private System.Windows.Forms.ToolTip toolTipAttachment;
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.NumericUpDown numPrice;
+        private System.Windows.Forms.Label labelMachine;
+        private System.Windows.Forms.ComboBox cmbMachine;
     }
 }

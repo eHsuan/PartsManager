@@ -24,7 +24,6 @@ namespace PartsManager.Client
             this.label1 = new System.Windows.Forms.Label();
             this.cmbWarehouse = new System.Windows.Forms.ComboBox();
             this.btnCompare = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
             this.lblCountInfo = new System.Windows.Forms.Label();
             this.dgvScanned = new System.Windows.Forms.DataGridView();
             this.colPartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +37,6 @@ namespace PartsManager.Client
             // 
             this.pnlLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.pnlLeft.Controls.Add(this.lblCountInfo);
-            this.pnlLeft.Controls.Add(this.btnClear);
             this.pnlLeft.Controls.Add(this.btnCompare);
             this.pnlLeft.Controls.Add(this.label1);
             this.pnlLeft.Controls.Add(this.cmbWarehouse);
@@ -120,29 +118,14 @@ namespace PartsManager.Client
             this.btnCompare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCompare.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold);
             this.btnCompare.ForeColor = System.Drawing.Color.White;
-            this.btnCompare.Location = new System.Drawing.Point(20, 450);
+            this.btnCompare.Location = new System.Drawing.Point(20, 480);
             this.btnCompare.Name = "btnCompare";
-            this.btnCompare.Size = new System.Drawing.Size(310, 60);
+            this.btnCompare.Size = new System.Drawing.Size(310, 80);
             this.btnCompare.TabIndex = 5;
             this.btnCompare.Tag = "Btn_GenerateReport";
             this.btnCompare.Text = "產出差異報告";
             this.btnCompare.UseVisualStyleBackColor = false;
             this.btnCompare.Click += new System.EventHandler(this.btnCompare_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Font = new System.Drawing.Font("微軟正黑體", 10F);
-            this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(20, 520);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(310, 40);
-            this.btnClear.TabIndex = 6;
-            this.btnClear.Tag = "Btn_Clear";
-            this.btnClear.Text = "清空清單 (Clear)";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // lblCountInfo
             // 
@@ -228,7 +211,6 @@ namespace PartsManager.Client
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbWarehouse;
         private System.Windows.Forms.Button btnCompare;
-        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.DataGridView dgvScanned;
         private System.Windows.Forms.Label lblCountInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPartNo;

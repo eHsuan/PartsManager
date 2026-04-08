@@ -8,6 +8,7 @@
         public string Specification { get; set; }
         public string Supplier { get; set; }
         public string Manufacturer { get; set; }
+        public string MachineName { get; set; } = string.Empty;
         public string WarehouseName { get; set; }
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }

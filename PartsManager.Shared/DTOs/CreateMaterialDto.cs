@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace PartsManager.Shared.DTOs
 {
@@ -26,10 +26,12 @@ namespace PartsManager.Shared.DTOs
         public decimal Price { get; set; }
 
         public decimal InitialStock { get; set; }
-
+        
         public int? WarehouseId { get; set; }
+        
+        [Required]
+        public int MachineID { get; set; }
 
         public byte SourceType { get; set; } = 1; // 預設 1: Line-Side Purchased
     }
 }
-

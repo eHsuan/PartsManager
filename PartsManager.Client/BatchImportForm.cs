@@ -64,18 +64,19 @@ namespace PartsManager.Client
                 ws.Cell(1, 1).Value = LocalizationService.GetString("Import_Header_Name") + " *";
                 ws.Cell(1, 2).Value = LocalizationService.GetString("Import_Header_Spec");
                 ws.Cell(1, 3).Value = LocalizationService.GetString("Import_Header_PartNo") + " *";
-                ws.Cell(1, 4).Value = LocalizationService.GetString("Import_Header_Supplier");
-                ws.Cell(1, 5).Value = LocalizationService.GetString("Import_Header_Manufacturer");
-                ws.Cell(1, 6).Value = LocalizationService.GetString("Import_Header_WarehouseId");
-                ws.Cell(1, 7).Value = LocalizationService.GetString("Import_Header_InitialStock");
-                ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_SafeStock");
-                ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_LeadTime");
-                ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_Price");
-                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Attachment1");
-                ws.Cell(1, 12).Value = LocalizationService.GetString("Import_Header_Attachment2");
+                ws.Cell(1, 4).Value = LocalizationService.GetString("Import_Header_Machine");
+                ws.Cell(1, 5).Value = LocalizationService.GetString("Import_Header_Supplier");
+                ws.Cell(1, 6).Value = LocalizationService.GetString("Import_Header_Manufacturer");
+                ws.Cell(1, 7).Value = LocalizationService.GetString("Import_Header_WarehouseId");
+                ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_InitialStock");
+                ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_SafeStock");
+                ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_LeadTime");
+                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Price");
+                ws.Cell(1, 12).Value = LocalizationService.GetString("Import_Header_Attachment1");
+                ws.Cell(1, 13).Value = LocalizationService.GetString("Import_Header_Attachment2");
 
                 // 樣式設定
-                var headerRange = ws.Range(1, 1, 1, 12);
+                var headerRange = ws.Range(1, 1, 1, 13);
                 headerRange.Style.Font.Bold = true;
                 headerRange.Style.Fill.BackgroundColor = ClosedXML.Excel.XLColor.LightGray;
                 ws.Columns().AdjustToContents();
@@ -96,6 +97,9 @@ namespace PartsManager.Client
 
             try
             {
+                // 預先載入機台清單用於比對
+                var machineList = await _apiClient.GetMachinesAsync();
+
                 using (var workbook = new ClosedXML.Excel.XLWorkbook(filePath))
                 {
                     var ws = workbook.Worksheet(1);
@@ -106,6 +110,7 @@ namespace PartsManager.Client
                     string headName = LocalizationService.GetString("Import_Header_Name");
                     string headSpec = LocalizationService.GetString("Import_Header_Spec");
                     string headPartNo = LocalizationService.GetString("Import_Header_PartNo");
+                    string headMachine = LocalizationService.GetString("Import_Header_Machine");
                     string headSupplier = LocalizationService.GetString("Import_Header_Supplier");
                     string headManufacturer = LocalizationService.GetString("Import_Header_Manufacturer");
                     string headWhId = LocalizationService.GetString("Import_Header_WarehouseId");
@@ -125,6 +130,7 @@ namespace PartsManager.Client
                         if (cellValue.Contains(headName)) columnMap["Name"] = i;
                         else if (cellValue.Contains(headSpec)) columnMap["Spec"] = i;
                         else if (cellValue.Contains(headPartNo)) columnMap["PartNo"] = i;
+                        else if (cellValue.Contains(headMachine)) columnMap["Machine"] = i;
                         else if (cellValue.Contains(headSupplier)) columnMap["Supplier"] = i;
                         else if (cellValue.Contains(headManufacturer)) columnMap["Manufacturer"] = i;
                         else if (cellValue.Contains(headWhId)) columnMap["WhID"] = i;
@@ -174,6 +180,42 @@ namespace PartsManager.Client
                                 Supplier = columnMap.ContainsKey("Supplier") ? row.Cell(columnMap["Supplier"]).GetString().Trim() : "",
                                 Manufacturer = columnMap.ContainsKey("Manufacturer") ? row.Cell(columnMap["Manufacturer"]).GetString().Trim() : ""
                             };
+
+                            // 解析機台 (優先根據 MachineCode 比對，其次是 MachineName)
+                            if (columnMap.ContainsKey("Machine"))
+                            {
+                                string machineExcelValue = row.Cell(columnMap["Machine"]).GetString().Trim();
+                                if (!string.IsNullOrEmpty(machineExcelValue))
+                                {
+                                    var machine = machineList.FirstOrDefault(m => 
+                                        m.MachineCode.Equals(machineExcelValue, StringComparison.OrdinalIgnoreCase))
+                                        ?? machineList.FirstOrDefault(m => 
+                                        m.MachineName.Equals(machineExcelValue, StringComparison.OrdinalIgnoreCase));
+                                    
+                                    if (machine != null)
+                                    {
+                                        dto.MachineID = machine.MachineID;
+                                    }
+                                    else
+                                    {
+                                        AppendLog($"[失敗] 料號 {partNo}: 找不到設備代碼或名稱為 '{machineExcelValue}' 的機台，此欄位現在為必填。");
+                                        failCount++;
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+                                    AppendLog($"[失敗] 料號 {partNo}: Excel 中未填寫設備資訊，此欄位現在為必填。");
+                                    failCount++;
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                AppendLog($"[失敗] 料號 {partNo}: Excel 缺少設備 (Machine) 欄位標題。");
+                                failCount++;
+                                continue;
+                            }
 
                             // 倉庫ID
                             if (columnMap.ContainsKey("WhID"))

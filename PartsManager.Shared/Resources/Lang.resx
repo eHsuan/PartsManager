@@ -291,6 +291,9 @@
   <data name="Msg_NameRequired" xml:space="preserve">
     <value>請輸入品名</value>
   </data>
+  <data name="Msg_MachineRequired" xml:space="preserve">
+    <value>請選擇設備 (Machine)</value>
+  </data>
   <data name="QueryForm" xml:space="preserve">
     <value>庫存查詢</value>
   </data>
@@ -503,7 +506,11 @@
   <data name="Import_Header_WarehouseId" xml:space="preserve"><value>倉庫ID (WarehouseId)</value></data>
   <data name="Import_Header_SafeStock" xml:space="preserve"><value>安全庫存 (SafeStock)</value></data>
   <data name="Import_Header_LeadTime" xml:space="preserve"><value>交期 (LeadTime)</value></data>
-  <data name="Import_Header_Supplier" xml:space="preserve"><value>供應商 (Supplier)</value></data>
+  <data name="Import_Header_Machine" xml:space="preserve">
+    <value>設備 (Machine)</value>
+  </data>
+  <data name="Import_Header_Supplier" xml:space="preserve">
+<value>供應商 (Supplier)</value></data>
   <data name="Import_Header_Manufacturer" xml:space="preserve"><value>製造商 (Manufacturer)</value></data>
   <data name="Import_Header_Price" xml:space="preserve"><value>金額 (Price) *</value></data>
   <data name="Import_Header_Attachment1" xml:space="preserve"><value>附件1檔名 (Attachment1)</value></data>
@@ -574,5 +581,35 @@
   </data>
   <data name="Msg_TempPartNoGenerated" xml:space="preserve">
     <value>已生成臨時料號</value>
+  </data>
+  <data name="Menu_MachineMgmt" xml:space="preserve">
+    <value>機台管理</value>
+  </data>
+  <data name="Label_MachineCode" xml:space="preserve">
+    <value>機台代碼</value>
+  </data>
+  <data name="Label_MachineName" xml:space="preserve">
+    <value>機台名稱</value>
+  </data>
+  <data name="Col_Machine" xml:space="preserve">
+    <value>所屬機台</value>
+  </data>
+  <data name="Msg_MachineCodeRequired" xml:space="preserve">
+    <value>請輸入機台代碼</value>
+  </data>
+  <data name="Msg_MachineSaveSuccess" xml:space="preserve">
+    <value>機台儲存成功</value>
+  </data>
+  <data name="Msg_MachineDeleteConfirm" xml:space="preserve">
+    <value>確定要刪除機台 '{0}' 嗎？</value>
+  </data>
+  <data name="Btn_AddMachine" xml:space="preserve">
+    <value>新增機台</value>
+  </data>
+  <data name="Msg_SelectMachineToUpdate" xml:space="preserve">
+    <value>請先從清單中選擇要修改的機台</value>
+  </data>
+  <data name="Msg_MachineCodeDuplicate" xml:space="preserve">
+    <value>此機台代碼 [{0}] 已存在，請使用其他代碼</value>
   </data>
 </root>

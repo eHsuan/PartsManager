@@ -15,6 +15,7 @@ namespace PartsManager.Shared.DTOs
         public string Specification { get; set; }
         public decimal TotalQuantity { get; set; }
         public int SafeStockQty { get; set; }
+        public string MachineName { get; set; } = string.Empty;
     }
 }
 

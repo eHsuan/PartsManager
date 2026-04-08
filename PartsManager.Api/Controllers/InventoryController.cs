@@ -1,4 +1,4 @@
-﻿using PartsManager.Api.Data;
+using PartsManager.Api.Data;
 using PartsManager.Shared.DTOs;
 using PartsManager.Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -95,6 +95,8 @@ public class InventoryController : ControllerBase
         var result = (from m in materials
                       join s in stockSummary on m.MaterialID equals s.MaterialID into stockGroup
                       from s in stockGroup.DefaultIfEmpty()
+                      join mc in _context.Mdm_Machines on m.MachineID equals mc.MachineID into machineGroup
+                      from mc in machineGroup.DefaultIfEmpty()
                       let totalQty = s != null ? s.TotalQuantity : 0
                       where totalQty <= m.SafeStockQty
                       select new LowStockDto
@@ -104,7 +106,8 @@ public class InventoryController : ControllerBase
                           Name = m.Name,
                           Specification = m.Specification,
                           TotalQuantity = totalQty,
-                          SafeStockQty = m.SafeStockQty
+                          SafeStockQty = m.SafeStockQty,
+                          MachineName = mc?.MachineName ?? string.Empty
                       }).ToList();
 
         return Ok(result);
@@ -127,33 +130,20 @@ public class InventoryController : ControllerBase
     [HttpPost("compare")]
     public async Task<ActionResult<IEnumerable<InventoryComparisonResultDto>>> Compare([FromBody] InventoryCheckRequestDto request)
     {
-        // 1. 取得該倉庫的所有庫存
         var systemStocks = await (from s in _context.Inv_CurrentStock
                                   join m in _context.Mdm_Materials on s.MaterialID equals m.MaterialID
                                   where s.WarehouseID == request.WarehouseId
-                                  select new
-                                  {
-                                      m.PartNo,
-                                      m.Name,
-                                      m.Specification,
-                                      s.Quantity
-                                  }).ToListAsync();
+                                  select new { m.PartNo, m.Name, m.Specification, s.Quantity }).ToListAsync();
 
-        var results = new List<InventoryComparisonResultDto>();
-
-        // 2. 處理實盤資料 (Scanned)
-        // 注意：同一 PartNo 可能被分多次掃描 (雖然前端應處理重複，但後端累加較保險)
         var scannedGroups = request.Items
             .GroupBy(i => i.PartNo)
-            .Select(g => new { PartNo = g.Key, TotalScanned = g.Sum(i => i.ScannedQty) })
-            .ToList();
+            .Select(g => new { PartNo = g.Key, TotalScanned = g.Sum(i => i.ScannedQty) }).ToList();
 
-        // 3. 以「實盤」為主進行比對
+        var results = new List<InventoryComparisonResultDto>();
         foreach (var scan in scannedGroups)
         {
             var sys = systemStocks.FirstOrDefault(s => s.PartNo == scan.PartNo);
             var material = await _context.Mdm_Materials.FirstOrDefaultAsync(m => m.PartNo == scan.PartNo);
-
             results.Add(new InventoryComparisonResultDto
             {
                 PartNo = scan.PartNo,
@@ -165,23 +155,17 @@ public class InventoryController : ControllerBase
             });
         }
 
-        // 4. 以「系統」為主找出未掃描到的項目 (Missing)
         foreach (var sys in systemStocks)
         {
             if (!results.Any(r => r.PartNo == sys.PartNo))
             {
                 results.Add(new InventoryComparisonResultDto
                 {
-                    PartNo = sys.PartNo,
-                    Name = sys.Name,
-                    Specification = sys.Specification,
-                    SystemQty = sys.Quantity,
-                    ScannedQty = 0,
-                    Status = "Missing"
+                    PartNo = sys.PartNo, Name = sys.Name, Specification = sys.Specification,
+                    SystemQty = sys.Quantity, ScannedQty = 0, Status = "Missing"
                 });
             }
         }
-
         return Ok(results.OrderBy(r => r.Status).ThenBy(r => r.PartNo));
     }
 
@@ -195,6 +179,8 @@ public class InventoryController : ControllerBase
                              from s in stockGroup.DefaultIfEmpty()
                              join w in _context.Mdm_Warehouses on s.WarehouseID equals w.WarehouseID into warehouseGroup
                              from w in warehouseGroup.DefaultIfEmpty()
+                             join mc in _context.Mdm_Machines on m.MachineID equals mc.MachineID into machineGroup
+                             from mc in machineGroup.DefaultIfEmpty()
                              where string.IsNullOrEmpty(normalizedQuery) ||
                                    m.PartNo.ToLower().Contains(normalizedQuery) ||
                                    m.Name.ToLower().Contains(normalizedQuery)
@@ -206,6 +192,7 @@ public class InventoryController : ControllerBase
                                  Specification = m.Specification ?? string.Empty,
                                  Supplier = m.Supplier ?? string.Empty,
                                  Manufacturer = m.Manufacturer ?? string.Empty,
+                                 MachineName = mc != null ? mc.MachineName : string.Empty,
                                  SafeStockQty = m.SafeStockQty,
                                  Price = m.Price,
                                  TotalAmount = m.Price * (s != null ? s.Quantity : 0),
@@ -214,8 +201,7 @@ public class InventoryController : ControllerBase
                                  WarehouseName = w != null ? $"{w.WarehouseCode} - {w.WarehouseName}" : "--- (無庫存紀錄)",
                                  AttachmentFileNames = _context.Mdm_MaterialAttachments
                                     .Where(a => a.MaterialID == m.MaterialID)
-                                    .Select(a => a.FileName)
-                                    .ToList()
+                                    .Select(a => a.FileName).ToList()
                              }).ToListAsync();
 
         return Ok(results);

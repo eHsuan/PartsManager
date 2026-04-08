@@ -111,6 +111,38 @@ namespace PartsManager.Client
             throw new Exception("Search Error: " + response.StatusCode + " " + errorJson);
         }
 
+        public async Task<List<MachineDto>> GetMachinesAsync()
+        {
+            var response = await _client.GetAsync("api/Machine");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<MachineDto>>(content);
+        }
+
+        public async Task<MachineDto> CreateMachineAsync(CreateMachineDto dto)
+        {
+            var json = JsonConvert.SerializeObject(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("api/Machine", content);
+            response.EnsureSuccessStatusCode();
+            var responseJson = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<MachineDto>(responseJson);
+        }
+
+        public async Task UpdateMachineAsync(int id, UpdateMachineDto dto)
+        {
+            var json = JsonConvert.SerializeObject(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"api/Machine/{id}", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteMachineAsync(int id)
+        {
+            var response = await _client.DeleteAsync($"api/Machine/{id}");
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<List<WarehouseDto>> GetWarehousesAsync()
         {
             var response = await _client.GetAsync("api/masterdata/warehouses");

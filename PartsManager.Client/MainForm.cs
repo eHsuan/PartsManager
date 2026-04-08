@@ -191,6 +191,13 @@ namespace PartsManager.Client
                 form.Show();
             };
 
+            var btnMachineMgmt = CreateNavButton(LocalizationService.GetString("Menu_MachineMgmt"), false);
+            btnMachineMgmt.Visible = UserSession.UserLevel == 1;
+            btnMachineMgmt.Click += (s, e) => {
+                var form = new MachineManagementForm();
+                form.ShowDialog();
+            };
+
             var btnInventory = CreateNavButton(LocalizationService.GetString("Menu_Inventory"), false);
             btnInventory.Visible = UserSession.UserLevel <= 3;
             btnInventory.Click += (s, e) => {
@@ -212,6 +219,16 @@ namespace PartsManager.Client
                 new ChangePasswordForm().ShowDialog();
             };
             ctxSettings.Items.Add(itemChangePassword);
+
+            // 機台管理選項 (僅管理員)
+            if (UserSession.UserLevel == 1)
+            {
+                var itemMachineMgmt = new ToolStripMenuItem(LocalizationService.GetString("Menu_MachineMgmt"));
+                itemMachineMgmt.Click += (s, e) => {
+                    new MachineManagementForm().ShowDialog();
+                };
+                ctxSettings.Items.Add(itemMachineMgmt);
+            }
 
             // 分隔線
             ctxSettings.Items.Add(new ToolStripSeparator());
@@ -237,6 +254,7 @@ namespace PartsManager.Client
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnBatchImport);
             if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnUserMgmt);
+            if (UserSession.UserLevel == 1) navPanel.Controls.Add(btnMachineMgmt);
             
             // 修正：將設定按鈕加入導航列 (靠右對齊)
             navPanel.Controls.Add(btnSettings);

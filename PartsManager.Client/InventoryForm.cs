@@ -130,18 +130,6 @@ namespace PartsManager.Client
                                 .Replace("{0}", _scannedItems.Count.ToString());
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(LocalizationService.GetString("Msg_ConfirmClear") ?? "Clear list?", 
-                LocalizationService.GetString("Common_Confirm") ?? "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _scannedItems.Clear();
-                RefreshGrid();
-                lblMaterialName.Text = "---";
-                lblSpec.Text = "---";
-            }
-        }
-
         private async void btnCompare_Click(object sender, EventArgs e)
         {
             if (_scannedItems.Count == 0)

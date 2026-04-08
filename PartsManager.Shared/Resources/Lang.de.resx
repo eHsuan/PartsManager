@@ -550,4 +550,34 @@
   <data name="Msg_TempPartNoGenerated" xml:space="preserve">
     <value>Temporäre Teilenummer generiert</value>
   </data>
+  <data name="Menu_MachineMgmt" xml:space="preserve">
+    <value>Maschinenmanagement</value>
+  </data>
+  <data name="Label_MachineCode" xml:space="preserve">
+    <value>Maschinencode</value>
+  </data>
+  <data name="Label_MachineName" xml:space="preserve">
+    <value>Maschinenname</value>
+  </data>
+  <data name="Col_Machine" xml:space="preserve">
+    <value>Maschine</value>
+  </data>
+  <data name="Msg_MachineCodeRequired" xml:space="preserve">
+    <value>Maschinencode ist erforderlich</value>
+  </data>
+  <data name="Msg_MachineSaveSuccess" xml:space="preserve">
+    <value>Maschine erfolgreich gespeichert</value>
+  </data>
+  <data name="Msg_MachineDeleteConfirm" xml:space="preserve">
+    <value>Möchten Sie die Maschine '{0}' wirklich löschen?</value>
+  </data>
+  <data name="Btn_AddMachine" xml:space="preserve">
+    <value>Maschine hinzufügen</value>
+  </data>
+  <data name="Msg_SelectMachineToUpdate" xml:space="preserve">
+    <value>Bitte wählen Sie eine Maschine aus der Liste zum Aktualisieren aus</value>
+  </data>
+  <data name="Msg_MachineCodeDuplicate" xml:space="preserve">
+    <value>Maschinencode [{0}] existiert bereits, bitte verwenden Sie einen anderen Code</value>
+  </data>
 </root>

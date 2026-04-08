@@ -20,8 +20,8 @@ namespace PartsManager.Client
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
-            this.btnShowAll = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
+            this.btnShowAll = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearchKeyword = new System.Windows.Forms.TextBox();
             this.lblKeyword = new System.Windows.Forms.Label();
@@ -29,11 +29,13 @@ namespace PartsManager.Client
             this.ctxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOutbound = new System.Windows.Forms.ToolStripMenuItem();
             this.Col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Spec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_PartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Supplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_Machine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Warehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,7 +44,6 @@ namespace PartsManager.Client
             this.Col_LeadTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Att1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Col_Att2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.menuOutbound = new System.Windows.Forms.ToolStripMenuItem();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.ctxMenu.SuspendLayout();
@@ -130,6 +131,7 @@ namespace PartsManager.Client
             this.Col_PartNo,
             this.Col_Supplier,
             this.Col_Manufacturer,
+            this.Col_Machine,
             this.Col_Warehouse,
             this.Col_Qty,
             this.Col_SafeStock,
@@ -182,26 +184,6 @@ namespace PartsManager.Client
             this.menuOutbound.Text = "領料";
             this.menuOutbound.Click += new System.EventHandler(this.menuOutbound_Click);
             // 
-            // Col_Att1
-            // 
-            this.Col_Att1.HeaderText = "Att1";
-            this.Col_Att1.Name = "Col_Att1";
-            this.Col_Att1.ReadOnly = true;
-            this.Col_Att1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_Att1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_Att1.Tag = "Col_Attachment1";
-            this.Col_Att1.Width = 40;
-            // 
-            // Col_Att2
-            // 
-            this.Col_Att2.HeaderText = "Att2";
-            this.Col_Att2.Name = "Col_Att2";
-            this.Col_Att2.ReadOnly = true;
-            this.Col_Att2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Col_Att2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Col_Att2.Tag = "Col_Attachment2";
-            this.Col_Att2.Width = 40;
-            // 
             // Col_Name
             // 
             this.Col_Name.DataPropertyName = "Name";
@@ -246,6 +228,15 @@ namespace PartsManager.Client
             this.Col_Manufacturer.ReadOnly = true;
             this.Col_Manufacturer.Tag = "Col_Manufacturer";
             this.Col_Manufacturer.Width = 120;
+            // 
+            // Col_Machine
+            // 
+            this.Col_Machine.DataPropertyName = "MachineName";
+            this.Col_Machine.HeaderText = "機台";
+            this.Col_Machine.Name = "Col_Machine";
+            this.Col_Machine.ReadOnly = true;
+            this.Col_Machine.Tag = "Col_Machine";
+            this.Col_Machine.Width = 100;
             // 
             // Col_Warehouse
             // 
@@ -296,6 +287,26 @@ namespace PartsManager.Client
             this.Col_LeadTime.ReadOnly = true;
             this.Col_LeadTime.Tag = "Col_LeadTime";
             // 
+            // Col_Att1
+            // 
+            this.Col_Att1.HeaderText = "Att1";
+            this.Col_Att1.Name = "Col_Att1";
+            this.Col_Att1.ReadOnly = true;
+            this.Col_Att1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Att1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_Att1.Tag = "Col_Attachment1";
+            this.Col_Att1.Width = 40;
+            // 
+            // Col_Att2
+            // 
+            this.Col_Att2.HeaderText = "Att2";
+            this.Col_Att2.Name = "Col_Att2";
+            this.Col_Att2.ReadOnly = true;
+            this.Col_Att2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Col_Att2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Col_Att2.Tag = "Col_Attachment2";
+            this.Col_Att2.Width = 40;
+            // 
             // QueryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -327,19 +338,20 @@ namespace PartsManager.Client
         private System.Windows.Forms.ToolStripMenuItem menuEdit;
         private System.Windows.Forms.ToolStripMenuItem menuDelete;
         private System.Windows.Forms.ToolStripMenuItem menuOutbound;
-        private System.Windows.Forms.DataGridViewImageColumn Col_Att1;
-        private System.Windows.Forms.DataGridViewImageColumn Col_Att2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Supplier;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Manufacturer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Machine;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Warehouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_TotalAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_SafeStock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_LeadTime;
+        private System.Windows.Forms.DataGridViewImageColumn Col_Att1;
+        private System.Windows.Forms.DataGridViewImageColumn Col_Att2;
         private System.Windows.Forms.Button btnExport;
     }
 }

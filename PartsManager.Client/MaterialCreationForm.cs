@@ -38,13 +38,12 @@ namespace PartsManager.Client
             _materialId = materialId;
             this.Tag = "MaterialEditForm"; // 修改 Tag 以觸發編輯模式標題翻譯
             I18nHelper.Apply(this); // 再次套用，切換標題
-            
-            // btnSave.Text 會由 I18nHelper 自動處理 (如果 Tag 是一樣的)
         }
 
         private async void MaterialCreationForm_Load(object sender, EventArgs e)
         {
             await LoadWarehousesAsync();
+            await LoadMachinesAsync();
 
             if (_materialId.HasValue)
             {
@@ -68,6 +67,9 @@ namespace PartsManager.Client
                         txtPartNo.Enabled = false;
                         btnGenTempPartNo.Enabled = false;
 
+                        // 回顯機台
+                        cmbMachine.SelectedValue = material.MachineID;
+
                         // 載入附件清單
                         _existingAttachments = await _apiClient.GetAttachmentsAsync(_materialId.Value);
                         RefreshAttachmentPanel();
@@ -84,13 +86,45 @@ namespace PartsManager.Client
 
         private void btnGenTempPartNo_Click(object sender, EventArgs e)
         {
-            // 產生臨時料號：TMP + yyMMddHHmm (例如 TMP2604061430)
-            string tempPartNo = "TMP" + DateTime.Now.ToString("yyMMddHHmm");
-            txtPartNo.Text = tempPartNo;
+            // 優先從選中的機台獲取前綴，否則使用 TMP
+            string prefix = "TMP";
+            if (cmbMachine.SelectedItem is MachineDto selectedMachine && selectedMachine.MachineID > 0)
+            {
+                prefix = selectedMachine.MachineCode.Trim();
+            }
+
+            // 總長度 13 位。日期部分長度 = 13 - 前綴長度
+            int datePartLength = 13 - prefix.Length;
+            string datePart = "";
+            if (datePartLength > 0)
+            {
+                string fullDateStr = DateTime.Now.ToString("yyMMddHHmm");
+                datePart = fullDateStr.Substring(0, Math.Min(datePartLength, fullDateStr.Length));
+            }
+
+            txtPartNo.Text = prefix + datePart;
             
-            // 提示使用者已生成
             MessageBox.Show(LocalizationService.GetString("Msg_TempPartNoGenerated"), 
                 LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async System.Threading.Tasks.Task LoadMachinesAsync()
+        {
+            try
+            {
+                var machines = await _apiClient.GetMachinesAsync();
+                var machineList = new List<MachineDto>();
+                machineList.Add(new MachineDto { MachineID = 0, MachineCode = "---", MachineName = "--- None ---" });
+                machineList.AddRange(machines);
+
+                cmbMachine.DisplayMember = "MachineName";
+                cmbMachine.ValueMember = "MachineID";
+                cmbMachine.DataSource = machineList;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Load Machines Error: " + ex.Message);
+            }
         }
 
         private async System.Threading.Tasks.Task LoadWarehousesAsync()
@@ -102,7 +136,6 @@ namespace PartsManager.Client
                 cmbInitialWarehouse.ValueMember = "WarehouseID";
                 cmbInitialWarehouse.DataSource = warehouses;
 
-                // 設定預設倉庫
                 int defaultWhId = GlobalSettings.DefaultWarehouseId;
                 cmbInitialWarehouse.SelectedValue = defaultWhId;
             }
@@ -127,7 +160,6 @@ namespace PartsManager.Client
                 ofd.Filter = "PDF Files (*.pdf)|*.pdf";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    // 檢查檔案大小 (限制 2MB = 2,097,152 Bytes)
                     FileInfo fi = new FileInfo(ofd.FileName);
                     if (fi.Length > 2 * 1024 * 1024)
                     {
@@ -145,26 +177,14 @@ namespace PartsManager.Client
         private void RefreshAttachmentPanel()
         {
             pnlAttachments.Controls.Clear();
-
-            // 顯示已存在的附件
-            foreach (var att in _existingAttachments)
-            {
-                DisplayAttachment(att.FileName, true);
-            }
-
-            // 顯示待上傳的附件
-            foreach (var path in _pendingFiles)
-            {
-                DisplayAttachment(Path.GetFileName(path), false, path);
-            }
-
+            foreach (var att in _existingAttachments) DisplayAttachment(att.FileName, true);
+            foreach (var path in _pendingFiles) DisplayAttachment(Path.GetFileName(path), false, path);
             btnUpload.Enabled = (_existingAttachments.Count + _pendingFiles.Count) < 2;
         }
 
         private void DisplayAttachment(string fileName, bool isExisting, string localPath = null)
         {
             Panel itemPnl = new Panel { Size = new Size(60, 60), Padding = new Padding(2) };
-            
             PictureBox pb = new PictureBox
             {
                 Image = _pdfIcon,
@@ -173,19 +193,13 @@ namespace PartsManager.Client
                 Location = new Point(5, 5),
                 Cursor = Cursors.Hand
             };
-            
-            // 設定懸停提示檔名
             toolTipAttachment.SetToolTip(pb, fileName);
 
             pb.Click += async (s, e) => {
                 if (isExisting) await OpenRemoteFile(_materialId.Value, fileName);
                 else {
-                    try {
-                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(localPath) { UseShellExecute = true });
-                    } catch (Exception ex) { 
-                        MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message, 
-                            LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                    }
+                    try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(localPath) { UseShellExecute = true }); }
+                    catch (Exception ex) { MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message); }
                 }
             };
 
@@ -200,24 +214,17 @@ namespace PartsManager.Client
                 Font = new Font("Arial", 8, FontStyle.Bold)
             };
             btnDel.FlatAppearance.BorderSize = 0;
-
             btnDel.Click += (s, e) => {
-                if (isExisting)
-                {
+                if (isExisting) {
                     _existingAttachments.RemoveAll(a => a.FileName == fileName);
                     _filesToDelete.Add(fileName);
-                }
-                else
-                {
-                    _pendingFiles.Remove(localPath);
-                }
+                } else _pendingFiles.Remove(localPath);
                 RefreshAttachmentPanel();
             };
 
-            itemPnl.Controls.Add(btnDel); // 先加按鈕確保在最上層
+            itemPnl.Controls.Add(btnDel);
             itemPnl.Controls.Add(pb);
             btnDel.BringToFront();
-
             pnlAttachments.Controls.Add(itemPnl);
         }
 
@@ -233,30 +240,27 @@ namespace PartsManager.Client
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempPath) { UseShellExecute = true });
                 }
             }
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message,
-                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
+            catch (Exception ex) { MessageBox.Show(LocalizationService.GetString("Msg_CannotOpenFile") + ex.Message); }
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtPartNo.Text))
+            if (string.IsNullOrWhiteSpace(txtPartNo.Text) || string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show(LocalizationService.GetString("Msg_PartNoRequired"));
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show(LocalizationService.GetString("Msg_NameRequired"));
+                MessageBox.Show(LocalizationService.GetString("Msg_PartNoRequired") + " / " + LocalizationService.GetString("Msg_NameRequired"));
                 return;
             }
 
             if (numPrice.Value <= 0)
             {
-                MessageBox.Show(LocalizationService.GetString("Msg_PriceRequired"),
-                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LocalizationService.GetString("Msg_PriceRequired"));
+                return;
+            }
+
+            int selectedMachineId = (int)(cmbMachine.SelectedValue ?? 0);
+            if (selectedMachineId == 0)
+            {
+                MessageBox.Show(LocalizationService.GetString("Msg_MachineRequired"));
                 return;
             }
 
@@ -277,7 +281,8 @@ namespace PartsManager.Client
                         Manufacturer = txtManufacturer.Text.Trim(),
                         SafeStockQty = (int)numSafeStock.Value,
                         LeadTimeDays = (int)numLeadTime.Value,
-                        Price = numPrice.Value
+                        Price = numPrice.Value,
+                        MachineID = selectedMachineId
                     };
                     await _apiClient.UpdateMaterialAsync(finalMaterialId, dto);
                 }
@@ -295,32 +300,21 @@ namespace PartsManager.Client
                         Price = numPrice.Value,
                         InitialStock = numInitialStock.Value,
                         WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
-                        SourceType = 1
+                        SourceType = 1,
+                        MachineID = selectedMachineId
                     };
                     var result = await _apiClient.CreateMaterialAsync(dto);
                     finalMaterialId = result.MaterialID;
                 }
 
-                // 處理附件刪除
-                foreach (var fileName in _filesToDelete)
-                {
-                    await _apiClient.DeleteAttachmentAsync(finalMaterialId, fileName);
-                }
+                foreach (var fileName in _filesToDelete) await _apiClient.DeleteAttachmentAsync(finalMaterialId, fileName);
+                if (_pendingFiles.Count > 0) await _apiClient.UploadAttachmentsAsync(finalMaterialId, _pendingFiles);
 
-                // 處理附件上傳
-                if (_pendingFiles.Count > 0)
-                {
-                    await _apiClient.UploadAttachmentsAsync(finalMaterialId, _pendingFiles);
-                }
-
-                MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"),
-                    LocalizationService.GetString("Common_Info"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LocalizationService.GetString("Msg_SaveSuccess"));
 
                 if (GlobalSettings.EnableLabelPrinting)
                 {
-                    string askMsg = LocalizationService.GetString("Dialog_AskPrintLabel");
-                    string askTitle = LocalizationService.GetString("Common_Info");
-                    if (MessageBox.Show(askMsg, askTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show(LocalizationService.GetString("Dialog_AskPrintLabel"), "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         LabelPrinterService.PrintLabel(txtPartNo.Text.Trim(), txtName.Text.Trim());
                     }
@@ -331,18 +325,11 @@ namespace PartsManager.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show(LocalizationService.GetString("Msg_SaveError") + ex.Message,
-                    LocalizationService.GetString("Common_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LocalizationService.GetString("Msg_SaveError") + ex.Message);
             }
-            finally
-            {
-                btnSave.Enabled = true;
-            }
+            finally { btnSave.Enabled = true; }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
     }
 }

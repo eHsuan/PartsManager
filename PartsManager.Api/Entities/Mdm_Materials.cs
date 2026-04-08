@@ -41,6 +41,8 @@ public class Mdm_Materials
 
     public int SafeStockQty { get; set; }
 
+    public int MachineID { get; set; }
+
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 

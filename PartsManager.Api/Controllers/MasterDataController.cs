@@ -135,7 +135,8 @@ public class MasterDataController : ControllerBase
             Price = dto.Price,
             SourceType = dto.SourceType,
             BarCode = dto.PartNo.ToLower(), // 強制轉小寫存入，避免刷碼大小寫問題
-            NeedsPrintLabel = true
+            NeedsPrintLabel = true,
+            MachineID = dto.MachineID
         };
 
         _context.Mdm_Materials.Add(material);
@@ -209,6 +210,23 @@ public class MasterDataController : ControllerBase
         material.LeadTimeDays = dto.LeadTimeDays;
         material.Price = dto.Price;
         material.BarCode = dto.PartNo.ToLower();
+        material.MachineID = dto.MachineID;
+
+        // --- 更新機台關聯 (保留 Rel_MachineBOM 邏輯以相容舊系統) ---
+        var existingBom = await _context.Rel_MachineBOM.FirstOrDefaultAsync(r => r.MaterialID == id);
+        if (existingBom != null)
+        {
+            existingBom.MachineID = dto.MachineID;
+        }
+        else
+        {
+            _context.Rel_MachineBOM.Add(new Rel_MachineBOM 
+            { 
+                MaterialID = id, 
+                MachineID = dto.MachineID,
+                UsageQty = 1
+            });
+        }
 
         await _context.SaveChangesAsync();
         return NoContent();
@@ -242,7 +260,8 @@ public class MasterDataController : ControllerBase
             Manufacturer = material.Manufacturer ?? "",
             SafeStockQty = material.SafeStockQty,
             LeadTimeDays = material.LeadTimeDays,
-            Price = material.Price
+            Price = material.Price,
+            MachineID = material.MachineID
         };
     }
 

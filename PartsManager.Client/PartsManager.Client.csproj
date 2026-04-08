@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="client.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
@@ -42,6 +46,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>7.3</LangVersion>
     <RuntimeIdentifier>win</RuntimeIdentifier>
+    <ApplicationIcon>client.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>
