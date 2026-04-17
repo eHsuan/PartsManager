@@ -106,6 +106,7 @@ namespace PartsManager.Client
                         _scannedItems.Add(new InventoryCheckItemDto
                         {
                             PartNo = materialInfo.PartNo,
+                            MaterialName = materialInfo.Name,
                             ScannedQty = qty,
                             ScanTime = DateTime.Now
                         });
@@ -124,9 +125,9 @@ namespace PartsManager.Client
             dgvScanned.Rows.Clear();
             foreach (var item in _scannedItems.OrderByDescending(i => i.ScanTime))
             {
-                dgvScanned.Rows.Add(item.PartNo, item.ScannedQty, item.ScanTime.ToString("HH:mm:ss"));
+                dgvScanned.Rows.Add(item.PartNo, item.MaterialName, item.ScannedQty);
             }
-            lblCountInfo.Text = (LocalizationService.GetString("Label_ScannedCount") ?? "Scanned: {0}")
+            lblCountInfo.Text = (LocalizationService.GetString("Label_ScannedCount") ?? "已掃描: {0} 項目")
                                 .Replace("{0}", _scannedItems.Count.ToString());
         }
 

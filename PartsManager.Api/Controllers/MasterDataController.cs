@@ -128,8 +128,7 @@ public class MasterDataController : ControllerBase
             PartNo = dto.PartNo,
             Name = dto.Name,
             Specification = dto.Specification,
-            Supplier = dto.Supplier,
-            Manufacturer = dto.Manufacturer,
+            StorageLocation = dto.StorageLocation,
             SafeStockQty = dto.SafeStockQty,
             LeadTimeDays = dto.LeadTimeDays,
             Price = dto.Price,
@@ -181,6 +180,7 @@ public class MasterDataController : ControllerBase
             PartNo = material.PartNo,
             Name = material.Name,
             Specification = material.Specification,
+            StorageLocation = material.StorageLocation,
             SafeStockQty = material.SafeStockQty
         };
 
@@ -204,15 +204,52 @@ public class MasterDataController : ControllerBase
         material.PartNo = dto.PartNo;
         material.Name = dto.Name;
         material.Specification = dto.Specification;
-        material.Supplier = dto.Supplier;
-        material.Manufacturer = dto.Manufacturer;
+        material.StorageLocation = dto.StorageLocation;
         material.SafeStockQty = dto.SafeStockQty;
         material.LeadTimeDays = dto.LeadTimeDays;
         material.Price = dto.Price;
         material.BarCode = dto.PartNo.ToLower();
         material.MachineID = dto.MachineID;
 
-        // --- 更新機台關聯 (保留 Rel_MachineBOM 邏輯以相容舊系統) ---
+        // --- 庫存校正邏輯 ---
+        int targetWhId = dto.WarehouseId ?? 1;
+        var stock = await _context.Inv_CurrentStock.FirstOrDefaultAsync(s => s.MaterialID == id && s.WarehouseID == targetWhId);
+        decimal oldQty = stock?.Quantity ?? 0;
+
+        if (dto.CurrentStock != oldQty)
+        {
+            if (stock == null)
+            {
+                stock = new Inv_CurrentStock
+                {
+                    MaterialID = id,
+                    WarehouseID = targetWhId,
+                    Quantity = dto.CurrentStock,
+                    LastUpdated = DateTime.Now
+                };
+                _context.Inv_CurrentStock.Add(stock);
+            }
+            else
+            {
+                stock.Quantity = dto.CurrentStock;
+                stock.LastUpdated = DateTime.Now;
+            }
+
+            // 寫入調整紀錄
+            _context.Inv_Transactions.Add(new Inv_Transactions
+            {
+                MaterialID = id,
+                WarehouseID = targetWhId,
+                TransType = "ADJ",
+                ChangeQty = dto.CurrentStock - oldQty,
+                AfterQty = dto.CurrentStock,
+                TransTime = DateTime.Now,
+                OperatorID = dto.OperatorID ?? "SYSTEM_ADJ",
+                ReasonCode = "Manual Adjustment"
+            });
+        }
+
+        // --- 更新機台關聯 ---
         var existingBom = await _context.Rel_MachineBOM.FirstOrDefaultAsync(r => r.MaterialID == id);
         if (existingBom != null)
         {
@@ -249,6 +286,14 @@ public class MasterDataController : ControllerBase
         var material = await _context.Mdm_Materials.FindAsync(id);
         if (material == null) return NotFound();
 
+        // 取得庫存資訊
+        var stocks = await _context.Inv_CurrentStock
+            .Where(s => s.MaterialID == id)
+            .ToListAsync();
+        
+        decimal totalStock = stocks.Sum(s => s.Quantity);
+        int? whId = stocks.FirstOrDefault()?.WarehouseID ?? 1;
+
         return new MaterialDto
         {
             MaterialID = material.MaterialID,
@@ -256,12 +301,13 @@ public class MasterDataController : ControllerBase
             PartNo = material.PartNo,
             Name = material.Name,
             Specification = material.Specification ?? "",
-            Supplier = material.Supplier ?? "",
-            Manufacturer = material.Manufacturer ?? "",
+            StorageLocation = material.StorageLocation ?? "",
             SafeStockQty = material.SafeStockQty,
             LeadTimeDays = material.LeadTimeDays,
             Price = material.Price,
-            MachineID = material.MachineID
+            MachineID = material.MachineID,
+            CurrentStock = totalStock,
+            WarehouseId = whId
         };
     }
 

@@ -162,6 +162,14 @@ namespace PartsManager.Client
                 form.Show();
             };
 
+            var btnTransHistory = CreateNavButton(LocalizationService.GetString("Menu_TransHistory"), false);
+            btnTransHistory.Visible = UserSession.UserLevel <= 3;
+            btnTransHistory.Click += (s, e) => {
+                var form = new TransactionHistoryForm();
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.Show();
+            };
+
             var btnLowStock = CreateNavButton(LocalizationService.GetString("Menu_LowStock"), false);
             btnLowStock.Visible = UserSession.UserLevel <= 3;
             btnLowStock.Click += (s, e) => {
@@ -249,6 +257,7 @@ namespace PartsManager.Client
 
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInbound);
             if (UserSession.UserLevel <= 4) navPanel.Controls.Add(btnQuery);
+            if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnTransHistory);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInventory);
             if (UserSession.UserLevel <= 2) navPanel.Controls.Add(btnCreateMaterial);

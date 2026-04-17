@@ -295,6 +295,21 @@ namespace PartsManager.Client
             throw new Exception("Compare Error: " + response.StatusCode + " " + errorJson);
         }
 
+        public async Task<List<TransactionDto>> GetTransactionHistoryAsync(DateTime start, DateTime end)
+        {
+            var startStr = start.ToString("yyyy-MM-dd");
+            var endStr = end.ToString("yyyy-MM-dd");
+            var url = $"api/transaction/history?start={startStr}&end={endStr}";
+
+            var response = await _client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<TransactionDto>>(json);
+            }
+            throw new Exception("查詢歷史紀錄失敗: " + response.StatusCode);
+        }
+
         // --- Auth & User Management ---
 
         public async Task<UserDto> LoginAsync(string username, string password)

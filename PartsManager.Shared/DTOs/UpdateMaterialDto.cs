@@ -13,11 +13,7 @@ namespace PartsManager.Shared.DTOs
         [Required]
         public string Specification { get; set; }
 
-        [Required]
-        public string Supplier { get; set; }
-
-        [Required]
-        public string Manufacturer { get; set; }
+        public string StorageLocation { get; set; } = string.Empty;
 
         public int SafeStockQty { get; set; }
 
@@ -26,5 +22,9 @@ namespace PartsManager.Shared.DTOs
         public decimal Price { get; set; }
         [Required]
         public int MachineID { get; set; }
+
+        public decimal CurrentStock { get; set; }
+        public int? WarehouseId { get; set; }
+        public string OperatorID { get; set; } = "SYSTEM";
     }
 }

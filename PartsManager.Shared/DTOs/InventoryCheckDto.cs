@@ -6,6 +6,7 @@ namespace PartsManager.Shared.DTOs
     public class InventoryCheckItemDto
     {
         public string PartNo { get; set; }
+        public string MaterialName { get; set; }
         public decimal ScannedQty { get; set; }
         public DateTime ScanTime { get; set; }
     }

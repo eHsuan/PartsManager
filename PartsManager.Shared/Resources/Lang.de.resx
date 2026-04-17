@@ -129,6 +129,9 @@
   <data name="Menu_Query" xml:space="preserve">
     <value>Bestandsabfrage</value>
   </data>
+  <data name="Menu_TransHistory" xml:space="preserve">
+    <value>Transaktionsverlauf</value>
+  </data>
   <data name="Menu_CreateMaterial" xml:space="preserve">
     <value>Material erstellen</value>
   </data>
@@ -267,6 +270,15 @@
   <data name="Label_Specification" xml:space="preserve">
     <value>Spezifikation</value>
   </data>
+  <data name="Label_StorageLocation" xml:space="preserve">
+    <value>Lagerplatz</value>
+  </data>
+  <data name="Col_StorageLocation" xml:space="preserve">
+    <value>Lagerplatz</value>
+  </data>
+  <data name="Import_Header_StorageLocation" xml:space="preserve">
+    <value>Lagerplatz (StorageLocation)</value>
+  </data>
   <data name="Label_SafeStock" xml:space="preserve">
     <value>Sicherheitsbestand</value>
   </data>
@@ -281,6 +293,9 @@
   </data>
   <data name="Msg_SaveSuccess" xml:space="preserve">
     <value>Speichern erfolgreich</value>
+  </data>
+  <data name="Dialog_AskPrintLabel" xml:space="preserve">
+    <value>Speichern erfolgreich! Möchten Sie das Etikett drucken?</value>
   </data>
   <data name="Msg_CreateSuccess" xml:space="preserve">
     <value>Erstellt!\nTeilenummer: {0}\nBarcode: {1}</value>
@@ -494,7 +509,7 @@
   <data name="Log_ApiError" xml:space="preserve"><value>[FEHLER] Teilenr. {0}: API-Fehler - {1}</value></data>
   <data name="BatchImportForm" xml:space="preserve"><value>Chargen-Materialimport</value></data>
   <data name="Msg_ImportComplete" xml:space="preserve"><value>Chargen-Import abgeschlossen! Erfolg: {0}, Fehler: {1}</value></data>
-  <data name="Label_InitialStock" xml:space="preserve"><value>Anfangsbestand</value></data>
+  <data name="Label_InitialStock" xml:space="preserve"><value>Aktueller Lagerbestand</value></data>
   <data name="Label_InitialWarehouse" xml:space="preserve"><value>Lagerort</value></data>
   <data name="Import_Header_PartNo" xml:space="preserve"><value>Teilenummer</value></data>
   <data name="Import_Header_Name" xml:space="preserve"><value>Name</value></data>
@@ -536,7 +551,7 @@
     <value>Gesamtbetrag</value>
   </data>
   <data name="Msg_PriceRequired" xml:space="preserve">
-    <value>Der Betrag muss größer als 0 sein</value>
+    <value>Bitte geben Sie einen Betrag ein (kann 0 sein)</value>
   </data>
   <data name="Msg_FileIsLocked" xml:space="preserve">
     <value>Die Datei wird von einem anderen Prozess verwendet. Bitte schließen Sie zuerst Excel.</value>
@@ -552,6 +567,9 @@
   </data>
   <data name="Menu_MachineMgmt" xml:space="preserve">
     <value>Maschinenmanagement</value>
+  </data>
+  <data name="Label_Machine" xml:space="preserve">
+    <value>Maschine</value>
   </data>
   <data name="Label_MachineCode" xml:space="preserve">
     <value>Maschinencode</value>

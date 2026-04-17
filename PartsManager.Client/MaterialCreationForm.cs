@@ -47,9 +47,9 @@ namespace PartsManager.Client
 
             if (_materialId.HasValue)
             {
-                // 編輯模式下禁用期初庫存設定
-                numInitialStock.Enabled = false;
-                cmbInitialWarehouse.Enabled = false;
+                // 編輯模式：允許校正庫存
+                numInitialStock.Enabled = true;
+                cmbInitialWarehouse.Enabled = true;
 
                 try
                 {
@@ -59,13 +59,19 @@ namespace PartsManager.Client
                         txtPartNo.Text = material.PartNo;
                         txtName.Text = material.Name;
                         txtSpec.Text = material.Specification;
-                        txtSupplier.Text = material.Supplier;
-                        txtManufacturer.Text = material.Manufacturer;
+                        txtStorageLocation.Text = material.StorageLocation;
                         numSafeStock.Value = material.SafeStockQty;
                         numLeadTime.Value = material.LeadTimeDays;
                         numPrice.Value = material.Price;
                         txtPartNo.Enabled = false;
                         btnGenTempPartNo.Enabled = false;
+
+                        // 顯示庫存與倉庫
+                        numInitialStock.Value = material.CurrentStock;
+                        if (material.WarehouseId.HasValue)
+                        {
+                            cmbInitialWarehouse.SelectedValue = material.WarehouseId.Value;
+                        }
 
                         // 回顯機台
                         cmbMachine.SelectedValue = material.MachineID;
@@ -251,12 +257,6 @@ namespace PartsManager.Client
                 return;
             }
 
-            if (numPrice.Value <= 0)
-            {
-                MessageBox.Show(LocalizationService.GetString("Msg_PriceRequired"));
-                return;
-            }
-
             int selectedMachineId = (int)(cmbMachine.SelectedValue ?? 0);
             if (selectedMachineId == 0)
             {
@@ -277,12 +277,14 @@ namespace PartsManager.Client
                         PartNo = txtPartNo.Text.Trim(),
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
-                        Supplier = txtSupplier.Text.Trim(),
-                        Manufacturer = txtManufacturer.Text.Trim(),
+                        StorageLocation = txtStorageLocation.Text.Trim(),
                         SafeStockQty = (int)numSafeStock.Value,
                         LeadTimeDays = (int)numLeadTime.Value,
                         Price = numPrice.Value,
-                        MachineID = selectedMachineId
+                        MachineID = selectedMachineId,
+                        CurrentStock = numInitialStock.Value,
+                        WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
+                        OperatorID = UserSession.Username ?? "SYSTEM"
                     };
                     await _apiClient.UpdateMaterialAsync(finalMaterialId, dto);
                 }
@@ -293,15 +295,15 @@ namespace PartsManager.Client
                         PartNo = txtPartNo.Text.Trim(),
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
-                        Supplier = txtSupplier.Text.Trim(),
-                        Manufacturer = txtManufacturer.Text.Trim(),
+                        StorageLocation = txtStorageLocation.Text.Trim(),
                         SafeStockQty = (int)numSafeStock.Value,
                         LeadTimeDays = (int)numLeadTime.Value,
                         Price = numPrice.Value,
                         InitialStock = numInitialStock.Value,
                         WarehouseId = (int?)cmbInitialWarehouse.SelectedValue,
                         SourceType = 1,
-                        MachineID = selectedMachineId
+                        MachineID = selectedMachineId,
+                        OperatorID = UserSession.Username ?? "SYSTEM"
                     };
                     var result = await _apiClient.CreateMaterialAsync(dto);
                     finalMaterialId = result.MaterialID;

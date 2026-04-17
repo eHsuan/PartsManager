@@ -33,8 +33,7 @@ namespace PartsManager.Client
             this.Col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Spec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_PartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_Supplier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Col_Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Col_StorageLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Machine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Warehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -129,8 +128,7 @@ namespace PartsManager.Client
             this.Col_Name,
             this.Col_Spec,
             this.Col_PartNo,
-            this.Col_Supplier,
-            this.Col_Manufacturer,
+            this.Col_StorageLocation,
             this.Col_Machine,
             this.Col_Warehouse,
             this.Col_Qty,
@@ -211,23 +209,14 @@ namespace PartsManager.Client
             this.Col_PartNo.Tag = "Col_PartNo";
             this.Col_PartNo.Width = 150;
             // 
-            // Col_Supplier
+            // Col_StorageLocation
             // 
-            this.Col_Supplier.DataPropertyName = "Supplier";
-            this.Col_Supplier.HeaderText = "供應商";
-            this.Col_Supplier.Name = "Col_Supplier";
-            this.Col_Supplier.ReadOnly = true;
-            this.Col_Supplier.Tag = "Col_Supplier";
-            this.Col_Supplier.Width = 120;
-            // 
-            // Col_Manufacturer
-            // 
-            this.Col_Manufacturer.DataPropertyName = "Manufacturer";
-            this.Col_Manufacturer.HeaderText = "製造商";
-            this.Col_Manufacturer.Name = "Col_Manufacturer";
-            this.Col_Manufacturer.ReadOnly = true;
-            this.Col_Manufacturer.Tag = "Col_Manufacturer";
-            this.Col_Manufacturer.Width = 120;
+            this.Col_StorageLocation.DataPropertyName = "StorageLocation";
+            this.Col_StorageLocation.HeaderText = "儲位";
+            this.Col_StorageLocation.Name = "Col_StorageLocation";
+            this.Col_StorageLocation.ReadOnly = true;
+            this.Col_StorageLocation.Tag = "Col_StorageLocation";
+            this.Col_StorageLocation.Width = 120;
             // 
             // Col_Machine
             // 
@@ -341,8 +330,7 @@ namespace PartsManager.Client
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Supplier;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Manufacturer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_StorageLocation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Machine;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Warehouse;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Qty;

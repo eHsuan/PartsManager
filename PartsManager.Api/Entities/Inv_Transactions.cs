@@ -18,6 +18,12 @@ public class Inv_Transactions
     [ForeignKey("MaterialID")]
     public Mdm_Materials? Material { get; set; }
 
+    [MaxLength(50)]
+    public string? PartNo { get; set; }
+
+    [MaxLength(200)]
+    public string? MaterialName { get; set; }
+
     public int WarehouseID { get; set; }
     [ForeignKey("WarehouseID")]
     public Mdm_Warehouses? Warehouse { get; set; }

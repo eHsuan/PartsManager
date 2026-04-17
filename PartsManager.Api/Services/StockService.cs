@@ -198,6 +198,8 @@ public class StockService : IStockService
             {
                 TransType = "ADJ",
                 MaterialID = material.MaterialID,
+                PartNo = material.PartNo,
+                MaterialName = material.Name,
                 WarehouseID = dto.WarehouseId,
                 ChangeQty = diff,
                 AfterQty = dto.CountQty,

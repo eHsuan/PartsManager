@@ -178,10 +178,8 @@ namespace PartsManager.Api.Migrations
                     b.Property<int>("LeadTimeDays")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("MachineID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -210,9 +208,9 @@ namespace PartsManager.Api.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Supplier")
+                    b.Property<string>("StorageLocation")
                         .IsRequired()
-                        .HasMaxLength(200)
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("MaterialID");
@@ -225,7 +223,7 @@ namespace PartsManager.Api.Migrations
                             MaterialID = 1,
                             BarCode = "1001",
                             LeadTimeDays = 3,
-                            Manufacturer = "None",
+                            MachineID = 0,
                             Name = "M3 Screw",
                             NeedsPrintLabel = true,
                             PartNo = "SCREW-001",
@@ -233,14 +231,14 @@ namespace PartsManager.Api.Migrations
                             SafeStockQty = 100,
                             SourceType = (byte)0,
                             Specification = "Stainless Steel M3x10",
-                            Supplier = "None"
+                            StorageLocation = ""
                         },
                         new
                         {
                             MaterialID = 2,
                             BarCode = "1002",
                             LeadTimeDays = 7,
-                            Manufacturer = "None",
+                            MachineID = 0,
                             Name = "Resistor 10k",
                             NeedsPrintLabel = true,
                             PartNo = "RES-10K",
@@ -248,7 +246,7 @@ namespace PartsManager.Api.Migrations
                             SafeStockQty = 500,
                             SourceType = (byte)0,
                             Specification = "10k Ohm 0603",
-                            Supplier = "None"
+                            StorageLocation = ""
                         });
                 });
 

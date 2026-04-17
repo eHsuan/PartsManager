@@ -65,18 +65,17 @@ namespace PartsManager.Client
                 ws.Cell(1, 2).Value = LocalizationService.GetString("Import_Header_Spec");
                 ws.Cell(1, 3).Value = LocalizationService.GetString("Import_Header_PartNo") + " *";
                 ws.Cell(1, 4).Value = LocalizationService.GetString("Import_Header_Machine");
-                ws.Cell(1, 5).Value = LocalizationService.GetString("Import_Header_Supplier");
-                ws.Cell(1, 6).Value = LocalizationService.GetString("Import_Header_Manufacturer");
-                ws.Cell(1, 7).Value = LocalizationService.GetString("Import_Header_WarehouseId");
-                ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_InitialStock");
-                ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_SafeStock");
-                ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_LeadTime");
-                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Price");
-                ws.Cell(1, 12).Value = LocalizationService.GetString("Import_Header_Attachment1");
-                ws.Cell(1, 13).Value = LocalizationService.GetString("Import_Header_Attachment2");
+                ws.Cell(1, 5).Value = LocalizationService.GetString("Import_Header_StorageLocation");
+                ws.Cell(1, 6).Value = LocalizationService.GetString("Import_Header_WarehouseId");
+                ws.Cell(1, 7).Value = LocalizationService.GetString("Import_Header_InitialStock");
+                ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_SafeStock");
+                ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_LeadTime");
+                ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_Price");
+                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Attachment1");
+                ws.Cell(1, 12).Value = LocalizationService.GetString("Import_Header_Attachment2");
 
                 // 樣式設定
-                var headerRange = ws.Range(1, 1, 1, 13);
+                var headerRange = ws.Range(1, 1, 1, 12);
                 headerRange.Style.Font.Bold = true;
                 headerRange.Style.Fill.BackgroundColor = ClosedXML.Excel.XLColor.LightGray;
                 ws.Columns().AdjustToContents();
@@ -111,8 +110,7 @@ namespace PartsManager.Client
                     string headSpec = LocalizationService.GetString("Import_Header_Spec");
                     string headPartNo = LocalizationService.GetString("Import_Header_PartNo");
                     string headMachine = LocalizationService.GetString("Import_Header_Machine");
-                    string headSupplier = LocalizationService.GetString("Import_Header_Supplier");
-                    string headManufacturer = LocalizationService.GetString("Import_Header_Manufacturer");
+                    string headStorage = LocalizationService.GetString("Import_Header_StorageLocation");
                     string headWhId = LocalizationService.GetString("Import_Header_WarehouseId");
                     string headStock = LocalizationService.GetString("Import_Header_InitialStock");
                     string headSafeStock = LocalizationService.GetString("Import_Header_SafeStock");
@@ -131,8 +129,7 @@ namespace PartsManager.Client
                         else if (cellValue.Contains(headSpec)) columnMap["Spec"] = i;
                         else if (cellValue.Contains(headPartNo)) columnMap["PartNo"] = i;
                         else if (cellValue.Contains(headMachine)) columnMap["Machine"] = i;
-                        else if (cellValue.Contains(headSupplier)) columnMap["Supplier"] = i;
-                        else if (cellValue.Contains(headManufacturer)) columnMap["Manufacturer"] = i;
+                        else if (cellValue.Contains(headStorage)) columnMap["StorageLocation"] = i;
                         else if (cellValue.Contains(headWhId)) columnMap["WhID"] = i;
                         else if (cellValue.Contains(headStock)) columnMap["Stock"] = i;
                         else if (cellValue.Contains(headSafeStock)) columnMap["SafeStock"] = i;
@@ -177,8 +174,7 @@ namespace PartsManager.Client
                                 Name = name,
                                 PartNo = partNo,
                                 Specification = columnMap.ContainsKey("Spec") ? row.Cell(columnMap["Spec"]).GetString().Trim() : "",
-                                Supplier = columnMap.ContainsKey("Supplier") ? row.Cell(columnMap["Supplier"]).GetString().Trim() : "",
-                                Manufacturer = columnMap.ContainsKey("Manufacturer") ? row.Cell(columnMap["Manufacturer"]).GetString().Trim() : ""
+                                StorageLocation = columnMap.ContainsKey("StorageLocation") ? row.Cell(columnMap["StorageLocation"]).GetString().Trim() : "",
                             };
 
                             // 解析機台 (優先根據 MachineCode 比對，其次是 MachineName)
@@ -247,12 +243,6 @@ namespace PartsManager.Client
                             // 金額
                             if (columnMap.ContainsKey("Price") && decimal.TryParse(row.Cell(columnMap["Price"]).GetString(), out decimal price))
                             {
-                                if (price <= 0)
-                                {
-                                    AppendLog($"[失敗] 料號 {partNo}: 金額必須大於 0");
-                                    failCount++;
-                                    continue;
-                                }
                                 dto.Price = price;
                             }
                             else

@@ -27,13 +27,8 @@ public class Mdm_Materials
     [MaxLength(200)]
     public string Specification { get; set; } = "None";
 
-    [Required]
-    [MaxLength(200)]
-    public string Supplier { get; set; } = "None";
-
-    [Required]
-    [MaxLength(200)]
-    public string Manufacturer { get; set; } = "None";
+    [MaxLength(100)]
+    public string StorageLocation { get; set; } = string.Empty;
 
     public bool NeedsPrintLabel { get; set; } = true;
 
