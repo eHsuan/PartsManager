@@ -155,7 +155,7 @@ namespace PartsManager.Client
             };
 
             var btnQuery = CreateNavButton(LocalizationService.GetString("Menu_Query"), false);
-            btnQuery.Visible = UserSession.UserLevel <= 4;
+            btnQuery.Visible = UserSession.UserLevel <= 5;
             btnQuery.Click += (s, e) => {
                 var form = new QueryForm();
                 form.StartPosition = FormStartPosition.CenterScreen;
@@ -256,7 +256,7 @@ namespace PartsManager.Client
             // --- 加入 Panel (順序：左到右) ---
 
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInbound);
-            if (UserSession.UserLevel <= 4) navPanel.Controls.Add(btnQuery);
+            if (UserSession.UserLevel <= 5) navPanel.Controls.Add(btnQuery);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnTransHistory);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnLowStock);
             if (UserSession.UserLevel <= 3) navPanel.Controls.Add(btnInventory);
@@ -267,6 +267,19 @@ namespace PartsManager.Client
             
             // 修正：將設定按鈕加入導航列 (靠右對齊)
             navPanel.Controls.Add(btnSettings);
+
+            // 如果是 Level 5，隱藏主介面的領料控制項
+            if (UserSession.UserLevel == 5)
+            {
+                label1.Visible = false;
+                txtBarcode.Visible = false;
+                pnlInfo.Visible = false;
+                lblWarehouseLabel.Visible = false;
+                cmbWarehouse.Visible = false;
+                txtQty.Visible = false;
+                btnConfirm.Visible = false;
+                lblStatus.Visible = false;
+            }
 
             this.Controls.Add(navPanel);
             this.Text = LocalizationService.GetString("App_Title") + $" - {UserSession.Username}";

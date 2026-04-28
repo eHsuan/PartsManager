@@ -121,6 +121,13 @@ namespace PartsManager.Client
                     UserSession.Username = user.Username;
                     UserSession.UserLevel = user.UserLevel;
 
+                    // 遠端連線強制降級為 Level 5
+                    string ip = GlobalSettings.ServerIP.ToLower();
+                    if (ip != "localhost" && ip != "127.0.0.1")
+                    {
+                        UserSession.UserLevel = 5;
+                    }
+
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
