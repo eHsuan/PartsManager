@@ -183,7 +183,9 @@ public class InventoryController : ControllerBase
                              from mc in machineGroup.DefaultIfEmpty()
                              where string.IsNullOrEmpty(normalizedQuery) ||
                                    m.PartNo.ToLower().Contains(normalizedQuery) ||
-                                   m.Name.ToLower().Contains(normalizedQuery)
+                                   m.Name.ToLower().Contains(normalizedQuery) ||
+                                   (m.Specification != null && m.Specification.ToLower().Contains(normalizedQuery)) ||
+                                   (mc != null && mc.MachineName != null && mc.MachineName.ToLower().Contains(normalizedQuery))
                              select new SparePartSearchResultDto
                              {
                                  MaterialId = m.MaterialID,
