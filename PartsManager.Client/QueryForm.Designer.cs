@@ -30,6 +30,7 @@ namespace PartsManager.Client
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOutbound = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrintLabel = new System.Windows.Forms.ToolStripMenuItem();
             this.Col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Spec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_PartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -153,15 +154,16 @@ namespace PartsManager.Client
             this.ctxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuEdit,
             this.menuDelete,
-            this.menuOutbound});
+            this.menuOutbound,
+            this.menuPrintLabel});
             this.ctxMenu.Name = "ctxMenu";
-            this.ctxMenu.Size = new System.Drawing.Size(101, 70);
+            this.ctxMenu.Size = new System.Drawing.Size(125, 92);
             this.ctxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenu_Opening);
             // 
             // menuEdit
             // 
             this.menuEdit.Name = "menuEdit";
-            this.menuEdit.Size = new System.Drawing.Size(100, 22);
+            this.menuEdit.Size = new System.Drawing.Size(124, 22);
             this.menuEdit.Tag = "Menu_Edit";
             this.menuEdit.Text = "編輯";
             this.menuEdit.Click += new System.EventHandler(this.menuEdit_Click);
@@ -169,7 +171,7 @@ namespace PartsManager.Client
             // menuDelete
             // 
             this.menuDelete.Name = "menuDelete";
-            this.menuDelete.Size = new System.Drawing.Size(100, 22);
+            this.menuDelete.Size = new System.Drawing.Size(124, 22);
             this.menuDelete.Tag = "Menu_Delete";
             this.menuDelete.Text = "刪除";
             this.menuDelete.Click += new System.EventHandler(this.menuDelete_Click);
@@ -177,10 +179,18 @@ namespace PartsManager.Client
             // menuOutbound
             // 
             this.menuOutbound.Name = "menuOutbound";
-            this.menuOutbound.Size = new System.Drawing.Size(100, 22);
+            this.menuOutbound.Size = new System.Drawing.Size(124, 22);
             this.menuOutbound.Tag = "Menu_Outbound";
             this.menuOutbound.Text = "領料";
             this.menuOutbound.Click += new System.EventHandler(this.menuOutbound_Click);
+            // 
+            // menuPrintLabel
+            // 
+            this.menuPrintLabel.Name = "menuPrintLabel";
+            this.menuPrintLabel.Size = new System.Drawing.Size(124, 22);
+            this.menuPrintLabel.Tag = "Menu_PrintLabel";
+            this.menuPrintLabel.Text = "列印標籤";
+            this.menuPrintLabel.Click += new System.EventHandler(this.menuPrintLabel_Click);
             // 
             // Col_Name
             // 
@@ -327,6 +337,7 @@ namespace PartsManager.Client
         private System.Windows.Forms.ToolStripMenuItem menuEdit;
         private System.Windows.Forms.ToolStripMenuItem menuDelete;
         private System.Windows.Forms.ToolStripMenuItem menuOutbound;
+        private System.Windows.Forms.ToolStripMenuItem menuPrintLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_Spec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Col_PartNo;

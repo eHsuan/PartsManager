@@ -243,12 +243,26 @@ namespace PartsManager.Client
             menuEdit.Available = level <= 2;
             menuDelete.Available = level <= 1;
             menuOutbound.Available = level <= 4;
+            menuPrintLabel.Available = level == 1; // 限制只有 Level 1 管理員可列印
 
             // 只有在完全沒有任何可見項目時才取消開啟
-            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available;
+            bool hasAvailableItems = menuEdit.Available || menuDelete.Available || menuOutbound.Available || menuPrintLabel.Available;
             if (!hasAvailableItems)
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void menuPrintLabel_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count > 0)
+            {
+                var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
+                if (item != null)
+                {
+                    // 直接呼叫獨立的 Printer Service 進行列印
+                    Services.LabelPrinterService.PrintLabel(item.PartNo, item.Name);
+                }
             }
         }
 

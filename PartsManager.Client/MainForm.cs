@@ -45,6 +45,7 @@ namespace PartsManager.Client
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
+            PartsManager.Client.Services.LabelPrinterService.Initialize(); // 初始化列印服務連線
             await CheckServerStatusAsync();
             var timer = new Timer();
             timer.Interval = 10000;

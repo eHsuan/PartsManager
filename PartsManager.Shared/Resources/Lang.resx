@@ -123,6 +123,12 @@
   <data name="Menu_Inbound" xml:space="preserve">
     <value>入庫管理</value>
   </data>
+  <data name="Menu_PrintLabel" xml:space="preserve">
+    <value>列印標籤</value>
+  </data>
+  <data name="Msg_PrinterServiceOffline" xml:space="preserve">
+    <value>無法連接至標籤列印服務，請確認服務已啟動。</value>
+  </data>
   <data name="Menu_Outbound" xml:space="preserve">
     <value>領料</value>
   </data>

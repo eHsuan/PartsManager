@@ -16,6 +16,8 @@ namespace PartsManager.Client
         private static string _serverPort;
         private static int _defaultWarehouseId;
         private static string _printerName;
+        private static string _printerServiceIP;
+        private static int _printerServicePort;
         private static string _labelTemplatePath;
 
         static GlobalSettings()
@@ -29,8 +31,13 @@ namespace PartsManager.Client
             _serverIP = _ini.Read("Network", "ServerIP", "localhost");
             _serverPort = _ini.Read("Network", "ServerPort", "5000");
             _language = _ini.Read("System", "Language", "zh-TW");
-            
+
+            _printerServiceIP = _ini.Read("PrinterService", "IP", "localhost");
+            string pPortStr = _ini.Read("PrinterService", "Port", "9100");
+            int.TryParse(pPortStr, out _printerServicePort);
+
             string timeoutStr = _ini.Read("System", "AutoLogoutMinutes", "10");
+
             int.TryParse(timeoutStr, out _autoLogoutMinutes);
 
             string whIdStr = _ini.Read("Inventory", "DefaultWarehouseId", "1");
@@ -76,6 +83,9 @@ namespace PartsManager.Client
                 _ini.Write("Inventory", "EnableLabelPrinting", value.ToString().ToLower());
             }
         }
+
+        public static string PrinterServiceIP => _printerServiceIP;
+        public static int PrinterServicePort => _printerServicePort;
 
         public static string PrinterName
         {
