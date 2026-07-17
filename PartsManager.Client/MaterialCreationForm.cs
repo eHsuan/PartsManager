@@ -60,6 +60,8 @@ namespace PartsManager.Client
                         txtName.Text = material.Name;
                         txtSpec.Text = material.Specification;
                         txtStorageLocation.Text = material.StorageLocation;
+                        txtManufacturer.Text = material.Manufacturer;
+                        txtManufacturerPartNo.Text = material.ManufacturerPartNo;
                         numSafeStock.Value = material.SafeStockQty;
                         numLeadTime.Value = material.LeadTimeDays;
                         numPrice.Value = material.Price;
@@ -278,6 +280,8 @@ namespace PartsManager.Client
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
                         StorageLocation = txtStorageLocation.Text.Trim(),
+                        Manufacturer = txtManufacturer.Text.Trim(),
+                        ManufacturerPartNo = txtManufacturerPartNo.Text.Trim(),
                         SafeStockQty = (int)numSafeStock.Value,
                         LeadTimeDays = (int)numLeadTime.Value,
                         Price = numPrice.Value,
@@ -296,6 +300,8 @@ namespace PartsManager.Client
                         Name = txtName.Text.Trim(),
                         Specification = txtSpec.Text.Trim(),
                         StorageLocation = txtStorageLocation.Text.Trim(),
+                        Manufacturer = txtManufacturer.Text.Trim(),
+                        ManufacturerPartNo = txtManufacturerPartNo.Text.Trim(),
                         SafeStockQty = (int)numSafeStock.Value,
                         LeadTimeDays = (int)numLeadTime.Value,
                         Price = numPrice.Value,

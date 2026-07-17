@@ -185,6 +185,8 @@ public class InventoryController : ControllerBase
                                    m.PartNo.ToLower().Contains(normalizedQuery) ||
                                    m.Name.ToLower().Contains(normalizedQuery) ||
                                    (m.Specification != null && m.Specification.ToLower().Contains(normalizedQuery)) ||
+                                   (m.Manufacturer != null && m.Manufacturer.ToLower().Contains(normalizedQuery)) ||
+                                   (m.ManufacturerPartNo != null && m.ManufacturerPartNo.ToLower().Contains(normalizedQuery)) ||
                                    (mc != null && mc.MachineName != null && mc.MachineName.ToLower().Contains(normalizedQuery))
                              select new SparePartSearchResultDto
                              {
@@ -196,6 +198,8 @@ public class InventoryController : ControllerBase
                                  MachineName = mc != null ? mc.MachineName : string.Empty,
                                  SafeStockQty = m.SafeStockQty,
                                  Price = m.Price,
+                                 Manufacturer = m.Manufacturer,
+                                 ManufacturerPartNo = m.ManufacturerPartNo,
                                  TotalAmount = m.Price * (s != null ? s.Quantity : 0),
                                  LeadTimeDays = m.LeadTimeDays,
                                  Quantity = s != null ? s.Quantity : 0,

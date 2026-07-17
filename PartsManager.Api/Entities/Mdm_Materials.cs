@@ -41,5 +41,11 @@ public class Mdm_Materials
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 
+    [MaxLength(200)]
+    public string? Manufacturer { get; set; }
+
+    [MaxLength(100)]
+    public string? ManufacturerPartNo { get; set; }
+
     public DateTime? LastSyncTime { get; set; }
 }

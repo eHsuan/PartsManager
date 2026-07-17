@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PartsManager.Api.Entities;
 
 namespace PartsManager.Api.Data;
@@ -51,7 +51,9 @@ public class AppDbContext : DbContext
                 SourceType = 0,
                 Specification = "Stainless Steel M3x10",
                 NeedsPrintLabel = true,
-                LeadTimeDays = 3
+                LeadTimeDays = 3,
+                Manufacturer = "Generic MFG",
+                ManufacturerPartNo = "MFG-SCREW-M3"
             },
             new Mdm_Materials 
             { 
@@ -63,7 +65,9 @@ public class AppDbContext : DbContext
                 SourceType = 0,
                 Specification = "10k Ohm 0603",
                 NeedsPrintLabel = true,
-                LeadTimeDays = 7
+                LeadTimeDays = 7,
+                Manufacturer = "Yageo",
+                ManufacturerPartNo = "RC0603JR-0710KL"
             }
         );
 

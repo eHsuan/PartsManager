@@ -71,11 +71,13 @@ namespace PartsManager.Client
                 ws.Cell(1, 8).Value = LocalizationService.GetString("Import_Header_SafeStock");
                 ws.Cell(1, 9).Value = LocalizationService.GetString("Import_Header_LeadTime");
                 ws.Cell(1, 10).Value = LocalizationService.GetString("Import_Header_Price");
-                ws.Cell(1, 11).Value = LocalizationService.GetString("Import_Header_Attachment1");
-                ws.Cell(1, 12).Value = LocalizationService.GetString("Import_Header_Attachment2");
+                ws.Cell(1, 11).Value = (LocalizationService.GetString("Import_Header_Manufacturer") ?? "製造商");
+                ws.Cell(1, 12).Value = (LocalizationService.GetString("Import_Header_ManufacturerPartNo") ?? "製造商編號");
+                ws.Cell(1, 13).Value = LocalizationService.GetString("Import_Header_Attachment1");
+                ws.Cell(1, 14).Value = LocalizationService.GetString("Import_Header_Attachment2");
 
                 // 樣式設定
-                var headerRange = ws.Range(1, 1, 1, 12);
+                var headerRange = ws.Range(1, 1, 1, 14);
                 headerRange.Style.Font.Bold = true;
                 headerRange.Style.Fill.BackgroundColor = ClosedXML.Excel.XLColor.LightGray;
                 ws.Columns().AdjustToContents();
@@ -116,6 +118,8 @@ namespace PartsManager.Client
                     string headSafeStock = LocalizationService.GetString("Import_Header_SafeStock");
                     string headLeadTime = LocalizationService.GetString("Import_Header_LeadTime");
                     string headPrice = LocalizationService.GetString("Import_Header_Price");
+                    string headMfg = LocalizationService.GetString("Import_Header_Manufacturer") ?? "製造商";
+                    string headMfgNo = LocalizationService.GetString("Import_Header_ManufacturerPartNo") ?? "製造商編號";
                     string headAtt1 = LocalizationService.GetString("Import_Header_Attachment1");
                     string headAtt2 = LocalizationService.GetString("Import_Header_Attachment2");
 
@@ -135,6 +139,8 @@ namespace PartsManager.Client
                         else if (cellValue.Contains(headSafeStock)) columnMap["SafeStock"] = i;
                         else if (cellValue.Contains(headLeadTime)) columnMap["LeadTime"] = i;
                         else if (cellValue.Contains(headPrice)) columnMap["Price"] = i;
+                        else if (cellValue.Contains(headMfg)) columnMap["Manufacturer"] = i;
+                        else if (cellValue.Contains(headMfgNo)) columnMap["ManufacturerPartNo"] = i;
                         else if (cellValue.Contains(headAtt1)) columnMap["Att1"] = i;
                         else if (cellValue.Contains(headAtt2)) columnMap["Att2"] = i;
                     }
@@ -175,6 +181,8 @@ namespace PartsManager.Client
                                 PartNo = partNo,
                                 Specification = columnMap.ContainsKey("Spec") ? row.Cell(columnMap["Spec"]).GetString().Trim() : "",
                                 StorageLocation = columnMap.ContainsKey("StorageLocation") ? row.Cell(columnMap["StorageLocation"]).GetString().Trim() : "",
+                                Manufacturer = columnMap.ContainsKey("Manufacturer") ? row.Cell(columnMap["Manufacturer"]).GetString().Trim() : "",
+                                ManufacturerPartNo = columnMap.ContainsKey("ManufacturerPartNo") ? row.Cell(columnMap["ManufacturerPartNo"]).GetString().Trim() : "",
                             };
 
                             // 解析機台 (優先根據 MachineCode 比對，其次是 MachineName)

@@ -598,4 +598,13 @@
   <data name="Msg_MachineCodeDuplicate" xml:space="preserve">
     <value>Maschinencode [{0}] existiert bereits, bitte verwenden Sie einen anderen Code</value>
   </data>
+  <data name="Label_ManufacturerPartNo" xml:space="preserve">
+    <value>Hersteller-Teilenummer</value>
+  </data>
+  <data name="Import_Header_ManufacturerPartNo" xml:space="preserve">
+    <value>Hersteller-Teilenummer</value>
+  </data>
+  <data name="Col_ManufacturerPartNo" xml:space="preserve">
+    <value>Hersteller-Teilenummer</value>
+  </data>
 </root>

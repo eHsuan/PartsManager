@@ -20,6 +20,8 @@ namespace PartsManager.Shared.DTOs
         public int LeadTimeDays { get; set; }
 
         public decimal Price { get; set; }
+        public string Manufacturer { get; set; }
+        public string ManufacturerPartNo { get; set; }
         [Required]
         public int MachineID { get; set; }
 

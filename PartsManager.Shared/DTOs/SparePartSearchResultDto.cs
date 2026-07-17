@@ -1,4 +1,4 @@
-﻿namespace PartsManager.Shared.DTOs
+namespace PartsManager.Shared.DTOs
 {
     public class SparePartSearchResultDto
     {
@@ -12,6 +12,8 @@
         public decimal Quantity { get; set; }
         public int SafeStockQty { get; set; }
         public decimal Price { get; set; }
+        public string Manufacturer { get; set; }
+        public string ManufacturerPartNo { get; set; }
         public decimal TotalAmount { get; set; }
         public int LeadTimeDays { get; set; }
         public System.Collections.Generic.List<string> AttachmentFileNames { get; set; } = new System.Collections.Generic.List<string>();

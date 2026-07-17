@@ -604,4 +604,13 @@
   <data name="Msg_MachineCodeDuplicate" xml:space="preserve">
     <value>Machine code [{0}] already exists, please use another code</value>
   </data>
+  <data name="Label_ManufacturerPartNo" xml:space="preserve">
+    <value>Mfg Part No</value>
+  </data>
+  <data name="Import_Header_ManufacturerPartNo" xml:space="preserve">
+    <value>Mfg Part No</value>
+  </data>
+  <data name="Col_ManufacturerPartNo" xml:space="preserve">
+    <value>Mfg Part No</value>
+  </data>
 </root>

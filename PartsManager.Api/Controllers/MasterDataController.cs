@@ -1,4 +1,4 @@
-﻿using PartsManager.Api.Data;
+using PartsManager.Api.Data;
 using PartsManager.Api.Entities;
 using PartsManager.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -135,7 +135,9 @@ public class MasterDataController : ControllerBase
             SourceType = dto.SourceType,
             BarCode = dto.PartNo.ToLower(), // 強制轉小寫存入，避免刷碼大小寫問題
             NeedsPrintLabel = true,
-            MachineID = dto.MachineID
+            MachineID = dto.MachineID,
+            Manufacturer = dto.Manufacturer,
+            ManufacturerPartNo = dto.ManufacturerPartNo
         };
 
         _context.Mdm_Materials.Add(material);
@@ -181,7 +183,9 @@ public class MasterDataController : ControllerBase
             Name = material.Name,
             Specification = material.Specification,
             StorageLocation = material.StorageLocation,
-            SafeStockQty = material.SafeStockQty
+            SafeStockQty = material.SafeStockQty,
+            Manufacturer = material.Manufacturer,
+            ManufacturerPartNo = material.ManufacturerPartNo
         };
 
         return StatusCode(201, result);
@@ -210,6 +214,8 @@ public class MasterDataController : ControllerBase
         material.Price = dto.Price;
         material.BarCode = dto.PartNo.ToLower();
         material.MachineID = dto.MachineID;
+        material.Manufacturer = dto.Manufacturer;
+        material.ManufacturerPartNo = dto.ManufacturerPartNo;
 
         // --- 庫存校正邏輯 ---
         int targetWhId = dto.WarehouseId ?? 1;
@@ -307,7 +313,9 @@ public class MasterDataController : ControllerBase
             Price = material.Price,
             MachineID = material.MachineID,
             CurrentStock = totalStock,
-            WarehouseId = whId
+            WarehouseId = whId,
+            Manufacturer = material.Manufacturer,
+            ManufacturerPartNo = material.ManufacturerPartNo
         };
     }
 

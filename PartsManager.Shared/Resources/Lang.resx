@@ -636,4 +636,13 @@
   <data name="Msg_MachineCodeDuplicate" xml:space="preserve">
     <value>此機台代碼 [{0}] 已存在，請使用其他代碼</value>
   </data>
+  <data name="Label_ManufacturerPartNo" xml:space="preserve">
+    <value>製造商編號</value>
+  </data>
+  <data name="Import_Header_ManufacturerPartNo" xml:space="preserve">
+    <value>製造商編號</value>
+  </data>
+  <data name="Col_ManufacturerPartNo" xml:space="preserve">
+    <value>製造商編號</value>
+  </data>
 </root>
