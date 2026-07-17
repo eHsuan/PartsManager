@@ -260,8 +260,44 @@ namespace PartsManager.Client
                 var item = dgvResults.SelectedRows[0].DataBoundItem as SparePartSearchResultDto;
                 if (item != null)
                 {
-                    // 直接呼叫獨立的 Printer Service 進行列印
-                    Services.LabelPrinterService.PrintLabel(item.PartNo, item.Name);
+                    // 彈出輸入視窗詢問張數，預設填入空字串，方便識別是否點擊取消
+                    string input = PromptBox.ShowDialog(
+                        LocalizationService.GetString("Msg_InputPrintQty") ?? "請輸入列印張數 (1-10)：", 
+                        LocalizationService.GetString("Menu_PrintLabel") ?? "列印標籤", 
+                        "");
+
+                    // 如果使用者點擊取消或關閉視窗 (回傳空字串)，則不執行列印
+                    if (string.IsNullOrEmpty(input))
+                    {
+                        return;
+                    }
+
+                    if (!int.TryParse(input, out int qty) || qty <= 0)
+                    {
+                        MessageBox.Show(
+                            LocalizationService.GetString("Msg_InvalidPrintQty") ?? "請輸入有效的列印張數（1 至 10）！", 
+                            LocalizationService.GetString("Common_Warning") ?? "警告", 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (qty > 10)
+                    {
+                        MessageBox.Show(
+                            LocalizationService.GetString("Msg_PrintQtyExceed") ?? "一次最多只能列印 10 張！", 
+                            LocalizationService.GetString("Common_Warning") ?? "警告", 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // 迴圈執行列印
+                    for (int i = 0; i < qty; i++)
+                    {
+                        // 直接呼叫獨立的 Printer Service 進行列印
+                        Services.LabelPrinterService.PrintLabel(item.PartNo, item.Name);
+                    }
                 }
             }
         }
