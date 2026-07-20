@@ -607,4 +607,19 @@
   <data name="Col_ManufacturerPartNo" xml:space="preserve">
     <value>Hersteller-Teilenummer</value>
   </data>
+  <data name="Menu_BackupRestore" xml:space="preserve"><value>Sichern &amp; Wiederherstellen</value></data>
+  <data name="Btn_Restore" xml:space="preserve"><value>Wiederherstellen</value></data>
+  <data name="Btn_Backup" xml:space="preserve"><value>Sichern</value></data>
+  <data name="Msg_BackupConfirm" xml:space="preserve"><value>Möchten Sie wirklich eine manuelle Sicherung durchführen?</value></data>
+  <data name="Msg_BackupSuccess" xml:space="preserve"><value>Sicherung erfolgreich!</value></data>
+  <data name="Msg_BackupFailed" xml:space="preserve"><value>Sicherung fehlgeschlagen: </value></data>
+  <data name="Msg_AskBackupBeforeRestore" xml:space="preserve"><value>Durch die Wiederherstellung werden vorhandene Daten überschrieben. Möchten Sie vor der Wiederherstellung eine Sicherung erstellen? (Empfohlen)</value></data>
+  <data name="Lbl_LastBackupTime" xml:space="preserve"><value>Letzte Sicherungszeit:</value></data>
+  <data name="Lbl_NoBackupFiles" xml:space="preserve"><value>Keine Sicherungsdateien in der Cloud.</value></data>
+  <data name="Lbl_LoadingBackups" xml:space="preserve"><value>Wird geladen...</value></data>
+  <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>Laden des Backups fehlgeschlagen: </value></data>
+  <data name="Msg_RestoreConfirm" xml:space="preserve"><value>Warnung: Bei der Wiederherstellung werden vorhandene Daten überschrieben. Sind Sie sicher?</value></data>
+  <data name="Msg_RestoreSuccess" xml:space="preserve"><value>Wiederherstellung erfolgreich. Bitte starten Sie das System neu</value></data>
+  <data name="Msg_RestoreFailed" xml:space="preserve"><value>Wiederherstellung fehlgeschlagen: </value></data>
+  <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>Wiederherstellung konnte nicht ausgelöst werden: </value></data>
 </root>

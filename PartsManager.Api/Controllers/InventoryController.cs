@@ -187,7 +187,12 @@ public class InventoryController : ControllerBase
                                    (m.Specification != null && m.Specification.ToLower().Contains(normalizedQuery)) ||
                                    (m.Manufacturer != null && m.Manufacturer.ToLower().Contains(normalizedQuery)) ||
                                    (m.ManufacturerPartNo != null && m.ManufacturerPartNo.ToLower().Contains(normalizedQuery)) ||
-                                   (mc != null && mc.MachineName != null && mc.MachineName.ToLower().Contains(normalizedQuery))
+                                   (m.BarCode != null && m.BarCode.ToLower().Contains(normalizedQuery)) ||
+                                   (m.StorageLocation != null && m.StorageLocation.ToLower().Contains(normalizedQuery)) ||
+                                   (mc != null && mc.MachineCode != null && mc.MachineCode.ToLower().Contains(normalizedQuery)) ||
+                                   (mc != null && mc.MachineName != null && mc.MachineName.ToLower().Contains(normalizedQuery)) ||
+                                   (w != null && w.WarehouseCode != null && w.WarehouseCode.ToLower().Contains(normalizedQuery)) ||
+                                   (w != null && w.WarehouseName != null && w.WarehouseName.ToLower().Contains(normalizedQuery))
                              select new SparePartSearchResultDto
                              {
                                  MaterialId = m.MaterialID,

@@ -24,12 +24,14 @@ namespace PartsManager.Client
             _apiClient = new ApiClient(GlobalSettings.ApiBaseUrl);
             InitializeComponents();
             UIStyle.Apply(this);
+            I18nHelper.Apply(this);
             LoadBackups();
         }
 
         private void InitializeComponents()
         {
             this.Text = LocalizationService.GetString("Menu_BackupRestore") ?? "備份與還原";
+            this.Tag = "Menu_BackupRestore";
             this.Size = new Size(600, 400);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -41,6 +43,7 @@ namespace PartsManager.Client
             _lblStatus = new Label
             {
                 Text = LocalizationService.GetString("Lbl_LoadingBackups") ?? "載入中...",
+                Tag = "Lbl_LoadingBackups",
                 Location = new Point(20, 20),
                 Size = new Size(540, 25),
                 Font = new Font("Microsoft JhengHei", 12F)
@@ -65,6 +68,7 @@ namespace PartsManager.Client
             _btnRestore = new Button
             {
                 Text = LocalizationService.GetString("Btn_Restore") ?? "還原",
+                Tag = "Btn_Restore",
                 Location = new Point(20, 270),
                 Size = new Size(100, 35),
                 BackColor = Color.FromArgb(0, 122, 204),
@@ -77,6 +81,7 @@ namespace PartsManager.Client
             _btnBackup = new Button
             {
                 Text = LocalizationService.GetString("Btn_Backup") ?? "手動備份",
+                Tag = "Btn_Backup",
                 Location = new Point(130, 270),
                 Size = new Size(100, 35),
                 BackColor = Color.FromArgb(40, 167, 69),

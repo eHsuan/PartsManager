@@ -613,4 +613,19 @@
   <data name="Col_ManufacturerPartNo" xml:space="preserve">
     <value>Mfg Part No</value>
   </data>
+  <data name="Menu_BackupRestore" xml:space="preserve"><value>Backup &amp; Restore</value></data>
+  <data name="Btn_Restore" xml:space="preserve"><value>Restore</value></data>
+  <data name="Btn_Backup" xml:space="preserve"><value>Backup</value></data>
+  <data name="Msg_BackupConfirm" xml:space="preserve"><value>Are you sure you want to run a manual backup?</value></data>
+  <data name="Msg_BackupSuccess" xml:space="preserve"><value>Backup successful!</value></data>
+  <data name="Msg_BackupFailed" xml:space="preserve"><value>Backup failed: </value></data>
+  <data name="Msg_AskBackupBeforeRestore" xml:space="preserve"><value>Restore will overwrite existing data. Would you like to create a backup before restoring? (Recommended)</value></data>
+  <data name="Lbl_LastBackupTime" xml:space="preserve"><value>Last backup time:</value></data>
+  <data name="Lbl_NoBackupFiles" xml:space="preserve"><value>No backup files on the cloud.</value></data>
+  <data name="Lbl_LoadingBackups" xml:space="preserve"><value>Loading...</value></data>
+  <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>Failed to load backup: </value></data>
+  <data name="Msg_RestoreConfirm" xml:space="preserve"><value>Warning: Restore will overwrite existing data. Are you sure?</value></data>
+  <data name="Msg_RestoreSuccess" xml:space="preserve"><value>Restore successful. Please restart the system</value></data>
+  <data name="Msg_RestoreFailed" xml:space="preserve"><value>Restore failed: </value></data>
+  <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>Failed to trigger restore: </value></data>
 </root>

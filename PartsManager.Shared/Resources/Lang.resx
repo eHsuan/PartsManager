@@ -645,4 +645,19 @@
   <data name="Col_ManufacturerPartNo" xml:space="preserve">
     <value>製造商編號</value>
   </data>
+  <data name="Menu_BackupRestore" xml:space="preserve"><value>備份與還原</value></data>
+  <data name="Btn_Restore" xml:space="preserve"><value>還原</value></data>
+  <data name="Btn_Backup" xml:space="preserve"><value>手動備份</value></data>
+  <data name="Msg_BackupConfirm" xml:space="preserve"><value>確定要執行手動備份嗎？</value></data>
+  <data name="Msg_BackupSuccess" xml:space="preserve"><value>備份成功！</value></data>
+  <data name="Msg_BackupFailed" xml:space="preserve"><value>備份失敗：</value></data>
+  <data name="Msg_AskBackupBeforeRestore" xml:space="preserve"><value>還原將會覆蓋現有資料，是否要在還原前先執行一次手動備份？(建議選是)</value></data>
+  <data name="Lbl_LastBackupTime" xml:space="preserve"><value>最後備份時間:</value></data>
+  <data name="Lbl_NoBackupFiles" xml:space="preserve"><value>雲端上沒有備份檔案。</value></data>
+  <data name="Lbl_LoadingBackups" xml:space="preserve"><value>載入中...</value></data>
+  <data name="Msg_LoadBackupFailed" xml:space="preserve"><value>載入備份失敗：</value></data>
+  <data name="Msg_RestoreConfirm" xml:space="preserve"><value>警告：還原將會覆蓋現有資料，確定執行嗎？</value></data>
+  <data name="Msg_RestoreSuccess" xml:space="preserve"><value>還原成功，請重新啟動系統</value></data>
+  <data name="Msg_RestoreFailed" xml:space="preserve"><value>還原失敗：</value></data>
+  <data name="Msg_TriggerRestoreFailed" xml:space="preserve"><value>觸發還原失敗：</value></data>
 </root>
