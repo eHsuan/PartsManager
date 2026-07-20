@@ -1,4 +1,4 @@
-搜尋庫存時發生錯誤：Search Error: InternalServerError Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such column: m.ManufacturerPartNo'.
+搜尋庫存時發生錯誤：Search Error: InternalServerError Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such column: m.Manufacturer'.
    at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
    at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
    at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
@@ -17,7 +17,7 @@ CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
    at PartsManager.Api.Controllers.InventoryController.Search(String query) in
 D:\SourceCode\CS\PartsManager_Tainan\PartsManager.Api\Controllers\InventoryController.cs:line 177
-   at lambda_method223(Closure, Object)
+   at lambda_method204(Closure, Object)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext,
 IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
    at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)

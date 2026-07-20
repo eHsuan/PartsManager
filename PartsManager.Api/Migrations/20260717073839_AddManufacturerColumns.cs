@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -10,12 +10,14 @@ namespace PartsManager.Api.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.AddColumn<string>(
                 name: "Manufacturer",
                 table: "Mdm_Materials",
                 type: "TEXT",
                 maxLength: 200,
                 nullable: true);
+            */
 
             migrationBuilder.AddColumn<string>(
                 name: "ManufacturerPartNo",
@@ -56,9 +58,11 @@ namespace PartsManager.Api.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.DropColumn(
                 name: "Manufacturer",
                 table: "Mdm_Materials");
+            */
 
             migrationBuilder.DropColumn(
                 name: "ManufacturerPartNo",
