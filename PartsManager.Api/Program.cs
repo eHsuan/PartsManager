@@ -1,4 +1,4 @@
-﻿using PartsManager.Api.Data;
+using PartsManager.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Diagnostics;
@@ -22,6 +22,8 @@ try
     builder.Services.AddControllers();
 
     builder.Services.AddScoped<PartsManager.Api.Services.IStockService, PartsManager.Api.Services.StockService>();
+    builder.Services.AddSingleton<PartsManager.Api.Services.GoogleDriveService>();
+    builder.Services.AddHostedService<PartsManager.Api.Services.BackupBackgroundService>();
 
     // --- 4. 初始化語系 ---
     string lang = builder.Configuration["System:Language"] ?? "zh-TW";

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -380,6 +380,48 @@ namespace PartsManager.Client
             {
                 var errorJson = await response.Content.ReadAsStringAsync();
                 throw new Exception("變更密碼失敗: " + errorJson);
+            }
+        }
+
+        public async Task<List<BackupFileDto>> GetBackupsAsync()
+        {
+            var response = await _client.GetAsync("api/backup/list");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<BackupFileDto>>(json) ?? new List<BackupFileDto>();
+            }
+            throw new Exception("無法取得雲端備份清單: " + response.StatusCode);
+        }
+
+        public async Task<BackupRestoreProgressDto> GetRestoreProgressAsync()
+        {
+            var response = await _client.GetAsync("api/backup/restore-progress");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<BackupRestoreProgressDto>(json) ?? new BackupRestoreProgressDto();
+            }
+            throw new Exception("無法取得還原進度: " + response.StatusCode);
+        }
+
+        public async Task RestoreBackupAsync(string fileId)
+        {
+            var response = await _client.PostAsync($"api/backup/restore/{fileId}", null);
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new Exception("還原失敗: " + err);
+            }
+        }
+
+        public async Task RunBackupAsync()
+        {
+            var response = await _client.PostAsync("api/backup/run", null);
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new Exception("備份失敗: " + err);
             }
         }
     }

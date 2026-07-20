@@ -237,6 +237,13 @@ namespace PartsManager.Client
                     new MachineManagementForm().ShowDialog();
                 };
                 ctxSettings.Items.Add(itemMachineMgmt);
+
+                var itemBackupRestore = new ToolStripMenuItem(LocalizationService.GetString("Menu_BackupRestore") ?? "備份與還原");
+                itemBackupRestore.Tag = "Menu_BackupRestore";
+                itemBackupRestore.Click += (s, e) => {
+                    new BackupRestoreForm().ShowDialog();
+                };
+                ctxSettings.Items.Add(itemBackupRestore);
             }
 
             // 分隔線
