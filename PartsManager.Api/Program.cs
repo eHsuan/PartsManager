@@ -46,7 +46,7 @@ try
     }
     catch (Exception ex)
     {
-        Log.Error(ex, "資料庫遷移失敗");
+        Log.Error(ex, "資料庫自動遷移失敗。請檢查 SQLite 資料庫檔案是否被其他程式（例如 SQLite 編輯器或其他運作中的 API 程序）獨占鎖定。錯誤訊息: {Message}", ex.Message);
     }
 
     if (app.Environment.IsDevelopment())

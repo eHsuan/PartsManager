@@ -24,6 +24,7 @@ namespace PartsManager.Api.Migrations
                 maxLength: 100,
                 nullable: true);
 
+            /*
             migrationBuilder.AddColumn<string>(
                 name: "MaterialName",
                 table: "Inv_Transactions",
@@ -37,6 +38,7 @@ namespace PartsManager.Api.Migrations
                 type: "TEXT",
                 maxLength: 50,
                 nullable: true);
+            */
 
             migrationBuilder.UpdateData(
                 table: "Mdm_Materials",
@@ -64,6 +66,7 @@ namespace PartsManager.Api.Migrations
                 name: "ManufacturerPartNo",
                 table: "Mdm_Materials");
 
+            /*
             migrationBuilder.DropColumn(
                 name: "MaterialName",
                 table: "Inv_Transactions");
@@ -71,6 +74,7 @@ namespace PartsManager.Api.Migrations
             migrationBuilder.DropColumn(
                 name: "PartNo",
                 table: "Inv_Transactions");
+            */
         }
     }
 }
