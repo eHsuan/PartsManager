@@ -424,5 +424,31 @@ namespace PartsManager.Client
                 throw new Exception("備份失敗: " + err);
             }
         }
+
+        public async Task<string> GetLatestVersionAsync()
+        {
+            var response = await _client.GetAsync("api/updates/version");
+            if (response.IsSuccessStatusCode)
+            {
+                return (await response.Content.ReadAsStringAsync()).Trim();
+            }
+            throw new Exception("無法取得最新版本號: " + response.StatusCode);
+        }
+
+        public async Task DownloadClientZipAsync(string savePath)
+        {
+            var response = await _client.GetAsync("api/updates/download", HttpCompletionOption.ResponseHeadersRead);
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                throw new Exception("下載更新包失敗: " + err);
+            }
+
+            using (var stream = await response.Content.ReadAsStreamAsync())
+            using (var fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                await stream.CopyToAsync(fileStream);
+            }
+        }
     }
 }
